@@ -1,0 +1,19 @@
+[
+  {
+    "modid": "liquidbounce",
+    "name": "DarkNya",
+    "description": "",
+    "version": "${version}",
+    "mcversion": "1.12.2",
+    "url": "https://liquidbounce.net",
+    "updateUrl": "",
+    "authorList": [
+      "CCBlueX",
+      "CatX_feitu"
+    ],
+    "credits": "",
+    "logoFile": "",
+    "screenshots": [],
+    "dependencies": []
+  }
+]
