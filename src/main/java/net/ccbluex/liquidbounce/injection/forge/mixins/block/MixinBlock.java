@@ -44,6 +44,7 @@ public abstract class MixinBlock {
 
     /**
      * @author CCBlueX
+     * @reason DarkNya Inject
      */
     @Overwrite
     protected static void addCollisionBoxToList(BlockPos pos, AxisAlignedBB entityBox, List<AxisAlignedBB> collidingBoxes, @Nullable AxisAlignedBB blockBox) {

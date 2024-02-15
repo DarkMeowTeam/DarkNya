@@ -43,6 +43,7 @@ public abstract class MixinBlockLadder extends MixinBlock {
 
     /**
      * @author CCBlueX
+     * @reason DarkNya Inject
      */
     @Overwrite
     public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {

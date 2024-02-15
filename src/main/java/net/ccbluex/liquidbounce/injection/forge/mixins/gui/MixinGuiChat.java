@@ -63,6 +63,7 @@ public abstract class MixinGuiChat extends MixinGuiScreen {
 
     /**
      * @author CCBlueX
+     * @reason DarkNya Inject
      */
     @Overwrite
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {

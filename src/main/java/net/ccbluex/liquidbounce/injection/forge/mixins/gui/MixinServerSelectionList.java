@@ -15,6 +15,7 @@ public abstract class MixinServerSelectionList extends GuiSlot {
 
     /**
      * @author CCBlueX
+     * @reason DarkNya Inject
      */
     @Overwrite
     protected int getScrollBarX() {

@@ -23,6 +23,7 @@ public class MixinC00Handshake {
 
     /**
      * @author CCBlueX
+     * @reason DarkNya Inject
      */
     @Overwrite
     public void writePacketData(PacketBuffer buf) {

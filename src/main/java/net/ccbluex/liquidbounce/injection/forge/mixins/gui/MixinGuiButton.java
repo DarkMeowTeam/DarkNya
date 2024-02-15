@@ -54,6 +54,7 @@ public abstract class MixinGuiButton extends Gui {
 
     /**
      * @author CCBlueX
+     * @reason DarkNya Inject
      */
     @Overwrite
     public void drawButton(Minecraft mc, int mouseX, int mouseY, float partialTicks) {

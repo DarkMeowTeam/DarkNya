@@ -75,7 +75,7 @@ public abstract class MixinGuiDisconnected extends MixinGuiScreen {
 
                         final YggdrasilUserAuthentication yggdrasilUserAuthentication = new YggdrasilUserAuthentication(new YggdrasilAuthenticationService(Proxy.NO_PROXY, ""), Agent.MINECRAFT);
                         yggdrasilUserAuthentication.setUsername(account.getToken());
-                        yggdrasilUserAuthentication.setPassword(DarkNya.INSTANCE.getCLIENT_NAME());
+                        yggdrasilUserAuthentication.setPassword(DarkNya.INSTANCE.CLIENT_NAME);
                         yggdrasilUserAuthentication.logIn();
 
                         mc.session = new Session(yggdrasilUserAuthentication.getSelectedProfile().getName(), yggdrasilUserAuthentication.getSelectedProfile().getId().toString(), yggdrasilUserAuthentication.getAuthenticatedToken(), "mojang");

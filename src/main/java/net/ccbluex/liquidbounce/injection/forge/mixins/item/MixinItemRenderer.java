@@ -82,7 +82,8 @@ public abstract class MixinItemRenderer {
     }
 
     /**
-     * @author CCBlueX (superblaubeere27)
+     * @author CCBlueX
+     * @reason DarkNya Inject
      */
     @Overwrite
     public void renderItemInFirstPerson(AbstractClientPlayer player, float p_187457_2_, float p_187457_3_, EnumHand hand, float p_187457_5_, ItemStack stack, float p_187457_7_) {
@@ -574,6 +575,10 @@ public abstract class MixinItemRenderer {
 
 
 
+    /**
+     * @author CCBlueX
+     * @reason DarkNya Inject
+     */
     @Overwrite
     public void updateEquippedItem() {
         final Animations oldhiting = (Animations) DarkNya.moduleManager.getModule(Animations.class);

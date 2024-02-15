@@ -36,6 +36,7 @@ public abstract class MixinEffectRenderer {
 
     /**
      * @author CCBlueX (superblaubeere27)
+     * @reason DarkNya Inject
      */
     @Overwrite
     public void updateEffects() {

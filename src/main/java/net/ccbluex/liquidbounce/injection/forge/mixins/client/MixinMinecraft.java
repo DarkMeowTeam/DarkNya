@@ -93,7 +93,7 @@ public abstract class MixinMinecraft {
 
     @Inject(method = "createDisplay", at = @At(value = "INVOKE", target = "Lorg/lwjgl/opengl/Display;setTitle(Ljava/lang/String;)V", shift = At.Shift.AFTER))
     private void createDisplay(CallbackInfo callbackInfo) {
-        Display.setTitle(DarkNya.INSTANCE.getCLIENT_NAME()+" "+ DarkNya.CLIENT_VERSION);
+        Display.setTitle(DarkNya.CLIENT_NAME + " " + DarkNya.CLIENT_VERSION);
     }
 
     @Inject(method = "displayGuiScreen", at = @At(value = "FIELD", target = "Lnet/minecraft/client/Minecraft;currentScreen:Lnet/minecraft/client/gui/GuiScreen;", shift = At.Shift.AFTER))
@@ -192,6 +192,7 @@ public abstract class MixinMinecraft {
 
     /**
      * @author CCBlueX
+     * @reason DarkNya Inject
      */
     @Overwrite
     private void sendClickBlockToController(boolean leftClick) {

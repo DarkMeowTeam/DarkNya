@@ -149,7 +149,8 @@ public abstract class MixinEntityRenderer {
     }
 
     /**
-     * @author
+     * @author CCBlueX
+     * @reason DarkNya Inject
      */
     @Overwrite
     public void getMouseOver(float partialTicks) {

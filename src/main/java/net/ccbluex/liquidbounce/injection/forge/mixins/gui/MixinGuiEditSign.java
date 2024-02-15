@@ -98,6 +98,7 @@ public class MixinGuiEditSign extends GuiScreen {
 
     /**
      * @author CCBlueX
+     * @reason DarkNya Inject
      */
     @Overwrite
     protected void keyTyped(char typedChar, int keyCode) throws IOException {

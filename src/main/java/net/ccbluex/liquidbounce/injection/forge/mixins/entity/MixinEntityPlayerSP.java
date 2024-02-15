@@ -144,6 +144,7 @@ public abstract class MixinEntityPlayerSP extends MixinAbstractClientPlayer {
 
     /**
      * @author CCBlueX
+     * @reason DarkNya Inject
      */
     @Overwrite
     public void onUpdateWalkingPlayer() {
@@ -259,6 +260,7 @@ public abstract class MixinEntityPlayerSP extends MixinAbstractClientPlayer {
 
     /**
      * @author CCBlueX (superblaubeere27)
+     * @reason DarkNya Inject
      */
     @Overwrite
     public void onLivingUpdate() {
@@ -454,6 +456,7 @@ public abstract class MixinEntityPlayerSP extends MixinAbstractClientPlayer {
 
     /**
      * @author CCBlueX (superblaubeere27)
+     * @reason DarkNya Inject
      */
     @Overwrite
     public void move(MoverType type, double x, double y, double z) {

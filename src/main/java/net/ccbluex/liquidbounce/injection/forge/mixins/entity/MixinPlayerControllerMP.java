@@ -45,6 +45,7 @@ public class MixinPlayerControllerMP {
 
     /**
      * @author 驴子桥
+     * @reason DarkNya Inject
      */
     @Overwrite
     public ItemStack windowClick(int windowId, int slotId, int mouseButton, ClickType type, EntityPlayer player)

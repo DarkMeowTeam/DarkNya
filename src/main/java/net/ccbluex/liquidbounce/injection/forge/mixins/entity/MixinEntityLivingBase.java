@@ -80,7 +80,10 @@ public abstract class MixinEntityLivingBase extends MixinEntity {
 
     @Shadow
     public abstract int getItemInUseCount();
-
+    /**
+     * @author CCBlueX
+     * @reason DarkNya Inject
+     */
     @Overwrite
     private int getArmSwingAnimationEnd() {
         int speed = DarkNya.moduleManager.getModule(Animations.class).getState() ? 2 + (20 - Animations.SpeedSwing.get()) : 6;
@@ -89,6 +92,7 @@ public abstract class MixinEntityLivingBase extends MixinEntity {
 
     /**
      * @author CCBlueX
+     * @reason DarkNya Inject
      */
     @Overwrite
     protected void jump() {

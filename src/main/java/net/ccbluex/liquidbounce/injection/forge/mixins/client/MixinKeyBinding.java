@@ -15,10 +15,10 @@ public abstract class MixinKeyBinding {
 
     @Shadow
     public boolean pressed;
-    
+
     /**
-     * @author
-     * @reason
+     * @author CCBlueX
+     * @reason DarkNya Inject
      */
     @Overwrite
     public boolean isKeyDown() {
