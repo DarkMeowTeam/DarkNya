@@ -33,8 +33,8 @@ class Blink : Module() {
     private val positions = LinkedList<DoubleArray>()
     private val pulseValue = BoolValue("Pulse", false)
     private val pulseDelayValue = IntegerValue("PulseDelay", 1000, 500, 5000)
-    private val CancelC0f = BoolValue("CancelC0F", false)
-    private val CancelAllCpacket = BoolValue("CancelAllClientPacket", false)
+    private val CancelC0f = BoolValue("CancelC0F", true)
+    private val CancelAllCpacket = BoolValue("CancelAllClientPacket", true)
     private val CancelServerpacket = BoolValue("CancelServerPacket", false)
     private val inBus = LinkedList<Packet<INetHandlerPlayClient>>()
     var CanBlink: Boolean? = null
