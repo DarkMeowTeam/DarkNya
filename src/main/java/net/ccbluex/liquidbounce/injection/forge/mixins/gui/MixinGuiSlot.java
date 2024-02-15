@@ -271,6 +271,7 @@ public abstract class MixinGuiSlot implements IMixinGuiSlot {
 
     /**
      * @author CCBlueX
+     * @reason DarkNya Inject
      */
     @Overwrite
     protected int getScrollBarX() {
@@ -284,6 +285,7 @@ public abstract class MixinGuiSlot implements IMixinGuiSlot {
 
     /**
      * @author CCBlueX (superblaubeere27)
+     * @reason DarkNya Inject
      */
     @Overwrite
     public int getListWidth() {
