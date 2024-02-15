@@ -9,6 +9,7 @@ import net.ccbluex.liquidbounce.features.module.ModuleCategory
 import net.ccbluex.liquidbounce.features.module.ModuleInfo
 import net.ccbluex.liquidbounce.features.module.modules.misc.AntiBot
 import net.ccbluex.liquidbounce.features.module.modules.misc.Teams
+import net.ccbluex.liquidbounce.features.module.modules.movement.Fly
 import net.ccbluex.liquidbounce.features.module.modules.movement.StrafeFix
 import net.ccbluex.liquidbounce.features.module.modules.player.Blink
 import net.ccbluex.liquidbounce.features.module.modules.render.FreeCam
@@ -89,10 +90,10 @@ class KillAura : Module() {
     // Change Range
     val airBypass = BoolValue("AirChangeRange",true)
     // Range
-    private val rangeValue = FloatValue(if(airBypass.get()) "Range" else "GroundRange", 3.7f, 1f, 8f)
-    private val airRangeValue = FloatValue("AirRange", 3.3f, 1f, 8f).displayable { airBypass.get() }
-    private val throughWallsRangeValue = FloatValue("ThroughWallsRange", 3f, 0f, 8f)
-    private val rangeSprintReducementValue = FloatValue("RangeSprintReducement", 0f, 0f, 0.4f)
+    val rangeValue = FloatValue(if(airBypass.get()) "Range" else "GroundRange", 3.7f, 1f, 8f)
+    val airRangeValue = FloatValue("AirRange", 3.3f, 1f, 8f).displayable { airBypass.get() }
+    val throughWallsRangeValue = FloatValue("ThroughWallsRange", 3f, 0f, 8f)
+    val rangeSprintReducementValue = FloatValue("RangeSprintReducement", 0f, 0f, 0.4f)
 
     // Modes
     private val priorityValue = ListValue("Priority", arrayOf("Health", "Distance", "Direction", "LivingTime", "HurtResitanTime"), "Distance")
@@ -122,6 +123,10 @@ class KillAura : Module() {
 
     // Bypass
     private val aacValue = BoolValue("AAC", false)
+
+    // Safe
+    private val onBlink = BoolValue("onBlink", false)
+    private val onFlight = BoolValue("onFlight", false)
 
     // Turn Speed
     private val maxTurnSpeed: FloatValue = object : FloatValue("MaxTurnSpeed", 180f, 0f, 180f) {
@@ -1538,6 +1543,7 @@ class KillAura : Module() {
             }
 
         }
+
         if (vanillamode.get().equals("CPacketPlayerBlockPlacement", true)){
             mc.connection!!.sendPacket(CPacketPlayerTryUseItem(
                 EnumHand.OFF_HAND)
@@ -1595,8 +1601,10 @@ class KillAura : Module() {
      * Check if run should be cancelled
      */
     private val cancelRun: Boolean
-        inline get() = mc.player!!.isSpectator || !isAlive(mc.player!!)
-                || DarkNya.moduleManager[Blink::class.java].state || DarkNya.moduleManager[FreeCam::class.java].state
+            inline get() = mc.player!!.isSpectator || !isAlive(mc.player!!)
+                || (DarkNya.moduleManager[Blink::class.java].state && !onBlink.get())
+                || (DarkNya.moduleManager[Fly::class.java].state && !onFlight.get())
+                || DarkNya.moduleManager[FreeCam::class.java].state
 
     /**
      * Check if [entity] is alive
