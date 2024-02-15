@@ -23,7 +23,6 @@ import net.ccbluex.liquidbounce.utils.RotationUtils
 import net.minecraft.util.ResourceLocation
 import op.wawa.manager.CombatManager
 import op.wawa.sound.Sound
-import op.wawa.utils.QQUtils
 import op.wawa.utils.sound.TipSoundManager
 
 object DarkNya {
@@ -44,7 +43,6 @@ object DarkNya {
     lateinit var scriptManager: ScriptManager
     lateinit var combatManager: CombatManager
     lateinit var tipSoundManager: TipSoundManager
-    lateinit var userQQ: String
 
     // HUD & ClickGUI
     lateinit var hud: HUD
@@ -63,9 +61,6 @@ object DarkNya {
         ClientUtils.getLogger().info("Loading $CLIENT_NAME $CLIENT_VERSION")
         ClientUtils.getLogger().info("Initializing...")
         val startTime = System.currentTimeMillis()
-
-        userQQ = QQUtils.getLoginQQNumber()
-        ClientUtils.getLogger().info("PridePlus >> QQNumber has been read.")
 
         // Initialize managers
         fileManager = FileManager()
