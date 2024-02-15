@@ -45,7 +45,7 @@ public class ClickGUI extends Module {
     public void onEnable() {
         updateStyle();
 
-        mc.displayGuiScreen((DarkNya.clickGui));
+        mc.displayGuiScreen(DarkNya.clickGui);
     }
 
     private void updateStyle() {

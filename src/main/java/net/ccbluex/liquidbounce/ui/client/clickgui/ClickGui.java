@@ -1,3 +1,4 @@
+
 package net.ccbluex.liquidbounce.ui.client.clickgui;
 
 import net.ccbluex.liquidbounce.DarkNya;
