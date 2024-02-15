@@ -19,7 +19,7 @@ import java.util.regex.Pattern
  * @date 2024/2/15 15:14
  * @author WaWa
  */
-@ModuleInfo(name = "SelfBnChecker", category =ModuleCategory.MISC, description = "HytSelf ban checker")
+@ModuleInfo(name = "SelfBanChecker", category =ModuleCategory.MISC, description = "HytSelf ban checker")
 class SelfBanChecker : Module() {
     private val server = ListValue("Server",arrayOf("Hyt"),"Hyt")
     private val actionSendMessage = BoolValue("SendMessage",false)
