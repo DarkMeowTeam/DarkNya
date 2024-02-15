@@ -245,7 +245,7 @@ public class Fonts extends MinecraftInstance {
             font = Font.createFont(0, is);
             font = font.deriveFont(0, size);
         } catch (Exception ex) {
-            ClientUtils.getLogger().error("PridePlus Font >> Error loading ComfortaaRegular.");
+            ClientUtils.getLogger().error(DarkNya.CLIENT_NAME + " Font >> Error loading ComfortaaRegular.");
             font = new Font("default", 0, size);
         }
         return font;
@@ -261,7 +261,7 @@ public class Fonts extends MinecraftInstance {
 
                 if (fontObj instanceof FontRenderer) fonts.add((FontRenderer) fontObj);
             } catch (final IllegalAccessException e) {
-                ClientUtils.getLogger().error("PridePlus Font >> Error loading fonts.");
+                ClientUtils.getLogger().error(DarkNya.CLIENT_NAME + " Font >> Error loading fonts.");
             }
         }
 
@@ -278,7 +278,7 @@ public class Fonts extends MinecraftInstance {
             inputStream.close();
             return awtClientFont;
         } catch (final FontFormatException | IOException e) {
-            ClientUtils.getLogger().error("PridePlus Font >> Error loading " + fontName + ".");
+            ClientUtils.getLogger().error(DarkNya.CLIENT_NAME + " Font >> Error loading " + fontName + ".");
             return new Font("default", Font.PLAIN, size);
         }
     }

@@ -28,7 +28,7 @@ import op.wawa.utils.sound.TipSoundManager
 object DarkNya {
 
     // Client information
-    var CLIENT_NAME = "DarkNya"
+    const val CLIENT_NAME = "DarkNya"
     const val CLIENT_VERSION = "B1"
     const val CLIENT_CREATOR = "CatX_feitu"
     const val CLIENT_CLOUD = "https://cloud.liquidbounce.net/LiquidBounce"
