@@ -66,7 +66,7 @@ class KillAura : Module() {
      */
 
     // CPS - Attack speed
-    private val maxCPS: IntegerValue = object : IntegerValue("MaxCPS", 8, 1, 20) {
+    val maxCPS: IntegerValue = object : IntegerValue("MaxCPS", 8, 1, 20) {
         override fun onChanged(oldValue: Int, newValue: Int) {
             val i = minCPS.get()
             if (i > newValue) set(i)
@@ -75,7 +75,7 @@ class KillAura : Module() {
         }
     }
 
-    private val minCPS: IntegerValue = object : IntegerValue("MinCPS", 5, 1, 20) {
+    val minCPS: IntegerValue = object : IntegerValue("MinCPS", 5, 1, 20) {
         override fun onChanged(oldValue: Int, newValue: Int) {
             val i = maxCPS.get()
             if (i < newValue) set(i)
@@ -84,8 +84,8 @@ class KillAura : Module() {
         }
     }
 
-    private val hurtTimeValue = IntegerValue("HurtTime", 10, 0, 10)
-    private val cooldownValue = FloatValue("Cooldown", 1f, 0f, 1f)
+    val hurtTimeValue = IntegerValue("HurtTime", 10, 0, 10)
+    val cooldownValue = FloatValue("Cooldown", 1f, 0f, 1f)
 
     // Change Range
     val airBypass = BoolValue("AirChangeRange",true)
@@ -96,47 +96,47 @@ class KillAura : Module() {
     val rangeSprintReducementValue = FloatValue("RangeSprintReducement", 0f, 0f, 0.4f)
 
     // Modes
-    private val priorityValue = ListValue("Priority", arrayOf("Health", "Distance", "Direction", "LivingTime", "HurtResitanTime"), "Distance")
+    val priorityValue = ListValue("Priority", arrayOf("Health", "Distance", "Direction", "LivingTime", "HurtResitanTime"), "Distance")
     val targetModeValue = ListValue("TargetMode", arrayOf("Single", "Switch", "Multi"), "Switch")
 
     // Bypass
     val keepSprintValue = BoolValue("KeepSprint", true)
-    private val stopSprintAir = BoolValue("StopSprintOnAir",true)
+    val stopSprintAir = BoolValue("StopSprintOnAir",true)
 
 
     // AutoBlock
 
-    private val autoBlockValue = ListValue("AutoBlock", arrayOf("Right", "Range", "Off"),"Range")
-    private val BlockRangeValue = FloatValue("BlockRange", 3f, 0f, 8f)
+    val autoBlockValue = ListValue("AutoBlock", arrayOf("Right", "Range", "Off"),"Range")
+    val BlockRangeValue = FloatValue("BlockRange", 3f, 0f, 8f)
 
-    private val autoBlockPacketValue = ListValue("AutoBlockPacket", arrayOf("Packet", "Fake", "Mouse", "GameSettings", "UseItem"),"Packet")
-    private  val vanillamode =  ListValue("VanillaMode", arrayOf("TryUseItem", "UseItem", "CPacketPlayerBlockPlacement"), "TryUseItem")
-    private val interactAutoBlockValue = BoolValue("InteractAutoBlock", true)
-    private val delayedBlockValue = BoolValue("AutoBlock-AfterTck", false)
-    private val afterAttackValue = BoolValue("AutoBlock-AfterAttack", false)
-    private val autoBlockFacing = BoolValue("AutoBlockFacing",false)
+    val autoBlockPacketValue = ListValue("AutoBlockPacket", arrayOf("Packet", "Fake", "Mouse", "GameSettings", "UseItem"),"Packet")
+     val vanillamode =  ListValue("VanillaMode", arrayOf("TryUseItem", "UseItem", "CPacketPlayerBlockPlacement"), "TryUseItem")
+    val interactAutoBlockValue = BoolValue("InteractAutoBlock", true)
+    val delayedBlockValue = BoolValue("AutoBlock-AfterTck", false)
+    val afterAttackValue = BoolValue("AutoBlock-AfterAttack", false)
+    val autoBlockFacing = BoolValue("AutoBlockFacing",false)
 
     // Raycast
-    private val raycastValue = BoolValue("RayCast", true)
-    private val raycastIgnoredValue = BoolValue("RayCastIgnored", false).displayable { raycastValue.get() }
-    private val livingRaycastValue = BoolValue("LivingRayCast", true).displayable { raycastValue.get() }
+    val raycastValue = BoolValue("RayCast", true)
+    val raycastIgnoredValue = BoolValue("RayCastIgnored", false).displayable { raycastValue.get() }
+    val livingRaycastValue = BoolValue("LivingRayCast", true).displayable { raycastValue.get() }
 
     // Bypass
-    private val aacValue = BoolValue("AAC", false)
+    val aacValue = BoolValue("AAC", false)
 
     // Safe
-    private val onBlink = BoolValue("onBlink", false)
-    private val onFlight = BoolValue("onFlight", false)
+    val onBlink = BoolValue("onBlink", false)
+    val onFlight = BoolValue("onFlight", false)
 
     // Turn Speed
-    private val maxTurnSpeed: FloatValue = object : FloatValue("MaxTurnSpeed", 180f, 0f, 180f) {
+    val maxTurnSpeed: FloatValue = object : FloatValue("MaxTurnSpeed", 180f, 0f, 180f) {
         override fun onChanged(oldValue: Float, newValue: Float) {
             val v = minTurnSpeed.get()
             if (v > newValue) set(v)
         }
     }
 
-    private val minTurnSpeed: FloatValue = object : FloatValue("MinTurnSpeed", 180f, 0f, 180f) {
+    val minTurnSpeed: FloatValue = object : FloatValue("MinTurnSpeed", 180f, 0f, 180f) {
         override fun onChanged(oldValue: Float, newValue: Float) {
             val v = maxTurnSpeed.get()
             if (v < newValue) set(v)
@@ -144,28 +144,28 @@ class KillAura : Module() {
     }
 
     // Lighting
-    private val lightingValue = BoolValue("Lighting", false)
-    private val lightingModeValue = ListValue("Lighting-Mode", arrayOf("Dead", "Attack"), "Dead")
-    private val lightingSoundValue = BoolValue("Lighting-Sound", true)
-    private val randomCenterValue = BoolValue("RandomCenter", true)
-    private val rotations = ListValue("RotationMode", arrayOf("None", "New", "Liquidbounce","BackTrack", "Test","Test1", "Test2", "HytRotation","GrimCenter","Down"), "New")
-    private val outborderValue = BoolValue("Outborder", false)
-    private val silentRotationValue = BoolValue("SilentRotation", true)
-    private val rotationStrafeValue = ListValue("Strafe", arrayOf("Off", "Strict", "Silent", "Smart"), "Off")
+    val lightingValue = BoolValue("Lighting", false)
+    val lightingModeValue = ListValue("Lighting-Mode", arrayOf("Dead", "Attack"), "Dead")
+    val lightingSoundValue = BoolValue("Lighting-Sound", true)
+    val randomCenterValue = BoolValue("RandomCenter", true)
+    val rotations = ListValue("RotationMode", arrayOf("None", "New", "Liquidbounce","BackTrack", "Test","Test1", "Test2", "HytRotation","GrimCenter","Down"), "New")
+    val outborderValue = BoolValue("Outborder", false)
+    val silentRotationValue = BoolValue("SilentRotation", true)
+    val rotationStrafeValue = ListValue("Strafe", arrayOf("Off", "Strict", "Silent", "Smart"), "Off")
     val fovValue = FloatValue("FOV", 180f, 0f, 180f)
-    private val hitableValue = BoolValue("AlwaysHitable",true)
+    val hitableValue = BoolValue("AlwaysHitable",true)
     // Predict
-    private val switchDelayValue = IntegerValue("SwitchDelay",300 ,1, 2000)
-    private val predictValue = BoolValue("Predict", true)
+    val switchDelayValue = IntegerValue("SwitchDelay",300 ,1, 2000)
+    val predictValue = BoolValue("Predict", true)
 
-    private val maxPredictSize: FloatValue = object : FloatValue("MaxPredictSize", 1f, 0.1f, 5f) {
+    val maxPredictSize: FloatValue = object : FloatValue("MaxPredictSize", 1f, 0.1f, 5f) {
         override fun onChanged(oldValue: Float, newValue: Float) {
             val v = minPredictSize.get()
             if (v > newValue) set(v)
         }
     }
 
-    private val minPredictSize: FloatValue = object : FloatValue("MinPredictSize", 1f, 0.1f, 5f) {
+    val minPredictSize: FloatValue = object : FloatValue("MinPredictSize", 1f, 0.1f, 5f) {
         override fun onChanged(oldValue: Float, newValue: Float) {
             val v = maxPredictSize.get()
             if (v < newValue) set(v)
@@ -173,41 +173,41 @@ class KillAura : Module() {
     }
 
     // Bypass
-    private val failRateValue = FloatValue("FailRate", 0f, 0f, 100f)
-    private val fakeSwingValue = BoolValue("FakeSwing", true)
-    private val noInventoryAttackValue = BoolValue("NoInvAttack", false)
-    private val noInventoryDelayValue = IntegerValue("NoInvDelay", 200, 0, 500)
-    private val limitedMultiTargetsValue = IntegerValue("LimitedMultiTargets", 0, 0, 50)
+    val failRateValue = FloatValue("FailRate", 0f, 0f, 100f)
+    val fakeSwingValue = BoolValue("FakeSwing", true)
+    val noInventoryAttackValue = BoolValue("NoInvAttack", false)
+    val noInventoryDelayValue = IntegerValue("NoInvDelay", 200, 0, 500)
+    val limitedMultiTargetsValue = IntegerValue("LimitedMultiTargets", 0, 0, 50)
 
     // Visuals
-    private val markValue = ListValue("Mark", arrayOf("Liquid","FDP","Block","Jello", "Plat", "Red", "Sims", "None"),"FDP")
-    private val colorModeValue =
+    val markValue = ListValue("Mark", arrayOf("Liquid","FDP","Block","Jello", "Plat", "Red", "Sims", "None"),"FDP")
+    val colorModeValue =
         ListValue("JelloColor", arrayOf("Custom", "Rainbow", "Sky", "LiquidSlowly", "Fade", "Health", "Gident"), "Custom")
-    private val colorRedValue = IntegerValue("JelloRed", 255, 0, 255)
-    private val colorGreenValue = IntegerValue("JelloGreen", 255, 0, 255)
-    private val colorBlueValue = IntegerValue("JelloBlue", 255, 0, 255)
+    val colorRedValue = IntegerValue("JelloRed", 255, 0, 255)
+    val colorGreenValue = IntegerValue("JelloGreen", 255, 0, 255)
+    val colorBlueValue = IntegerValue("JelloBlue", 255, 0, 255)
 
-    private val colorAlphaValue = IntegerValue("JelloAlpha", 255, 0, 255)
-    private val saturationValue = FloatValue("Saturation", 1f, 0f, 1f)
-    private val brightnessValue = FloatValue("Brightness", 1f, 0f, 1f)
+    val colorAlphaValue = IntegerValue("JelloAlpha", 255, 0, 255)
+    val saturationValue = FloatValue("Saturation", 1f, 0f, 1f)
+    val brightnessValue = FloatValue("Brightness", 1f, 0f, 1f)
 
-    private val colorTeam = BoolValue("JelloTeam", false)
+    val colorTeam = BoolValue("JelloTeam", false)
 
-    private val jelloAlphaValue =
+    val jelloAlphaValue =
         FloatValue("JelloEndAlphaPercent", 0.4f, 0f, 1f)
-    private val jelloWidthValue =
+    val jelloWidthValue =
         FloatValue("JelloCircleWidth", 3f, 0.01f, 5f)
-    private val jelloGradientHeightValue =
+    val jelloGradientHeightValue =
         FloatValue("JelloGradientHeight", 3f, 1f, 8f)
-    private val jelloFadeSpeedValue =
+    val jelloFadeSpeedValue =
         FloatValue("JelloFadeSpeed", 0.1f, 0.01f, 0.5f)
-    private val fakeSharpValue = BoolValue("FakeSharp", true)
-    private val circleValue= BoolValue("Circle",true)
-    private val circleRed = IntegerValue("CircleRed", 255, 0, 255)
-    private val circleGreen = IntegerValue("CircleGreen", 255, 0, 255)
-    private val circleBlue = IntegerValue("CircleBlue", 255, 0, 255)
-    private val circleAlpha = IntegerValue("CircleAlpha", 255, 0, 255)
-    private val circleAccuracy = IntegerValue("CircleAccuracy", 15, 0, 60)
+    val fakeSharpValue = BoolValue("FakeSharp", true)
+    val circleValue= BoolValue("Circle",true)
+    val circleRed = IntegerValue("CircleRed", 255, 0, 255)
+    val circleGreen = IntegerValue("CircleGreen", 255, 0, 255)
+    val circleBlue = IntegerValue("CircleBlue", 255, 0, 255)
+    val circleAlpha = IntegerValue("CircleAlpha", 255, 0, 255)
+    val circleAccuracy = IntegerValue("CircleAccuracy", 15, 0, 60)
     /**
      * MODULE
      */
