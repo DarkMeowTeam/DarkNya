@@ -40,8 +40,8 @@ class HUD : Module() {
 
     val logValue = ListValue("LogMode", arrayOf("idk", "141Sense", "Jello", "PowerX", "None", "Novoline"), "None")
     val shadowValue = ListValue("TextShadowMode", arrayOf("Good", "Long", "D1ck"), "Good")
-    val ClientName = TextValue("ClientName", "PridePlus")
-    val DevName = TextValue("DevName", "WaWa")
+    val ClientName = TextValue("ClientName", DarkNya.CLIENT_NAME)
+    val DevName = TextValue("DevName", DarkNya.CLIENT_CREATOR)
 
     val radius = FloatValue("Radius",15F,0F,100F)
 
@@ -238,9 +238,9 @@ class HUD : Module() {
         if (mc.world == null || mc.player == null) return
         if (state && blurValue.get() && !mc.entityRenderer.isShaderActive() && event.guiScreen != null &&
                 !(event.guiScreen is GuiChat || event.guiScreen is GuiHudDesigner)) mc.entityRenderer.loadShader(
-            ResourceLocation("pride/blur.json")
+            ResourceLocation("darknya/blur.json")
         ) else if (mc.entityRenderer.shaderGroup != null &&
-                mc.entityRenderer.shaderGroup.shaderGroupName.contains("pride/blur.json")) mc.entityRenderer.stopUseShader()
+                mc.entityRenderer.shaderGroup.shaderGroupName.contains("darknya/blur.json")) mc.entityRenderer.stopUseShader()
     }
     fun getAnimPos(pos: Float): Float {
         hotBarX = if (state && hotbarModeSection.get() == "Pride") AnimationUtil.animate(

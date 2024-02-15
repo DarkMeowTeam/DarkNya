@@ -9,3 +9,6 @@
 # 项目排除路径
 /build/
 /run/
+# Gradle崩溃信息
+*.log
+*.mdmp

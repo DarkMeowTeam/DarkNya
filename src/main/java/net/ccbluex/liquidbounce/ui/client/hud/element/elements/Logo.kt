@@ -34,7 +34,7 @@ class Logo(x: Double = 0.0, y: Double = 0.0, scale: Float = 1.00F,
      */
     override fun drawElement(): Border {
         if (modeValue.get() == "Image") {
-            RenderUtils.drawImage("pride/big.png", 0, 0, width, height)
+            RenderUtils.drawImage("darknya/big.png", 0, 0, width, height)
             return Border(0F, 0F, width.toFloat(), height.toFloat())
         }
         ShadowUtils.shadow(5f, {

@@ -20,7 +20,7 @@ import java.lang.reflect.Field;
 @SideOnly(Side.CLIENT)
 public class FileManager extends MinecraftInstance {
 
-    public final File dir = new File(mc.mcDataDir, "PridePlus-NextGen");
+    public final File dir = new File(mc.mcDataDir, "DarkNya-1.12");
     public final File fontsDir = new File(dir, "fonts");
     public final File settingsDir = new File(dir, "settings");
     public final File configsDir = new File(dir, "configs");
@@ -192,7 +192,7 @@ public class FileManager extends MinecraftInstance {
                 if(bufferedImage == null)
                     return;
 
-                DarkNya.INSTANCE.setBackground(new ResourceLocation("pride/background.png"));
+                DarkNya.INSTANCE.setBackground(new ResourceLocation("darknya/background.png"));
                 mc.getTextureManager().loadTexture(DarkNya.INSTANCE.getBackground(), new DynamicTexture(bufferedImage));
                 ClientUtils.getLogger().info("[FileManager] Loaded background.");
             }catch(final Exception e) {

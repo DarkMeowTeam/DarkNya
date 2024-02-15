@@ -11,6 +11,6 @@ public class RandomImgUtils {
     public static int count2 = random.nextInt(1);
 
     public static ResourceLocation getBackGround() {
-        return new ResourceLocation("pride/bg.png");
+        return new ResourceLocation("darknya/bg.png");
     }
 }

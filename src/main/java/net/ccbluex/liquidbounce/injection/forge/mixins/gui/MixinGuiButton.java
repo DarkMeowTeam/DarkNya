@@ -47,7 +47,7 @@ public abstract class MixinGuiButton extends Gui {
     private float alpha;
     private float rectY;
 
-    private static final ResourceLocation rs = new ResourceLocation("pride/menu/menu-rect.png");
+    private static final ResourceLocation rs = new ResourceLocation("darknya/menu/menu-rect.png");
 
     @Shadow
     protected abstract void mouseDragged(Minecraft mc, int mouseX, int mouseY);

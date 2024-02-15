@@ -22,19 +22,19 @@ class Cape : Module() {
     }
 
     enum class CapeStyle(val location: ResourceLocation) {
-        DARK(ResourceLocation("pride/capes/dark.png")),
-        ASTOLFO(ResourceLocation("pride/capes/astolfo.png")),
-        LIGHT(ResourceLocation("pride/capes/light.png")),
-        SUNNY(ResourceLocation("pride/capes/Sunny.png")),
-        WYY(ResourceLocation("pride/capes/Wyy.png")),
-        POWERX(ResourceLocation("pride/capes/PowerX.png")),
-        AZRAEL(ResourceLocation("pride/capes/azrael.png")),
-        TARGET(ResourceLocation("pride/capes/Target.png")),
-        FLUX(ResourceLocation("pride/capes/Flux.png")),
-        LIQUIDBOUNCE(ResourceLocation("pride/capes/LiquidBounce.png")),
-        NOVOLINE(ResourceLocation("pride/capes/Novoline.png")),
-        SPECIAL1(ResourceLocation("pride/capes/special1.png")),
-        SPECIAL2(ResourceLocation("pride/capes/special2.png"))
+        DARK(ResourceLocation("darknya/capes/dark.png")),
+        ASTOLFO(ResourceLocation("darknya/capes/astolfo.png")),
+        LIGHT(ResourceLocation("darknya/capes/light.png")),
+        SUNNY(ResourceLocation("darknya/capes/Sunny.png")),
+        WYY(ResourceLocation("darknya/capes/Wyy.png")),
+        POWERX(ResourceLocation("darknya/capes/PowerX.png")),
+        AZRAEL(ResourceLocation("darknya/capes/azrael.png")),
+        TARGET(ResourceLocation("darknya/capes/Target.png")),
+        FLUX(ResourceLocation("darknya/capes/Flux.png")),
+        LIQUIDBOUNCE(ResourceLocation("darknya/capes/LiquidBounce.png")),
+        NOVOLINE(ResourceLocation("darknya/capes/Novoline.png")),
+        SPECIAL1(ResourceLocation("darknya/capes/special1.png")),
+        SPECIAL2(ResourceLocation("darknya/capes/special2.png"))
     }
 
     override val tag: String

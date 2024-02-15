@@ -15,8 +15,8 @@ import static net.ccbluex.liquidbounce.utils.render.ColorUtil.interpolateColorC;
 
 public class GradientUtil extends MinecraftInstance {
 
-    private static final ShaderUtil gradientMaskShader = new ShaderUtil("pride/shader/fragment/gradientmask.frag");
-    private static final ShaderUtil gradientShader = new ShaderUtil("pride/shader/fragment/gradient.frag");
+    private static final ShaderUtil gradientMaskShader = new ShaderUtil("darknya/shader/fragment/gradientmask.frag");
+    private static final ShaderUtil gradientShader = new ShaderUtil("darknya/shader/fragment/gradient.frag");
 
 
     public static void drawGradient(float x, float y, float width, float height, float alpha, Color bottomLeft, Color topLeft, Color bottomRight, Color topRight) {

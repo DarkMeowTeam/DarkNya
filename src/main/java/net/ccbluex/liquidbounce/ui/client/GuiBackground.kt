@@ -52,7 +52,7 @@ class GuiBackground(val prevGui: GuiScreen) : GuiScreen() {
                     Files.copy(file.toPath(), FileOutputStream(DarkNya.fileManager.backgroundFile))
 
                     val image = ImageIO.read(FileInputStream(DarkNya.fileManager.backgroundFile))
-                    val location = ResourceLocation("pride/background.png")
+                    val location = ResourceLocation("darknya/background.png")
 
                     DarkNya.background = location
 

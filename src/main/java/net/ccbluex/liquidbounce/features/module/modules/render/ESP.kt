@@ -112,7 +112,7 @@ class ESP : Module() {
                         GL11.glPushMatrix()
                         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F)
 
-                        RenderUtils.drawImage("pride/custom_hud_icon.png", -8, -14, 16, 16)
+                        RenderUtils.drawImage("darknya/custom_hud_icon.png", -8, -14, 16, 16)
                         GL11.glPopMatrix()
                         GL11.glPopMatrix()
                     }
@@ -142,7 +142,7 @@ class ESP : Module() {
                         GL11.glPushMatrix()
                         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F)
 
-                        RenderUtils.drawImage("pride/rikka.png", -8, -14, 16, 16)
+                        RenderUtils.drawImage("darknya/rikka.png", -8, -14, 16, 16)
                         GL11.glPopMatrix()
                         GL11.glPopMatrix()
                     }

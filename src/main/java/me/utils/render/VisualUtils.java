@@ -147,7 +147,7 @@ public class VisualUtils extends MinecraftInstance {
         GL11.glPushMatrix();
         GlStateManager.enableBlend();
         GlStateManager.disableAlpha();
-        mc.getTextureManager().bindTexture(new ResourceLocation ("pride/shadow/" + image + ".png"));
+        mc.getTextureManager().bindTexture(new ResourceLocation ("darknya/shadow/" + image + ".png"));
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
         Gui.drawModalRectWithCustomSizedTexture(x, y, 0, 0, width, height, width, height);
         GlStateManager.disableBlend();

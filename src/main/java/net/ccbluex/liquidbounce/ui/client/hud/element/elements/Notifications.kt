@@ -329,10 +329,10 @@ class Notification(
         if(style.equals("Tenacity")){
             val fontRenderer = Fonts.font35
             val thisWidth=100.coerceAtLeast(fontRenderer.getStringWidth(this.title).coerceAtLeast(fontRenderer.getStringWidth(this.content)) + 40)
-            val error = ResourceLocation("pride/notification/error.png")
-            val successful = ResourceLocation("pride/notification/success.png")
-            val warn = ResourceLocation("pride/notification/warning.png")
-            val info = ResourceLocation("pride/notification/info.png")
+            val error = ResourceLocation("darknya/notification/error.png")
+            val successful = ResourceLocation("darknya/notification/success.png")
+            val warn = ResourceLocation("darknya/notification/warning.png")
+            val info = ResourceLocation("darknya/notification/info.png")
             if(type.renderColor == Color(0xFF2F2F)){
                 RenderUtils.drawRoundedCornerRect(-18F,1F,thisWidth.toFloat(),height.toFloat() - 2F,5f,Color(180,0,0,190).rgb)
                 RenderUtils.drawImage(error,-13,5,18,18)
@@ -372,13 +372,13 @@ class Notification(
             val thisWidth = 116.coerceAtLeast(font.getStringWidth(this.title).coerceAtLeast(font.getStringWidth(this.content)) + 56)
 
             if(type.renderColor == Color(0xFF2F2F)){
-                RenderUtils.drawImage(ResourceLocation("pride/notification/error.png"),3,5,18,18)
+                RenderUtils.drawImage(ResourceLocation("darknya/notification/error.png"),3,5,18,18)
             }else if(type.renderColor == Color(0x60E092)){
-                RenderUtils.drawImage(ResourceLocation("pride/notification/success.png"),3,5,18,18)
+                RenderUtils.drawImage(ResourceLocation("darknya/notification/success.png"),3,5,18,18)
             } else if(type.renderColor == Color(0xF5FD00)){
-                RenderUtils.drawImage(ResourceLocation("pride/notification/warning.png"),3,5,18,18)
+                RenderUtils.drawImage(ResourceLocation("darknya/notification/warning.png"),3,5,18,18)
             } else {
-                RenderUtils.drawImage(ResourceLocation("pride/notification/info.png"),3,5,18,18)
+                RenderUtils.drawImage(ResourceLocation("darknya/notification/info.png"),3,5,18,18)
             }
 
             if (blurRadius != 0f)
@@ -395,13 +395,13 @@ class Notification(
             val thisWidth = 116.coerceAtLeast(font.getStringWidth(this.title).coerceAtLeast(font.getStringWidth(this.content)) + 56)
 
             if(type.renderColor == Color(0xFF2F2F)){
-                RenderUtils.drawImage(ResourceLocation("pride/notification/error.png"),3,5,18,18)
+                RenderUtils.drawImage(ResourceLocation("darknya/notification/error.png"),3,5,18,18)
             }else if(type.renderColor == Color(0x60E092)){
-                RenderUtils.drawImage(ResourceLocation("pride/notification/success.png"),3,5,18,18)
+                RenderUtils.drawImage(ResourceLocation("darknya/notification/success.png"),3,5,18,18)
             } else if(type.renderColor == Color(0xF5FD00)){
-                RenderUtils.drawImage(ResourceLocation("pride/notification/warning.png"),3,5,18,18)
+                RenderUtils.drawImage(ResourceLocation("darknya/notification/warning.png"),3,5,18,18)
             } else {
-                RenderUtils.drawImage(ResourceLocation("pride/notification/info.png"),3,5,18,18)
+                RenderUtils.drawImage(ResourceLocation("darknya/notification/info.png"),3,5,18,18)
             }
 
 
@@ -414,7 +414,7 @@ class Notification(
         }
 
         if(style.equals("Intellij")) {
-            val notifyDir = "pride/notification/"
+            val notifyDir = "darknya/notification/"
             val imgSuccess = ResourceLocation("${notifyDir}success.png")
             val imgError = ResourceLocation("${notifyDir}error.png")
             val imgWarning = ResourceLocation("${notifyDir}warning.png")

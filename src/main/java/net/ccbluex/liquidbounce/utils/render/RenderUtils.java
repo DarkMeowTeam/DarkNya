@@ -725,10 +725,10 @@ public final class RenderUtils extends MinecraftInstance {
     }
 
     public static void drawShadow2(int x, int y, float width, float height) {
-        drawImage(new ResourceLocation("pride/shadow/shadow_250_125.png"), x - 25, y - 25, (int) (width + 50), (int) (height + 50));
+        drawImage(new ResourceLocation("darknya/shadow/shadow_250_125.png"), x - 25, y - 25, (int) (width + 50), (int) (height + 50));
     }
     public static void drawShadow2(int x, int y, float width, float height, float alpha) {
-        drawImage(new ResourceLocation("pride/shadow/shadow_250_125.png"), x - 25, y - 25, (int) (width + 50), (int) (height + 50),0,0,0, alpha);
+        drawImage(new ResourceLocation("darknya/shadow/shadow_250_125.png"), x - 25, y - 25, (int) (width + 50), (int) (height + 50),0,0,0, alpha);
     }
     public static void drawShadowWithCustomAlpha(float x, float y, float width, float height, float alpha) {
         drawTexturedRectWithCustomAlpha(x - 9, y - 9, 9, 9, "paneltopleft", alpha);
@@ -1441,7 +1441,7 @@ public final class RenderUtils extends MinecraftInstance {
         if(!enableBlend) glEnable(GL_BLEND);
         if(!disableAlpha) glDisable(GL_ALPHA_TEST);
         GlStateManager.color(1F, 1F, 1F, alpha);
-        mc.getTextureManager().bindTexture(new ResourceLocation("pride/shadow/" + image + ".png"));
+        mc.getTextureManager().bindTexture(new ResourceLocation("darknya/shadow/" + image + ".png"));
         drawModalRectWithCustomSizedTexture(x, y, 0, 0, width, height, width, height);
         if(!enableBlend) glDisable(GL_BLEND);
         if(!disableAlpha) glEnable(GL_ALPHA_TEST);
@@ -1464,7 +1464,7 @@ public final class RenderUtils extends MinecraftInstance {
         final boolean disableAlpha = !glIsEnabled(GL_ALPHA_TEST);
         if (!enableBlend) glEnable(GL_BLEND);
         if (!disableAlpha) glDisable(GL_ALPHA_TEST);
-        mc.getTextureManager().bindTexture(new ResourceLocation("pride/shadow/" + image + ".png"));
+        mc.getTextureManager().bindTexture(new ResourceLocation("darknya/shadow/" + image + ".png"));
         GlStateManager.color(1F, 1F, 1F, 1F);
         RenderUtils.drawModalRectWithCustomSizedTexture(x, y, 0, 0, width, height, width, height);
         if (!enableBlend) glDisable(GL_BLEND);
@@ -1502,7 +1502,7 @@ public final class RenderUtils extends MinecraftInstance {
         GL11.glPushMatrix();
         GlStateManager.enableBlend();
         GlStateManager.disableAlpha();
-        mc.getTextureManager().bindTexture(new ResourceLocation("pride/shadow/" + image + ".png"));
+        mc.getTextureManager().bindTexture(new ResourceLocation("darknya/shadow/" + image + ".png"));
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
         Gui.drawModalRectWithCustomSizedTexture(x, y, 0, 0, width, height, width, height);
         GlStateManager.disableBlend();

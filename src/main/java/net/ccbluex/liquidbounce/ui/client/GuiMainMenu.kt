@@ -16,7 +16,7 @@ class GuiMainMenu : GuiScreen() {
 
     private val backgroundResource = ResourceLocation("wawa/mainmenu.png")
 
-    private val icon = ResourceLocation("pride/big.png")
+    private val icon = ResourceLocation("darknya/big.png")
 
     // Background
     private var currentX = 0f
@@ -64,8 +64,6 @@ class GuiMainMenu : GuiScreen() {
             50F + FontLoaders.F24.getStringWidth("PridePlus") + FontLoaders.F14.getStringWidth("NextGen1.0"),
             height - 1.5F, 5.6F, Color(0,0,0,100).rgb)
         FontLoaders.F24.drawString("PridePlus", 47F, height.toFloat() - 14F - (Fonts.bold45.height/2), Color.WHITE.rgb)
-        FontLoaders.F14.drawString("NextGen1.0", 48F + FontLoaders.F24.getStringWidth("PridePlus"), height.toFloat() - 21F, Color.WHITE.rgb)
-        FontLoaders.F14.drawString("国庆特供", 48F + FontLoaders.F24.getStringWidth("PridePlus"), height.toFloat() - 10.5F, Color.WHITE.rgb)
 
         super.drawScreen(mouseX, mouseY, partialTicks)
     }

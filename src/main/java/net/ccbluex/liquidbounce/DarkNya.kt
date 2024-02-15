@@ -25,10 +25,6 @@ import op.wawa.manager.CombatManager
 import op.wawa.sound.Sound
 import op.wawa.utils.QQUtils
 import op.wawa.utils.sound.TipSoundManager
-import java.awt.SystemTray
-import java.awt.TrayIcon
-import java.util.*
-import javax.imageio.ImageIO
 
 object DarkNya {
 
@@ -57,15 +53,6 @@ object DarkNya {
 
     // Menu Background
     var background: ResourceLocation? = null
-
-    fun displayTray(title: String, text: String, type: TrayIcon.MessageType?) {
-        val tray = SystemTray.getSystemTray()
-        val trayIcon = TrayIcon(ImageIO.read(Objects.requireNonNull(javaClass.getResourceAsStream("/assets/minecraft/darknya/icon128.png"))))
-        trayIcon.isImageAutoSize = true
-        trayIcon.toolTip = "PridePlus NextGen"
-        tray.add(trayIcon)
-        trayIcon.displayMessage(title, text, type)
-    }
 
     /**
      * Execute if client will be started
@@ -100,13 +87,13 @@ object DarkNya {
         // Load client fonts
         Fonts.loadFonts()
         FontLoaders.initFonts()
-        ClientUtils.getLogger().info("PridePlus >> Fonts Loaded.")
+        ClientUtils.getLogger().info("$CLIENT_NAME >> Fonts Loaded.")
 
         moduleManager = ModuleManager()
 
         // Setup modules
         moduleManager.registerModules()
-        ClientUtils.getLogger().info("PridePlus >> Modules Loaded.")
+        ClientUtils.getLogger().info("$CLIENT_NAME >> Modules Loaded.")
 
         try {
             loadSrg()
@@ -114,14 +101,14 @@ object DarkNya {
             scriptManager.loadScripts()
             scriptManager.enableScripts()
 
-            ClientUtils.getLogger().info("PridePlus >> Scripts Loaded.")
+            ClientUtils.getLogger().info("$CLIENT_NAME >> Scripts Loaded.")
         } catch (throwable: Throwable) {
             ClientUtils.getLogger().error("Failed to load scripts.", throwable)
         }
 
         // Register commands
         commandManager.registerCommands()
-        ClientUtils.getLogger().info("PridePlus >> Commands Loaded.")
+        ClientUtils.getLogger().info("$CLIENT_NAME >> Commands Loaded.")
 
         // Load configs
         fileManager.loadConfigs(fileManager.modulesConfig, fileManager.valuesConfig, fileManager.accountsConfig,
@@ -154,10 +141,7 @@ object DarkNya {
         isStarting = false
         // Log success
         ClientUtils.getLogger().info("$CLIENT_NAME $CLIENT_VERSION loaded in ${(System.currentTimeMillis() - startTime)}ms!")
-        // System Information
-        displayTray("PridePlus 已加载完成", "使用即同意用户协议 \n链接: kdocs.cn/l/cmwaN2cwjvAl", TrayIcon.MessageType.INFO)
-        ClientUtils.getLogger().info("使用PridePlus即代表你同意我们的用户协议及隐私政策.")
-        //Sound
+        // Sound
         Sound.INSTANCE.Spec()
     }
 

@@ -217,7 +217,7 @@ public class Fonts extends MinecraftInstance {
     private static Font getBold(int size) {
         Font font;
         try {
-            InputStream is = Minecraft.getMinecraft().getResourceManager().getResource(new ResourceLocation("pride/font/bold.ttf")).getInputStream();
+            InputStream is = Minecraft.getMinecraft().getResourceManager().getResource(new ResourceLocation("darknya/font/bold.ttf")).getInputStream();
             font = Font.createFont(0, is);
             font = font.deriveFont(0, size);
         } catch (FontFormatException | IOException e) {
@@ -229,7 +229,7 @@ public class Fonts extends MinecraftInstance {
     public static Font getSFUI(int size) {
         Font font;
         try {
-            InputStream is = Minecraft.getMinecraft().getResourceManager().getResource(new ResourceLocation("pride/font/sfuidisplayregular.ttf")).getInputStream();
+            InputStream is = Minecraft.getMinecraft().getResourceManager().getResource(new ResourceLocation("darknya/font/sfuidisplayregular.ttf")).getInputStream();
             font = Font.createFont(0, is);
             font = font.deriveFont(0, size);
         } catch (FontFormatException | IOException e) {
@@ -241,7 +241,7 @@ public class Fonts extends MinecraftInstance {
     private static Font getComfortaaRegular(int size) {
         Font font;
         try {
-            InputStream is = Minecraft.getMinecraft().getResourceManager().getResource(new ResourceLocation("pride/font/ComfortaaRegular.ttf")).getInputStream();
+            InputStream is = Minecraft.getMinecraft().getResourceManager().getResource(new ResourceLocation("darknya/font/ComfortaaRegular.ttf")).getInputStream();
             font = Font.createFont(0, is);
             font = font.deriveFont(0, size);
         } catch (Exception ex) {
@@ -272,7 +272,7 @@ public class Fonts extends MinecraftInstance {
 
     public static Font getFont(final String fontName, final int size) {
         try {
-            final InputStream inputStream = Minecraft.getMinecraft().getResourceManager().getResource(new ResourceLocation("pride/font/"+fontName)).getInputStream();
+            final InputStream inputStream = Minecraft.getMinecraft().getResourceManager().getResource(new ResourceLocation("darknya/font/"+fontName)).getInputStream();
             Font awtClientFont = Font.createFont(Font.TRUETYPE_FONT, inputStream);
             awtClientFont = awtClientFont.deriveFont(Font.PLAIN, size);
             inputStream.close();
