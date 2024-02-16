@@ -242,6 +242,8 @@ class KillAura : Module() {
 
     var range = 3.7F
 
+    var pauseSelfRangeChange = false
+
     companion object {
         @JvmStatic
         var killCounts = 0
@@ -435,6 +437,7 @@ class KillAura : Module() {
     }
     @EventTarget
     fun onMove(event: MoveEvent){
+        if (pauseSelfRangeChange) return
         if (airBypass.get()){
             if (mc.player!!.onGround){
                 if (range != rangeValue.get()) range = rangeValue.get()
