@@ -76,8 +76,8 @@ class Scaffold : Module() {
     // Basic stuff
     private val sprintStopOnEnable = BoolValue("SprintStopOnEnable", true)
     private val sprintValue = BoolValue("Sprint", true)
-    private val sprintModeValue = ListValue("SprintMode", arrayOf("Same", "Ground", "Air"), "Air")
-    private val sprintCancelC0B = BoolValue("SprintCancelC0B", true)
+    private val sprintModeValue = ListValue("SprintMode", arrayOf("Same", "Ground", "Air"), "Air").displayable { sprintValue.get() }
+    private val CancelC0B = BoolValue("CancelC0B", true)
     private val swingValue = BoolValue("Swing", true)
     private val searchValue = BoolValue("Search", true)
     private val downValue = BoolValue("Down", false)
@@ -157,7 +157,7 @@ class Scaffold : Module() {
 
     // Safety
     private val jumpWhenDisable = BoolValue("JumpWhenDisable", false)
-    private val sameYValue = BoolValue("SameY", true)
+    var sameYValue = BoolValue("SameY", true)
     private val rotationValue = BoolValue("SetSmartRotation", false)
     private val safeWalkValue = BoolValue("SafeWalk", true)
     private val airSafeValue = BoolValue("AirSafe", false)
@@ -366,7 +366,7 @@ class Scaffold : Module() {
             slot = packet.slotId
         }
 
-        if (sprintCancelC0B.get() && cancelSprintDone && event.packet is CPacketEntityAction) event.cancelEvent()
+        if (CancelC0B.get() && cancelSprintDone && event.packet is CPacketEntityAction) event.cancelEvent()
 
     }
 
