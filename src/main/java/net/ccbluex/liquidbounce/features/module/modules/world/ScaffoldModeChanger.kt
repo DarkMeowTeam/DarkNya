@@ -24,8 +24,11 @@ class ScaffoldModeChanger : Module() {
     override fun onEnable() {
         if (modeValue.get() == "toggle") {
             if (!onScaffoldHelper.get()) (DarkNya.moduleManager[Scaffold::class.java] as Scaffold).sameYValue.set(!(DarkNya.moduleManager[Scaffold::class.java] as Scaffold).sameYValue.get())
-            toggle()
         }
+    }
+
+    override fun onDisable() {
+        onEnable()
     }
     @EventTarget
     fun onUpdate(event: UpdateEvent){
