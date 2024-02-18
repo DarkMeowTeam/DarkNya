@@ -32,6 +32,6 @@ class ScaffoldModeChanger : Module() {
         if (!DarkNya.moduleManager[Scaffold::class.java].state) return
 
         if (onScaffoldHelper.get()) return
-        if (modeValue.get() == "key") (DarkNya.moduleManager[Scaffold::class.java] as Scaffold).sameYValue.set(Keyboard.isKeyDown(Keyboard.KEY_SPACE))
+        if (modeValue.get() == "key") (DarkNya.moduleManager[Scaffold::class.java] as Scaffold).sameYValue.set(!Keyboard.isKeyDown(Keyboard.KEY_SPACE))
     }
 }
