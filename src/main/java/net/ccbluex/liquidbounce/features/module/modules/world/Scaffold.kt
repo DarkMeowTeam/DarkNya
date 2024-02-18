@@ -74,10 +74,9 @@ class Scaffold : Module() {
 
 
     // Basic stuff
-    private val sprintStopOnEnable = BoolValue("SprintStopOnEnable", true)
     private val sprintValue = BoolValue("Sprint", true)
     private val sprintModeValue = ListValue("SprintMode", arrayOf("Same", "Ground", "Air"), "Air").displayable { sprintValue.get() }
-    private val CancelC0B = BoolValue("CancelC0B", true)
+    private val CancelC0B = BoolValue("CancelC0B", false)
     private val swingValue = BoolValue("Swing", true)
     private val searchValue = BoolValue("Search", true)
     private val downValue = BoolValue("Down", false)
@@ -216,7 +215,6 @@ class Scaffold : Module() {
         slot = player.inventory.currentItem
         facesBlock = false
 
-        if (sprintStopOnEnable.get()) mc.player.isSprinting = false
         cancelSprintDone = true
     }
 
