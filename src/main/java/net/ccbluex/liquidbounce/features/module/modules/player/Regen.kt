@@ -16,7 +16,7 @@ import net.minecraft.network.play.client.CPacketPlayer
 @ModuleInfo(name = "Regen", description = "Regenerates your health much faster.", category = ModuleCategory.PLAYER)
 class Regen : Module() {
 
-    private val modeValue = ListValue("Mode", arrayOf("Vanilla", "Spartan", "NewSpartan"), "Vanilla")
+    private val modeValue = ListValue("Mode", arrayOf("Vanilla", "Spartan", "NewSpartan", "GrimAC"), "Vanilla")
     private val healthValue = IntegerValue("Health", 18, 0, 20)
     private val foodValue = IntegerValue("Food", 18, 0, 20)
     private val speedValue = IntegerValue("Speed", 100, 1, 100)
@@ -62,6 +62,15 @@ class Regen : Module() {
 
                     (mc.timer as IMixinTimer).timerSpeed = 0.45F
                     resetTimer = true
+                }
+                "grimac" -> {
+                    if (mc.player!!.ticksExisted % 5 == 0)
+                        resetTimer = true
+                    (mc.timer as IMixinTimer).timerSpeed = 0.98F
+                    mc.connection!!.sendPacket(CPacketPlayer(true))
+                    (mc.timer as IMixinTimer).timerSpeed = 0.45F
+                    resetTimer = true
+
                 }
             }
         }
