@@ -76,6 +76,7 @@ class Scaffold : Module() {
     // Basic stuff
     private val sprintValue = BoolValue("Sprint", true)
     private val sprintModeValue = ListValue("SprintMode", arrayOf("Same", "Ground", "Air"), "Air")
+    private val sprintCancelC0B = BoolValue("SprintCancelC0B", true)
     private val swingValue = BoolValue("Swing", true)
     private val searchValue = BoolValue("Search", true)
     private val downValue = BoolValue("Down", true)
@@ -201,6 +202,8 @@ class Scaffold : Module() {
     private var canRot = false
     private var airtime = 0
 
+    private var cancelSprintDone = false
+
     // Enabling module
     override fun onEnable() {
         val player = mc.player ?: return
@@ -211,6 +214,9 @@ class Scaffold : Module() {
         launchY = player.posY.roundToInt()
         slot = player.inventory.currentItem
         facesBlock = false
+
+        if (sprintStopOnEnable.get()) mc.player.isSprinting = false
+        cancelSprintDone = true
     }
 
     // Events
@@ -358,6 +364,8 @@ class Scaffold : Module() {
         if (packet is CPacketHeldItemChange) {
             slot = packet.slotId
         }
+
+        if (sprintCancelC0B.get() && cancelSprintDone && event.packet is CPacketEntityAction) event.cancelEvent()
 
     }
 
@@ -600,6 +608,8 @@ class Scaffold : Module() {
         if (slot != player.inventory.currentItem) {
             mc.connection!!.sendPacket(CPacketHeldItemChange(player.inventory.currentItem))
         }
+
+        cancelSprintDone = false
     }
 
     // Entity movement event
