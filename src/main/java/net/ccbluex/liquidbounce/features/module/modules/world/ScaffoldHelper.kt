@@ -24,12 +24,12 @@ class ScaffoldHelper : Module() {
 
     private val scaffoldModeValue = ListValue("ScaffoldMode", arrayOf("Scaffold"/*, "Scaffold3","Scaffold2"*/), "Scaffold")
 
-    private val jumpModeValue = ListValue("JumpMode", arrayOf("mc", "NoEvent", "Key", "Parkour", "Off"), "Off")
+    private val jumpModeValue = ListValue("JumpMode", arrayOf("mc", "NoEvent", "Key", "Parkour", "Off"), "Parkour")
 
-    private val timerValue = BoolValue("OnGroundTimer", true)
+    private val timerValue = BoolValue("OnGroundTimer", false)
     private val timerSpeed = FloatValue("TimerSpeed", 0.8F, 0.1F, 10F).displayable { timerValue.get() }
 
-    private val rotationValue = BoolValue("SmartRotation", true)
+    private val rotationValue = BoolValue("SmartRotation", false)
     private val customPitchValue = FloatValue("CustomPitch",26.5F,0F,90F).displayable { rotationValue.get() }
 
 //    val Scaffold = LiquidBounce.moduleManager[Scaffold::class.java]

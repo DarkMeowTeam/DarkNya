@@ -69,18 +69,19 @@ class Scaffold : Module() {
     private val placeDelay = BoolValue("PlaceDelay", true)
 
     // Autoblock
-    private val autoBlockValue = ListValue("AutoBlock", arrayOf("Off", "Pick", "Spoof", "Switch"), "Spoof")
+    private val autoBlockValue = ListValue("AutoBlock", arrayOf("Off", "Pick", "Spoof", "Switch"), "Pick")
 
 
 
     // Basic stuff
+    private val sprintStopOnEnable = BoolValue("SprintStopOnEnable", true)
     private val sprintValue = BoolValue("Sprint", true)
     private val sprintModeValue = ListValue("SprintMode", arrayOf("Same", "Ground", "Air"), "Air")
     private val sprintCancelC0B = BoolValue("SprintCancelC0B", true)
     private val swingValue = BoolValue("Swing", true)
     private val searchValue = BoolValue("Search", true)
-    private val downValue = BoolValue("Down", true)
-    private val placeModeValue = ListValue("PlaceTiming", arrayOf("Pre", "Post"), "Post")
+    private val downValue = BoolValue("Down", false)
+    private val placeModeValue = ListValue("PlaceTiming", arrayOf("Pre", "Post"), "Pre")
     private val placeConditionValue = ListValue("PlaceCondition", arrayOf("Always","DelayAir","FallDown"), "Always")
     private val RotConditionValue = ListValue("RotCondition", arrayOf("Always","DelayAir","FallDown"), "Always")
     private val airticks = IntegerValue("PlaceAirTime",0,0,10)
@@ -96,20 +97,20 @@ class Scaffold : Module() {
     private val expandLengthValue = IntegerValue("ExpandLength", 1, 1, 6)
 
     // Rotation Options
-    private val strafeMode = ListValue("Strafe", arrayOf("Off", "AAC"), "Off")
+    private val strafeMode = ListValue("Strafe", arrayOf("Off", "AAC"), "AAC")
     private val rotationsValue = BoolValue("Rotations", true)
     private val silentRotationValue = BoolValue("SilentRotation", true)
-    private val keepRotationValue = BoolValue("KeepRotation", true)
+    private val keepRotationValue = BoolValue("KeepRotation", false)
     private val keepLengthValue = IntegerValue("KeepRotationLength", 0, 0, 20)
 
     // XZ/Y range
     private val searchMode = ListValue("XYZSearch", arrayOf("Auto", "AutoCenter", "Manual"), "AutoCenter")
-    private val xzRangeValue = FloatValue("xzRange", 0.8f, 0f, 1f)
-    private var yRangeValue = FloatValue("yRange", 0.8f, 0f, 1f)
+    private val xzRangeValue = FloatValue("xzRange", 0.2f, 0f, 1f)
+    private var yRangeValue = FloatValue("yRange", 0.2f, 0f, 1f)
     private val minDistValue = FloatValue("MinDist", 0.0f, 0.0f, 0.2f)
 
     // Search Accuracy
-    private val searchAccuracyValue: IntegerValue = object : IntegerValue("SearchAccuracy", 8, 1, 16) {
+    private val searchAccuracyValue: IntegerValue = object : IntegerValue("SearchAccuracy", 3, 1, 16) {
         override fun onChanged(oldValue: Int, newValue: Int) {
             if (maximum < newValue) {
                 set(maximum)
@@ -156,16 +157,16 @@ class Scaffold : Module() {
 
     // Safety
     private val jumpWhenDisable = BoolValue("JumpWhenDisable", false)
-    private val sameYValue = BoolValue("SameY", false)
-    private val rotationValue = BoolValue("SetSmartRotation", true)
+    private val sameYValue = BoolValue("SameY", true)
+    private val rotationValue = BoolValue("SetSmartRotation", false)
     private val safeWalkValue = BoolValue("SafeWalk", true)
     private val airSafeValue = BoolValue("AirSafe", false)
-    private val fastPlace = BoolValue("FastPlace", false)
+    private val fastPlace = BoolValue("FastPlace", true)
     private val fallingFastPlace = BoolValue("FallingFastPlace", false).displayable { fastPlace.get() }
 
     // Visuals
     private val counterDisplayValue = BoolValue("Counter", true)
-    private val markValue = BoolValue("Mark", false)
+    private val markValue = BoolValue("Mark", true)
 
     // Target block
     private var targetPlace: PlaceInfo? = null
