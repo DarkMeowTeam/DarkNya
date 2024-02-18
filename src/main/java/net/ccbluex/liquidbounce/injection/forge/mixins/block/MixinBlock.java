@@ -110,7 +110,7 @@ public abstract class MixinBlock {
                 f *= 5.0F;
             }
 
-            if (noSlowBreak.getAirValue().get() && !playerIn.onGround) {
+            if (noSlowBreak.getAirValue().get() && !playerIn.onGround && !playerIn.isInsideOfMaterial(Material.WATER)) {
                 f *= 5.0F;
             }
         } else if (playerIn.onGround) { // NoGround
