@@ -5,6 +5,7 @@ import net.ccbluex.liquidbounce.ui.client.altmanager.GuiAltManager
 import net.ccbluex.liquidbounce.ui.cnfont.FontLoaders
 import net.ccbluex.liquidbounce.utils.MinecraftInstance
 import net.ccbluex.liquidbounce.utils.misc.MiscUtils
+import net.ccbluex.liquidbounce.utils.misc.TipsUtils
 import net.ccbluex.liquidbounce.utils.render.AnimationUtils
 import net.ccbluex.liquidbounce.utils.render.RenderUtils
 import net.minecraft.client.gui.*
@@ -216,7 +217,7 @@ class GuiMainMenu : GuiScreen() {
                 displayString,
                 (width / 2F).toDouble(), (staticY + 30F).toDouble(), -1)
         else
-            FontLoaders.F16.drawCenteredString("你好哟!", (width / 2F).toDouble(),
+            FontLoaders.F16.drawCenteredString(TipsUtils.getTips(), (width / 2F).toDouble(),
                 (staticY + 30F).toDouble(), -1)
 
         if (shouldAnimate) {
