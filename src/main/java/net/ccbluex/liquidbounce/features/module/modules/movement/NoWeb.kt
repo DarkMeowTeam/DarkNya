@@ -1,3 +1,8 @@
+/*
+ * PridePlus Hacked Client
+ * A free open source mixin-based injection hacked client for Minecraft using Minecraft Forge.
+ * https://github.com/MolokyMC/PridePlus/
+ */
 package net.ccbluex.liquidbounce.features.module.modules.movement
 
 import net.ccbluex.liquidbounce.event.EventTarget
@@ -8,11 +13,16 @@ import net.ccbluex.liquidbounce.features.module.ModuleInfo
 import net.ccbluex.liquidbounce.utils.MovementUtils
 import net.ccbluex.liquidbounce.features.value.ListValue
 import net.ccbluex.liquidbounce.injection.implementations.IMixinTimer
+import net.ccbluex.liquidbounce.utils.block.BlockUtils
+import net.minecraft.block.BlockLiquid
+import net.minecraft.block.BlockWeb
+import net.minecraft.network.play.client.CPacketPlayerDigging
+import net.minecraft.util.EnumFacing
 
 @ModuleInfo(name = "NoWeb", description = "Prevents you from getting slowed down in webs.", category = ModuleCategory.MOVEMENT)
 class NoWeb : Module() {
 
-    private val modeValue = ListValue("Mode", arrayOf("None", "AAC", "LAAC", "Rewi", "Matrix", "Spartan", "AAC5"), "None")
+    private val modeValue = ListValue("Mode", arrayOf("None", "GrimAC", "AAC", "LAAC", "Rewi", "Matrix", "Spartan", "AAC5"), "None")
     private var usedTimer = false
 
     @EventTarget
@@ -32,6 +42,30 @@ class NoWeb : Module() {
 
 
             "none" -> player.isInWeb = false
+            "grimac" -> {
+                val searchBlocks = BlockUtils.searchBlocks(4)
+
+                for (block in searchBlocks){
+                    val blockpos = block.key
+                    val blocks = block.value
+                    if(blocks is BlockWeb){
+                        mc.connection!!.sendPacket(CPacketPlayerDigging(CPacketPlayerDigging.Action.STOP_DESTROY_BLOCK,blockpos, EnumFacing.DOWN))
+                        mc.player.isInWeb = false
+
+
+                    }
+                    if(blocks is BlockLiquid){
+                        mc.connection!!.sendPacket(CPacketPlayerDigging(CPacketPlayerDigging.Action.STOP_DESTROY_BLOCK,blockpos, EnumFacing.DOWN))
+                        mc.player.inWater = false
+                    }
+                }
+
+                if (mc.player.isOnLadder && mc.gameSettings.keyBindJump.isKeyDown) {
+                    if (mc.player.motionY >= 0.0) {
+                        mc.player.motionY = 0.1786
+                    }
+                }
+            }
             "aac" -> {
                 player.jumpMovementFactor = 0.59f
 
