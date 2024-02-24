@@ -167,7 +167,7 @@ public class Fonts extends MinecraftInstance {
             e.printStackTrace();
         }
 
-        ClientUtils.getLogger().info("PridePlus Font >> Loaded Fonts. (" + (System.currentTimeMillis() - l) + "ms)");
+        ClientUtils.getLogger().info(DarkNya.CLIENT_NAME + " Font >> Loaded Fonts. (" + (System.currentTimeMillis() - l) + "ms)");
     }
     public static FontRenderer getFontRenderer(final String name, final int size) {
         for (final Field field : Fonts.class.getDeclaredFields()) {
@@ -221,7 +221,7 @@ public class Fonts extends MinecraftInstance {
             font = Font.createFont(0, is);
             font = font.deriveFont(0, size);
         } catch (FontFormatException | IOException e) {
-            ClientUtils.getLogger().error("PridePlus Font >> Error loading Bold.");
+            ClientUtils.getLogger().error(DarkNya.CLIENT_NAME + " Font >> Error loading Bold.");
             font = new Font("default", 0, size);
         }
         return font;
@@ -233,7 +233,7 @@ public class Fonts extends MinecraftInstance {
             font = Font.createFont(0, is);
             font = font.deriveFont(0, size);
         } catch (FontFormatException | IOException e) {
-            ClientUtils.getLogger().error("PridePlus Font >> Error loading SFUI.");
+            ClientUtils.getLogger().error(DarkNya.CLIENT_NAME + " Font >> Error loading SFUI.");
             font = new Font("default", 0, size);
         }
         return font;

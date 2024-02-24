@@ -4,40 +4,36 @@ import net.ccbluex.liquidbounce.DarkNya
 import net.ccbluex.liquidbounce.ui.client.altmanager.GuiAltManager
 import net.ccbluex.liquidbounce.ui.cnfont.FontLoaders
 import net.ccbluex.liquidbounce.utils.MinecraftInstance
-import net.ccbluex.liquidbounce.utils.RandomImgUtils
 import net.ccbluex.liquidbounce.utils.misc.MiscUtils
 import net.ccbluex.liquidbounce.utils.render.AnimationUtils
 import net.ccbluex.liquidbounce.utils.render.RenderUtils
 import net.minecraft.client.gui.*
 import net.minecraft.client.renderer.GlStateManager
-import net.minecraft.client.renderer.texture.DynamicTexture
 import net.minecraft.util.ResourceLocation
 import org.lwjgl.opengl.GL11
 import java.awt.Color
-import java.io.FileInputStream
 import java.io.FileOutputStream
 import java.nio.file.Files
-import javax.imageio.ImageIO
 
 class GuiMainMenu : GuiScreen() {
 
 
-    val darkIcon = ResourceLocation("darknya/menu/dark.png")
-    val lightIcon = ResourceLocation("darknya/menu/light.png")
+    private val darkIcon = ResourceLocation("darknya/menu/dark.png")
+    private val lightIcon = ResourceLocation("darknya/menu/light.png")
 
-    var slideX : Float = 0F
+    private var slideX : Float = 0F
     var fade : Float = 0F
 
-    var sliderX : Float = 0F
-    var sliderDarkX : Float = 0F
+    private var sliderX : Float = 0F
+    private var sliderDarkX : Float = 0F
 
-    var lastAnimTick: Long = 0L
-    var alrUpdate = false
+    private var lastAnimTick: Long = 0L
+    private var alrUpdate = false
 
-    var lastXPos = 0F
+    private var lastXPos = 0F
 
-    var extendedModMode = false
-    var extendedBackgroundMode = false
+    private var extendedModMode = false
+    private var extendedBackgroundMode = false
 
     companion object {
         var useParallax = true
@@ -69,7 +65,7 @@ class GuiMainMenu : GuiScreen() {
         this.currentX += xDiff * 0.3f
         this.currentY += yDiff * 0.3f
         GlStateManager.translate(this.currentX / 30.0f, this.currentY / 15.0f, 0.0f)
-        RenderUtils.drawImage(RandomImgUtils.getBackGround(), -30, -30, res.scaledWidth + 60, res.scaledHeight + 60)
+        RenderUtils.drawImage(ResourceLocation("darknya/wallpaper.png"), -30, -30, res.scaledWidth + 60, res.scaledHeight + 60)
         GlStateManager.translate(-this.currentX / 30.0f, -this.currentY / 15.0f, 0.0f)
 
         GL11.glPushMatrix()
@@ -121,13 +117,11 @@ class GuiMainMenu : GuiScreen() {
 
                         try {
                             Files.copy(file.toPath(), FileOutputStream(DarkNya.fileManager.backgroundFile))
-
-                            val image = ImageIO.read(FileInputStream(DarkNya.fileManager.backgroundFile))
-                            //DarkNya.background = ResourceLocation(DarkNya.CLIENT_NAME.toLowerCase() + "/bg.png")
-                            //mc.textureManager.loadTexture(DarkNya.background, DynamicTexture(image))
+                            DarkNya.fileManager.loadBackground()
                         } catch (e: Exception) {
                             e.printStackTrace()
                             MiscUtils.showErrorPopup("Error", "Exception class: " + e.javaClass.name + "\nMessage: " + e.message)
+                            DarkNya.background = null
                             DarkNya.fileManager.backgroundFile.delete()
                         }
                     } else if (extendedModMode) {
@@ -290,14 +284,14 @@ class GuiMainMenu : GuiScreen() {
         Back("Back", ResourceLocation("darknya/menu/back.png")),
         Mods("Mods", ResourceLocation("darknya/menu/mods.png")),
         Scripts("Scripts", ResourceLocation("darknya/menu/docs.png")),
-        DiscordRPC("Discord RPC", ResourceLocation("darknya/menu/discord.png")),
+        DiscordRPC("Null", ResourceLocation("darknya/menu/discord.png")),
         Background("Background", ResourceLocation("darknya/menu/wallpaper.png")),
         Exit("Exit", ResourceLocation("darknya/menu/exit.png"))
     }
 
     enum class ExtendedBackgroundButton(val buttonName: String, val texture: ResourceLocation) {
         Back("Back", ResourceLocation("darknya/menu/back.png")),
-        Enabled("Enabled", ResourceLocation("liquidbounce/notification/new/checkmark.png")),
+        Enabled("Enabled", ResourceLocation("darknya/menu/wallpaper.png")),
         Particles("Particles", ResourceLocation("darknya/menu/brush.png")),
         Change("Change wallpaper", ResourceLocation("darknya/menu/import.png")),
         Reset("Reset wallpaper", ResourceLocation("darknya/menu/reload.png")),

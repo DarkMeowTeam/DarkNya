@@ -5,10 +5,13 @@ import net.ccbluex.liquidbounce.features.module.modules.misc.ComponentOnHover;
 import net.ccbluex.liquidbounce.features.module.modules.render.HUD;
 import net.ccbluex.liquidbounce.ui.client.GuiBackground;
 import net.ccbluex.liquidbounce.utils.render.ParticleUtils;
+import net.ccbluex.liquidbounce.utils.render.shader.shaders.BackgroundShader;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.*;
+import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.Style;
 import net.minecraft.util.text.event.ClickEvent;
@@ -26,6 +29,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 @Mixin(GuiScreen.class)
 @SideOnly(Side.CLIENT)
@@ -78,29 +82,28 @@ public abstract class MixinGuiScreen {
         GlStateManager.disableFog();
 
         if (GuiBackground.Companion.getEnabled()) {
-//            if (LiquidBounce.INSTANCE.getBackground() == null) {
-//                BackgroundShader.BACKGROUND_SHADER.startShader();
-//
-//                final Tessellator instance = Tessellator.getInstance();
-//                final BufferBuilder worldRenderer = instance.getBuffer();
-//                worldRenderer.begin(7, DefaultVertexFormats.POSITION);
-//                worldRenderer.pos(0, height, 0.0D).endVertex();
-//                worldRenderer.pos(width, height, 0.0D).endVertex();
-//                worldRenderer.pos(width, 0, 0.0D).endVertex();
-//                worldRenderer.pos(0, 0, 0.0D).endVertex();
-//                instance.draw();
-//
-//                BackgroundShader.BACKGROUND_SHADER.stopShader();
-//            } else {
+            if (DarkNya.INSTANCE.getBackground() == null) {
+                BackgroundShader.BACKGROUND_SHADER.startShader();
+
+                final Tessellator instance = Tessellator.getInstance();
+                final BufferBuilder worldRenderer = instance.getBuffer();
+                worldRenderer.begin(7, DefaultVertexFormats.POSITION);
+                worldRenderer.pos(0, height, 0.0D).endVertex();
+                worldRenderer.pos(width, height, 0.0D).endVertex();
+                worldRenderer.pos(width, 0, 0.0D).endVertex();
+                worldRenderer.pos(0, 0, 0.0D).endVertex();
+                instance.draw();
+
+                BackgroundShader.BACKGROUND_SHADER.stopShader();
+            } else {
                 final ScaledResolution scaledResolution = new ScaledResolution(mc);
                 final int width = scaledResolution.getScaledWidth();
                 final int height = scaledResolution.getScaledHeight();
 
-                mc.getTextureManager().bindTexture(new ResourceLocation("wawa/mainmenu.png"));
+                mc.getTextureManager().bindTexture(Objects.requireNonNull(DarkNya.INSTANCE.getBackground()));
                 GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
                 Gui.drawScaledCustomSizeModalRect(0, 0, 0.0F, 0.0F, width, height, width, height, width, height);
-//            }
-
+            }
             if (GuiBackground.Companion.getParticles())
                 ParticleUtils.drawParticles(Mouse.getX() * width / mc.displayWidth, height - Mouse.getY() * height / mc.displayHeight - 1);
             callbackInfo.cancel();

@@ -47,8 +47,6 @@ public abstract class MixinGuiButton extends Gui {
     private float alpha;
     private float rectY;
 
-    private static final ResourceLocation rs = new ResourceLocation("darknya/menu/menu-rect.png");
-
     @Shadow
     protected abstract void mouseDragged(Minecraft mc, int mouseX, int mouseY);
 
@@ -91,14 +89,10 @@ public abstract class MixinGuiButton extends Gui {
                 if (rectY <= 4) rectY = 4;
             }
 
-            RenderUtils.drawRoundRect(this.x + (int) this.cut, this.y,
-                    this.x + this.width - (int) this.cut, this.y + this.height, 3F,
-                    new Color(49, 51, 53, 200).getRGB());
-
-            RenderUtils.drawRoundRect(this.x + (int) this.cut, this.y,
-                    this.x + this.width - (int) this.cut, this.y + rectY, 2F,
-                    this.enabled ? new Color(0, 165, 255, 255).getRGB() :
-                            new Color(82, 82, 82, 200).getRGB());
+            RenderUtils.drawRect(this.x + (int) this.cut, this.y,
+                    this.x + this.width - (int) this.cut, this.y + this.height,
+                    this.enabled ? new Color(0F, 0F, 0F, this.alpha / 255F).getRGB() :
+                            new Color(0.5F, 0.5F, 0.5F, 0.5F).getRGB());
 
             mc.getTextureManager().bindTexture(BUTTON_TEXTURES);
             mouseDragged(mc, mouseX, mouseY);
@@ -106,7 +100,8 @@ public abstract class MixinGuiButton extends Gui {
             fontRenderer.drawStringWithShadow(displayString,
                     (float) ((this.x + this.width / 2) -
                             fontRenderer.getStringWidth(displayString) / 2),
-                    this.y + 2 + (this.height - 5) / 2F, Color.WHITE.getRGB());
+                    this.y + (this.height - 5) / 2F, Color.WHITE.getRGB());
+
 
             GlStateManager.resetColor();
         }

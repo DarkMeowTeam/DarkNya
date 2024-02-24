@@ -62,8 +62,8 @@ public abstract class MixinGuiButtonExt extends GuiButton {
                 if (alpha <= 120) alpha = 120;
             }
 
-            RenderUtils.drawRoundRect(this.x + (int) this.cut, this.y,
-                    this.x + this.width - (int) this.cut, this.y + this.height, 3,
+            RenderUtils.drawRect(this.x + (int) this.cut, this.y,
+                    this.x + this.width - (int) this.cut, this.y + this.height,
                     this.enabled ? new Color(0F, 0F, 0F, this.alpha / 255F).getRGB() :
                             new Color(0.5F, 0.5F, 0.5F, 0.5F).getRGB());
 
@@ -73,7 +73,7 @@ public abstract class MixinGuiButtonExt extends GuiButton {
             fontRenderer.drawStringWithShadow(displayString,
                     (float) ((this.x + this.width / 2) -
                             fontRenderer.getStringWidth(displayString) / 2),
-                    this.y + (this.height - 5) / 2F, 14737632);
+                    this.y + (this.height - 5) / 2F, Color.WHITE.getRGB());
             GlStateManager.resetColor();
         }
     }
