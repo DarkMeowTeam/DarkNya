@@ -33,8 +33,7 @@ jobs:
     - name: Build DarkNya
       run: ./gradlew build
 
-    - uses: actions/upload-artifact@v2
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v2
       with:
-        name: built-artifacts
-        path: |
-          build/libs/*
+        path: build/libs/*.jar
