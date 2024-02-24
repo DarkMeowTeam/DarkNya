@@ -192,7 +192,7 @@ public class FileManager extends MinecraftInstance {
                 if(bufferedImage == null)
                     return;
 
-                DarkNya.INSTANCE.setBackground(new ResourceLocation("darknya/background.png"));
+                DarkNya.INSTANCE.setBackground(new ResourceLocation("darknya/bg.png"));
                 mc.getTextureManager().loadTexture(DarkNya.INSTANCE.getBackground(), new DynamicTexture(bufferedImage));
                 ClientUtils.getLogger().info("[FileManager] Loaded background.");
             }catch(final Exception e) {

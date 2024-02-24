@@ -52,6 +52,10 @@ object DarkNya {
     // Menu Background
     var background: ResourceLocation? = null
 
+
+    var mainMenuPrep = false
+    var darkMode = false
+
     /**
      * Execute if client will be started
      */
