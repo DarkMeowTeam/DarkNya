@@ -11,6 +11,7 @@ import net.ccbluex.liquidbounce.utils.render.RenderUtils
 import net.minecraft.client.gui.*
 import net.minecraft.client.renderer.GlStateManager
 import net.minecraft.util.ResourceLocation
+import net.minecraftforge.fml.client.GuiModList
 import org.lwjgl.opengl.GL11
 import java.awt.Color
 import java.io.FileOutputStream
@@ -107,8 +108,8 @@ class GuiMainMenu : GuiScreen() {
             if (isMouseHover(staticX + 40F * index, staticY, staticX + 40F * (index + 1), staticY + 20F, mouseX, mouseY))
                 when (index) {
                     0 -> if (extendedBackgroundMode) extendedBackgroundMode = false else if (extendedModMode) extendedModMode = false else mc.displayGuiScreen(GuiWorldSelection(this))
-                    1 -> if (extendedBackgroundMode) GuiBackground.enabled = !GuiBackground.enabled else if (extendedModMode) mc.displayGuiScreen(GuiModsMenu(this)) else mc.displayGuiScreen(GuiMultiplayer(this))
-                    2 -> if (extendedBackgroundMode) GuiBackground.particles = !GuiBackground.particles else if (extendedModMode) mc.displayGuiScreen(GuiModsMenu(this)) else mc.displayGuiScreen(GuiAltManager(this))
+                    1 -> if (extendedBackgroundMode) GuiBackground.enabled = !GuiBackground.enabled else if (extendedModMode) mc.displayGuiScreen(GuiModList(this)) else mc.displayGuiScreen(GuiMultiplayer(this))
+                    2 -> if (extendedBackgroundMode) GuiBackground.particles = !GuiBackground.particles else if (extendedModMode) mc.displayGuiScreen(GuiScripts(this)) else mc.displayGuiScreen(GuiAltManager(this))
                     3 -> if (extendedBackgroundMode) {
                         val file = MiscUtils.openFileChooser() ?: return
                         if (file.isDirectory) return
