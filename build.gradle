@@ -50,7 +50,6 @@ compileJava.options.encoding = 'UTF-8'
 
 sourceSets {
     main.java.srcDirs += 'src/main/java'
-    // main.java.srcDirs += '../shared/main/java'
     main.resources.srcDirs += 'src/main/resources'
 }
 
@@ -96,7 +95,6 @@ dependencies {
         exclude module: "launchwrapper"
     }
 
-    compile 'com.jagrosh:DiscordIPC:0.4'
     compile group: 'org.jetbrains.kotlin', name: 'kotlin-stdlib', version: kotlin_version
 
     implementation group: 'org.yaml', name: 'snakeyaml', version: '2.2'
