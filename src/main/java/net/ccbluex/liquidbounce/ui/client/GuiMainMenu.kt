@@ -17,11 +17,6 @@ import java.io.FileOutputStream
 import java.nio.file.Files
 
 class GuiMainMenu : GuiScreen() {
-
-
-    private val darkIcon = ResourceLocation("darknya/menu/dark.png")
-    private val lightIcon = ResourceLocation("darknya/menu/light.png")
-
     private var slideX : Float = 0F
     var fade : Float = 0F
 
@@ -91,6 +86,8 @@ class GuiMainMenu : GuiScreen() {
             if (animProgress >= 1F)
                 DarkNya.mainMenuPrep = true
         }
+        if (DarkNya.darkMode) RenderUtils.drawRect(0F, 0F, w.toFloat(), h.toFloat(), Color(0F, 0F, 0F, 0.3F))
+
 
     }
 
@@ -161,8 +158,9 @@ class GuiMainMenu : GuiScreen() {
     fun renderDarkModeButton() {
         sliderDarkX = (sliderDarkX + (if (DarkNya.darkMode) 2F else -2F)).coerceIn(0F, 12F)
         GlStateManager.disableAlpha()
-        RenderUtils.drawImage(darkIcon, 28F, height - 40F, 14, 14, 1F, 1F, 1F, sliderDarkX / 12F)
-        RenderUtils.drawImage(lightIcon, 28F, height - 40F, 14, 14, 1F, 1F, 1F, 1F - (sliderDarkX / 12F))
+
+        FontLoaders.F16.drawString("Dark Mode", 28F, height - 38F, -1,true)
+
         GlStateManager.enableAlpha()
         RenderUtils.drawRoundedRect(4F, height - 36F, 22F, height - 30F, 3, (if (DarkNya.darkMode) Color(70, 70, 70, 255) else Color(140, 140, 140, 255)).rgb)
         RenderUtils.drawRoundedRect(2F + sliderDarkX, height - 38F, 12F + sliderDarkX, height - 28F, 5, Color.white.rgb)
