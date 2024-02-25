@@ -27,6 +27,9 @@ buildscript {
         classpath "gradle.plugin.com.matthewprenger:CurseGradle:1.0.10"
         classpath "org.spongepowered:mixingradle:0.6-SNAPSHOT"
         classpath group: 'com.github.jengelman.gradle.plugins', name: 'shadow', version: '4.0.4'
+
+        // 适用于LowIQ的forgeBin缺失修复
+        fileTree(dir: 'iqboost\\onGradleBuild_Could_not_resolve_forgeBin\\.gradle\\minecraft', include: ['*.jar'])
     }
 }
 

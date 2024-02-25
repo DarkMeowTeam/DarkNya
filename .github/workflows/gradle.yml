@@ -27,9 +27,6 @@ jobs:
     - name: Fix Gradle No Permission
       run: chmod +x ./gradlew
 
-    - name: Auto IQBooster
-      run: cp -r ./iqboost/onGradleBuild_Could_not_resolve_forgeBin/.gradle ./gradle
-      
     - name: Build DarkNya
       run: ./gradlew build
 
