@@ -23,8 +23,8 @@ class ReallyHurt : Module() {
 
     private val killauraChange = BoolValue("KillauraChange", false)
     private val killauraChangeKeepTicket = IntegerValue("KillauraChangeKeepTicket", 120,20,1200)
-    private val killauraChangeRangeGround = FloatValue("KillauraChangeRangeGround", 3f, 1f, 8f)
-    private val killauraChangeRangeAir = FloatValue("KillauraChangeRangeAir", 3f, 1f, 8f)
+    private val killauraChangeRangeGround = FloatValue("KillauraChangeRangeGround", 2.95f, 1f, 8f)
+    private val killauraChangeRangeAir = FloatValue("KillauraChangeRangeAir", 2.9f, 1f, 8f)
 
 
     private val debug = BoolValue("Debug", true)
@@ -91,12 +91,14 @@ class ReallyHurt : Module() {
 
 
         if (killauraChange.get() && killauraChangeRangeTickets >= 0) {
+            if (debug.get() && killauraChangeRangeTickets == 0) ClientUtils.displayChatMessage("§d${DarkNya.CLIENT_NAME} §8>> §b已切换killaura到安全距离" )
             (DarkNya.moduleManager[KillAura::class.java] as KillAura).pauseSelfRangeChange = true
             (DarkNya.moduleManager[KillAura::class.java] as KillAura).range = if (mc.player!!.onGround) killauraChangeRangeGround.get() else killauraChangeRangeAir.get()
             killauraChangeRangeTickets ++
             if (killauraChangeRangeTickets > killauraChangeKeepTicket.get()) {
                 (DarkNya.moduleManager[KillAura::class.java] as KillAura).pauseSelfRangeChange = false
                 killauraChangeRangeTickets = -1
+                if (debug.get() && killauraChangeRangeTickets == 0) ClientUtils.displayChatMessage("§d${DarkNya.CLIENT_NAME} §8>> §b单位时间内无空刀 已恢复距离" )
             }
         }
     }
@@ -110,7 +112,7 @@ class ReallyHurt : Module() {
 
     private fun onHurtFailed(entity : EntityLivingBase) {
         failedHit ++
-        killauraChangeRangeTickets = 0
+        killauraChangeRangeTickets = if (killauraChangeRangeTickets == -1) { 0 } else { 1 }
         if (debug.get()) ClientUtils.displayChatMessage("§d${DarkNya.CLIENT_NAME} §8>> §c空刀" +
                 (if (debugPrintFully.get()) " §7(ID:${entity.entityId},isPlayer:${entity is EntityPlayer},Health:${entity.health},HurtTime:${entity.hurtTime},HurtResistantTime:${entity.hurtResistantTime},isDead:${entity.isDead})" else "")
         )
