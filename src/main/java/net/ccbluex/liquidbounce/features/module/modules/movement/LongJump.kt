@@ -24,7 +24,7 @@ class LongJump : Module() {
 
     @EventTarget
     fun onUpdate(event: UpdateEvent?) {
-        if (LadderJump.jumped)
+        if (LadderBoost.jumped)
             MovementUtils.strafe(MovementUtils.speed * 1.08f)
 
         val player = mc.player ?: return
