@@ -14,7 +14,6 @@ import net.ccbluex.liquidbounce.utils.MovementUtils
 import net.ccbluex.liquidbounce.features.value.ListValue
 import net.ccbluex.liquidbounce.injection.implementations.IMixinTimer
 import net.ccbluex.liquidbounce.utils.block.BlockUtils
-import net.minecraft.block.BlockLiquid
 import net.minecraft.block.BlockWeb
 import net.minecraft.network.play.client.CPacketPlayerDigging
 import net.minecraft.util.EnumFacing
@@ -39,8 +38,6 @@ class NoWeb : Module() {
 
 
         when (modeValue.get().toLowerCase()) {
-
-
             "none" -> player.isInWeb = false
             "grimac" -> {
                 val searchBlocks = BlockUtils.searchBlocks(4)
@@ -48,23 +45,14 @@ class NoWeb : Module() {
                 for (block in searchBlocks){
                     val blockpos = block.key
                     val blocks = block.value
+
                     if(blocks is BlockWeb){
                         mc.connection!!.sendPacket(CPacketPlayerDigging(CPacketPlayerDigging.Action.STOP_DESTROY_BLOCK,blockpos, EnumFacing.DOWN))
                         mc.player.isInWeb = false
-
-
-                    }
-                    if(blocks is BlockLiquid){
-                        mc.connection!!.sendPacket(CPacketPlayerDigging(CPacketPlayerDigging.Action.STOP_DESTROY_BLOCK,blockpos, EnumFacing.DOWN))
-                        mc.player.inWater = false
                     }
                 }
 
-                if (mc.player.isOnLadder && mc.gameSettings.keyBindJump.isKeyDown) {
-                    if (mc.player.motionY >= 0.0) {
-                        mc.player.motionY = 0.1786
-                    }
-                }
+
             }
             "aac" -> {
                 player.jumpMovementFactor = 0.59f
