@@ -2,7 +2,7 @@ package catx.feitu.hwid;
 
 import java.security.MessageDigest;
 
-public class GetHwid {
+public class HwidUtil {
     public static String getHWID() {
         try {
             String toEncrypt = System.getenv("COMPUTERNAME") + System.getProperty("user.name") + System.getenv("PROCESSOR_IDENTIFIER") + System.getenv("PROCESSOR_LEVEL");
