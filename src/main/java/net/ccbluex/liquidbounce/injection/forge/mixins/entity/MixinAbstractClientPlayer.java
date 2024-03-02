@@ -1,7 +1,6 @@
 package net.ccbluex.liquidbounce.injection.forge.mixins.entity;
 
 import net.ccbluex.liquidbounce.DarkNya;
-import net.ccbluex.liquidbounce.cape.CapeInfo;
 import net.ccbluex.liquidbounce.features.module.modules.misc.NameProtect;
 import net.ccbluex.liquidbounce.features.module.modules.render.Cape;
 import net.ccbluex.liquidbounce.features.module.modules.render.NoFOV;
@@ -23,7 +22,6 @@ import java.util.Objects;
 @SideOnly(Side.CLIENT)
 public abstract class MixinAbstractClientPlayer extends MixinEntityPlayer {
 
-    private CapeInfo capeInfo;
 
     @Inject(method = "getLocationCape", at = @At("HEAD"), cancellable = true)
     private void getCape(CallbackInfoReturnable<ResourceLocation> callbackInfoReturnable) {
