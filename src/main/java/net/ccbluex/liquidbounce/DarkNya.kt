@@ -1,6 +1,5 @@
 package net.ccbluex.liquidbounce
 
-import net.ccbluex.liquidbounce.cape.CapeAPI.registerCapeService
 import net.ccbluex.liquidbounce.event.ClientShutdownEvent
 import net.ccbluex.liquidbounce.event.EventManager
 import net.ccbluex.liquidbounce.features.command.CommandManager
@@ -119,13 +118,6 @@ object DarkNya {
             fileManager.modulesConfig,
             fileManager.valuesConfig
         )
-
-        // Register capes service
-        try {
-            registerCapeService()
-        } catch (throwable: Throwable) {
-            ClientUtils.getLogger().error("Failed to register cape service", throwable)
-        }
 
         // Set HUD
         hud = createDefault()
