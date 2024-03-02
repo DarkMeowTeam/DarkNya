@@ -95,9 +95,14 @@ class Tracers : Module() {
 
         RenderUtils.glColor(color)
 
+        GL11.glPushMatrix()
+
         GL11.glVertex3d(eyeVector.x, player.eyeHeight.toDouble() + eyeVector.y, eyeVector.z)
         GL11.glVertex3d(x, y, z)
         GL11.glVertex3d(x, y, z)
         GL11.glVertex3d(x, y + entity.height, z)
+
+        GL11.glPopMatrix()
+
     }
 }
