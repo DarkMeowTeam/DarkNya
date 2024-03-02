@@ -1,6 +1,7 @@
 package net.ccbluex.liquidbounce.features.module.modules.player
 
 import net.ccbluex.liquidbounce.event.EventTarget
+import net.ccbluex.liquidbounce.event.PacketEvent
 import net.ccbluex.liquidbounce.event.UpdateEvent
 import net.ccbluex.liquidbounce.features.module.Module
 import net.ccbluex.liquidbounce.features.module.ModuleCategory
@@ -10,12 +11,15 @@ import net.ccbluex.liquidbounce.utils.RotationUtils
 import net.ccbluex.liquidbounce.utils.misc.RandomUtils
 import net.ccbluex.liquidbounce.features.value.BoolValue
 import net.ccbluex.liquidbounce.features.value.ListValue
+import net.minecraft.network.play.client.CPacketPlayerTryUseItemOnBlock
 
 @ModuleInfo(name = "AntiAim",description = "狂笑的蛇将写散文", category = ModuleCategory.PLAYER)
 class AntiAim : Module() {
     private val yawModeValue = ListValue("YawMove", arrayOf("Jitter","normal","dodge","tilt","step","blink", "Spin", "Back", "BackJitter"), "Spin")
     private val pitchModeValue = ListValue("PitchMode", arrayOf("Down", "Up", "Jitter", "AnotherJitter"), "Down")
     private val rotateValue = BoolValue("SilentRotate", true)
+    private val cancelPlaceBlockValue = BoolValue("CancelPlaceBlock", true)
+    private val cancelSprint = BoolValue("CancelSprint", false)
     // 头部和身体的旋转角度、偏移量、倾斜角度、踏步偏移量、眨眼偏移量
     private var headYaw = 0f
     private var bodyYaw = 0f
@@ -125,7 +129,13 @@ class AntiAim : Module() {
         }
     }
     @EventTarget
+    fun onPacket(event: PacketEvent) {
+        if (cancelPlaceBlockValue.get() && event.packet is CPacketPlayerTryUseItemOnBlock) event.cancelEvent()
+    }
+    @EventTarget
     fun onUpdate(event: UpdateEvent) {
+        if (cancelSprint.get() && mc.player.isSprinting) mc.player.isSprinting = false
+
         when (yawModeValue.get().toLowerCase()) {
             "spin" -> {
                 yaw += 20.0f
