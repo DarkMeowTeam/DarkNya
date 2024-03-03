@@ -8,7 +8,9 @@ import net.ccbluex.liquidbounce.features.module.ModuleInfo
 import net.ccbluex.liquidbounce.features.module.modules.combat.Criticals
 import net.ccbluex.liquidbounce.features.module.modules.combat.KillAura
 import net.ccbluex.liquidbounce.features.module.modules.exploit.PUBGDisabler
+import net.ccbluex.liquidbounce.features.module.modules.exploit.Phase
 import net.ccbluex.liquidbounce.features.module.modules.movement.Fly
+import net.ccbluex.liquidbounce.features.module.modules.movement.NoClip
 import net.ccbluex.liquidbounce.features.module.modules.movement.Speed
 import net.ccbluex.liquidbounce.features.module.modules.player.AntiAim
 import net.ccbluex.liquidbounce.features.module.modules.player.InvManager
@@ -77,6 +79,8 @@ class PUBGHelper : Module() {
             DarkNya.moduleManager[ChestAura::class.java].state = false
             DarkNya.moduleManager[ChestStealer::class.java].state = false
             DarkNya.moduleManager[InvManager::class.java].state = false
+            DarkNya.moduleManager[Phase::class.java].state = false
+            DarkNya.moduleManager[NoClip::class.java].state = false
         }
     }
 }
