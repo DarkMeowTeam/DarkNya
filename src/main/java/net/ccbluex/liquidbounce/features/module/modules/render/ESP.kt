@@ -86,65 +86,8 @@ class ESP : Module() {
                         val posZ: Double = entityLiving.lastTickPosZ + (entityLiving.posZ - entityLiving.lastTickPosZ) * timer.renderPartialTicks - renderManager.renderPosZ
                         RenderUtils.draw2D(entityLiving, posX, posY, posZ, color.rgb, Color.BLACK.rgb)
                     }
-                    "yaoer" -> {
-                        val pX = entity.lastTickPosX + (entity.posX - entity.lastTickPosX) * mc.timer.renderPartialTicks -
-                                mc.renderManager.renderPosX
-                        val  pY = entity.lastTickPosY + (entity.posY - entity.lastTickPosY) * mc.timer.renderPartialTicks -
-                                mc.renderManager.renderPosY
-                        val pZ = entity.lastTickPosZ + (entity.posZ - entity.lastTickPosZ) * mc.timer.renderPartialTicks -
-                                mc.renderManager.renderPosZ
-
-                        GL11.glPushMatrix()
-                        GL11.glTranslatef(pX.toFloat(), (pY + if(entity.isSneaking)0.8F else 1.3F).toFloat(),
-                            pZ.toFloat()
-                        )
-                        GL11.glNormal3f(1.0F, 1.0F, 1.0F)
-                        mc.renderManager; GL11.glRotatef(-mc.renderManager.playerViewY, 0.0F, 1.0F, 0.0F)
-                        mc.renderManager; GL11.glRotatef(mc.renderManager.playerViewX, 1.0F, 0.0F, 0.0F)
-                        val scale = 0.06F
-                        GL11.glScalef(-scale, -scale, scale)
-
-                        GL11.glDisable(2896)
-                        GL11.glDisable(2929)
-                        GL11.glEnable(3042)
-                        GL11.glBlendFunc(770, 771)
-
-                        GL11.glPushMatrix()
-                        GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F)
-
-                        RenderUtils.drawImage("darknya/custom_hud_icon.png", -8, -14, 16, 16)
-                        GL11.glPopMatrix()
-                        GL11.glPopMatrix()
-                    }
                     "rikka" -> {
-                        val pX = entity.lastTickPosX + (entity.posX - entity.lastTickPosX) * mc.timer.renderPartialTicks -
-                                mc.renderManager.renderPosX
-                        val  pY = entity.lastTickPosY + (entity.posY - entity.lastTickPosY) * mc.timer.renderPartialTicks -
-                                mc.renderManager.renderPosY
-                        val pZ = entity.lastTickPosZ + (entity.posZ - entity.lastTickPosZ) * mc.timer.renderPartialTicks -
-                                mc.renderManager.renderPosZ
-
-                        GL11.glPushMatrix()
-                        GL11.glTranslatef(pX.toFloat(), (pY + if(entity.isSneaking)0.8F else 1.3F).toFloat(),
-                            pZ.toFloat()
-                        )
-                        GL11.glNormal3f(1.0F, 1.0F, 1.0F)
-                        mc.renderManager; GL11.glRotatef(-mc.renderManager.playerViewY, 0.0F, 1.0F, 0.0F)
-                        mc.renderManager; GL11.glRotatef(mc.renderManager.playerViewX, 1.0F, 0.0F, 0.0F)
-                        val scale = 0.06F
-                        GL11.glScalef(-scale, -scale, scale)
-
-                        GL11.glDisable(2896)
-                        GL11.glDisable(2929)
-                        GL11.glEnable(3042)
-                        GL11.glBlendFunc(770, 771)
-
-                        GL11.glPushMatrix()
-                        GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F)
-
-                        RenderUtils.drawImage("darknya/rikka.png", -8, -14, 16, 16)
-                        GL11.glPopMatrix()
-                        GL11.glPopMatrix()
+                        draw2DImage(entity,"rikka")
                     }
                     "real2d" -> {
                         val renderManager = mc.renderManager
@@ -236,6 +179,36 @@ class ESP : Module() {
             }
         }
         return if (colorRainbow.get()) rainbow() else Color(colorRedValue.get(), colorGreenValue.get(), colorBlueValue.get())
+    }
+    fun draw2DImage (entity: EntityLivingBase , image: String) {
+        val pX = entity.lastTickPosX + (entity.posX - entity.lastTickPosX) * mc.timer.renderPartialTicks -
+                mc.renderManager.renderPosX
+        val  pY = entity.lastTickPosY + (entity.posY - entity.lastTickPosY) * mc.timer.renderPartialTicks -
+                mc.renderManager.renderPosY
+        val pZ = entity.lastTickPosZ + (entity.posZ - entity.lastTickPosZ) * mc.timer.renderPartialTicks -
+                mc.renderManager.renderPosZ
+
+        GL11.glPushMatrix()
+        GL11.glTranslatef(pX.toFloat(), (pY + if(entity.isSneaking)0.8F else 1.3F).toFloat(),
+            pZ.toFloat()
+        )
+        GL11.glNormal3f(1.0F, 1.0F, 1.0F)
+        mc.renderManager; GL11.glRotatef(-mc.renderManager.playerViewY, 0.0F, 1.0F, 0.0F)
+        mc.renderManager; GL11.glRotatef(mc.renderManager.playerViewX, 1.0F, 0.0F, 0.0F)
+        val scale = 0.06F
+        GL11.glScalef(-scale, -scale, scale)
+
+        GL11.glDisable(2896)
+        GL11.glDisable(2929)
+        GL11.glEnable(3042)
+        GL11.glBlendFunc(770, 771)
+
+        GL11.glPushMatrix()
+        GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F)
+
+        RenderUtils.drawImage("darknya/esp/$image.png", -8, -14, 16, 16)
+        GL11.glPopMatrix()
+        GL11.glPopMatrix()
     }
 
     companion object {
