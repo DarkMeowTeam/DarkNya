@@ -598,7 +598,7 @@ class Fly : Module() {
     @EventTarget
     fun onRender3D(event: Render3DEvent?) {
         val mode = modeValue.get()
-        if (!markValue.get() || mode.equals("Vanilla", ignoreCase = true) || mode.equals("SmoothVanilla", ignoreCase = true)) return
+        if (!markValue.get()) return
         val y = startY + 2.0
         RenderUtils.drawPlatform(y, if (mc.player!!.entityBoundingBox.maxY < y) Color(0, 255, 0, 90) else Color(255, 0, 0, 90), 1.0)
         when (mode.toLowerCase()) {
