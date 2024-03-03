@@ -5,9 +5,11 @@ import net.ccbluex.liquidbounce.event.UpdateEvent
 import net.ccbluex.liquidbounce.features.module.Module
 import net.ccbluex.liquidbounce.features.module.ModuleCategory
 import net.ccbluex.liquidbounce.features.module.ModuleInfo
+import net.ccbluex.liquidbounce.features.value.FloatValue
 
 @ModuleInfo(name = "NoClip", description = "Allows you to freely move through walls (A sandblock has to fall on your head).", category = ModuleCategory.MOVEMENT)
 class NoClip : Module() {
+    private val speedValue = FloatValue("Speed", 0.1f, 0f, 5f)
 
     override fun onDisable() {
         mc.player?.noClip = false
@@ -26,7 +28,7 @@ class NoClip : Module() {
         player.motionY = 0.0
         player.motionZ = 0.0
 
-        val speed = 0.32f
+        val speed = speedValue.get()
 
         player.jumpMovementFactor = speed
 
