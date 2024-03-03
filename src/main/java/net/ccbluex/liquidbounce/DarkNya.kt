@@ -27,8 +27,9 @@ object DarkNya {
 
     // Client information
     const val CLIENT_NAME = "DarkNya"
-    const val CLIENT_VERSION = "B1"
+    const val CLIENT_VERSION = "Dev-Build"
     const val CLIENT_CREATOR = "CatX_feitu"
+    const val CLIENT_SUFFIX = "(Github:catx-feitu/DarkNya)" // 客户端标题后缀
     const val CLIENT_CLOUD = "https://cloud.liquidbounce.net/LiquidBounce"
 
     var isStarting = false

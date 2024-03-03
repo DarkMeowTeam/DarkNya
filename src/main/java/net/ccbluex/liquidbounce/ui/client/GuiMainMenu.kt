@@ -68,7 +68,7 @@ class GuiMainMenu : GuiScreen() {
         GL11.glPushMatrix()
         renderSwitchButton()
         renderDarkModeButton()
-        FontLoaders.F16.drawStringWithShadow(" ${DarkNya.CLIENT_NAME} build ${DarkNya.CLIENT_VERSION} | By ${DarkNya.CLIENT_CREATOR}",
+        FontLoaders.F16.drawStringWithShadow(" ${DarkNya.CLIENT_NAME} ${DarkNya.CLIENT_VERSION} ${DarkNya.CLIENT_SUFFIX} | By ${DarkNya.CLIENT_CREATOR}",
             2.0, (h - 12F).toDouble(), -1)
         FontLoaders.F16.drawStringWithShadow(creditInfo,
             (w - 3F - FontLoaders.F16.getStringWidth(creditInfo)).toDouble(),

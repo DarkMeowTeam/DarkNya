@@ -95,7 +95,7 @@ public abstract class MixinMinecraft {
 
     @Inject(method = "createDisplay", at = @At(value = "INVOKE", target = "Lorg/lwjgl/opengl/Display;setTitle(Ljava/lang/String;)V", shift = At.Shift.AFTER))
     private void createDisplay(CallbackInfo callbackInfo) {
-        Display.setTitle(DarkNya.CLIENT_NAME + " " + DarkNya.CLIENT_VERSION);
+        Display.setTitle(DarkNya.CLIENT_NAME + " " + DarkNya.CLIENT_VERSION + " " + DarkNya.CLIENT_SUFFIX);
     }
 
     @Inject(method = "displayGuiScreen", at = @At(value = "FIELD", target = "Lnet/minecraft/client/Minecraft;currentScreen:Lnet/minecraft/client/gui/GuiScreen;", shift = At.Shift.AFTER))
