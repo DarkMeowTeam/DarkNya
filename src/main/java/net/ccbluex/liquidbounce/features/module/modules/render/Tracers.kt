@@ -13,6 +13,7 @@ import net.ccbluex.liquidbounce.features.value.ListValue
 import net.ccbluex.liquidbounce.utils.EntityUtils
 import net.ccbluex.liquidbounce.utils.extensions.getDistanceToEntityBox
 import net.ccbluex.liquidbounce.utils.extensions.isClientFriend
+import net.ccbluex.liquidbounce.utils.misc.WVec3
 import net.ccbluex.liquidbounce.utils.render.ColorUtils
 import net.ccbluex.liquidbounce.utils.render.RenderUtils
 import net.minecraft.entity.Entity
@@ -89,7 +90,7 @@ class Tracers : Module() {
         val z = (entity.lastTickPosZ + (entity.posZ - entity.lastTickPosZ) * mc.timer.renderPartialTicks
                 - mc.renderManager.renderPosZ)
 
-        val eyeVector = Vec3d(0.0, 0.0, 1.0)
+        val eyeVector = WVec3(0.0, 0.0, 1.0)
                 .rotatePitch((-Math.toRadians(player.rotationPitch.toDouble())).toFloat())
                 .rotateYaw((-Math.toRadians(player.rotationYaw.toDouble())).toFloat())
 
@@ -97,7 +98,7 @@ class Tracers : Module() {
 
         GL11.glPushMatrix()
 
-        GL11.glVertex3d(eyeVector.x, player.eyeHeight.toDouble() + eyeVector.y, eyeVector.z)
+        GL11.glVertex3d(eyeVector.xCoord, player.eyeHeight.toDouble() + eyeVector.yCoord, eyeVector.zCoord)
         GL11.glVertex3d(x, y, z)
         GL11.glVertex3d(x, y, z)
         GL11.glVertex3d(x, y + entity.height, z)
