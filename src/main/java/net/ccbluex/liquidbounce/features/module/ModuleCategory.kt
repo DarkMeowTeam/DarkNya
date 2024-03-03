@@ -8,7 +8,8 @@ enum class ModuleCategory(val displayName: String) {
     RENDER("Render"),
     WORLD("World"),
     MISC("Misc"),
-    EXPLOIT("Exploit");
+    EXPLOIT("Exploit"),
+    CLIENT("Client");
 
     val namee: String? = null
 

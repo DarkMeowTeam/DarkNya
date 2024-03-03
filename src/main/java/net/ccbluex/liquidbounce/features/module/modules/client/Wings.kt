@@ -1,7 +1,7 @@
 /*
  * From FDPClient
  */
-package net.ccbluex.liquidbounce.features.module.modules.render
+package net.ccbluex.liquidbounce.features.module.modules.client
 
 import net.ccbluex.liquidbounce.event.EventTarget
 import net.ccbluex.liquidbounce.event.Render3DEvent
@@ -13,7 +13,7 @@ import net.ccbluex.liquidbounce.features.value.IntegerValue
 import net.ccbluex.liquidbounce.features.value.ListValue
 import op.wawa.utils.render.RenderWings
 
-@ModuleInfo(name = "Wings", category = ModuleCategory.RENDER, description = "Render a Wing", array = false)
+@ModuleInfo(name = "Wings", category = ModuleCategory.CLIENT, description = "Render a Wing", array = false)
 object Wings : Module() {
     private val onlyThirdPerson = BoolValue("OnlyThirdPerson", true)
     val ColourType = ListValue("Color-Type", arrayOf("Custom", "Chroma", "None"), "Chroma")

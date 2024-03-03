@@ -1,5 +1,5 @@
 
-package net.ccbluex.liquidbounce.features.module.modules.render
+package net.ccbluex.liquidbounce.features.module.modules.client
 
 import net.ccbluex.liquidbounce.features.module.Module
 import net.ccbluex.liquidbounce.features.module.ModuleCategory
@@ -8,7 +8,7 @@ import net.ccbluex.liquidbounce.features.value.ListValue
 
 import net.minecraft.util.ResourceLocation
 
-@ModuleInfo(name = "Cape", description = "LiquidBounce+ capes.", category = ModuleCategory.RENDER)
+@ModuleInfo(name = "Cape", description = "LiquidBounce+ capes.", category = ModuleCategory.CLIENT)
 class Cape : Module() {
 
     val styleValue = ListValue("Style", arrayOf("Dark", "Astolfo", "Sunny", "Target", "Wyy", "PowerX", "Azrael", "Flux", "LiquidBounce", "Light", "Novoline", "Special1", "Special2"), "Dark")

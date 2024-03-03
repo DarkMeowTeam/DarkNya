@@ -1,4 +1,4 @@
-package net.ccbluex.liquidbounce.features.module.modules.render;
+package net.ccbluex.liquidbounce.features.module.modules.client;
 
 import net.ccbluex.liquidbounce.DarkNya;
 import net.ccbluex.liquidbounce.event.EventTarget;
@@ -19,9 +19,9 @@ import org.lwjgl.input.Keyboard;
 
 import java.awt.*;
 
-@ModuleInfo(name = "ClickGUI", description = "Opens the ClickGUI.", category = ModuleCategory.RENDER, keyBind = Keyboard.KEY_P, canEnable = false)
+@ModuleInfo(name = "ClickGUI", description = "Opens the ClickGUI.", category = ModuleCategory.CLIENT, keyBind = Keyboard.KEY_RSHIFT, canEnable = false)
 public class ClickGUI extends Module {
-    private final ListValue styleValue = new ListValue("Style", new String[] {"LiquidBounce", "Null", "Slowly", "Astolfo", "Jello", "New"}, "Null") {
+    private final ListValue styleValue = new ListValue("Style", new String[] {"LiquidBounce", "Null", "Slowly", "Astolfo", "Jello", "New"}, "New") {
         @Override
         protected void onChanged(final String oldValue, final String newValue) {
             updateStyle();
@@ -31,8 +31,8 @@ public class ClickGUI extends Module {
     public final FloatValue scaleValue = new FloatValue("Scale", 1F, 0.7F, 2F);
     public final IntegerValue maxElementsValue = new IntegerValue("MaxElements", 15, 1, 20);
 
-    private static final IntegerValue colorRedValue = new IntegerValue("R", 0, 0, 255);
-    private static final IntegerValue colorGreenValue = new IntegerValue("G", 160, 0, 255);
+    private static final IntegerValue colorRedValue = new IntegerValue("R", 0, 0, 160);
+    private static final IntegerValue colorGreenValue = new IntegerValue("G", 160, 0, 160);
     private static final IntegerValue colorBlueValue = new IntegerValue("B", 255, 0, 255);
     private static final BoolValue colorRainbow = new BoolValue("Rainbow", false);
     public final ListValue backgroundValue = new ListValue("Background", new String[] {"Default","None"}, "Default");

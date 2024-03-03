@@ -1,4 +1,4 @@
-package net.ccbluex.liquidbounce.features.module.modules.render
+package net.ccbluex.liquidbounce.features.module.modules.client
 
 import net.ccbluex.liquidbounce.event.EventTarget
 import net.ccbluex.liquidbounce.event.UpdateEvent
@@ -7,7 +7,7 @@ import net.ccbluex.liquidbounce.features.module.ModuleCategory
 import net.ccbluex.liquidbounce.features.module.ModuleInfo
 import net.ccbluex.liquidbounce.features.value.TextValue
 
-@ModuleInfo(name = "Title", description = "Title", category = ModuleCategory.MISC)
+@ModuleInfo(name = "Title", description = "Title", category = ModuleCategory.CLIENT)
 class Title : Module(){
     private val fakeNameValue = TextValue("SetTitle", "\uD835\uDCDF\uD835\uDCFB\uD835\uDCF2\uD835\uDCED\uD835\uDCEE")
     private val CopywritingValue = TextValue("Copywriting", "\uD835\uDCD2\uD835\uDCEA\uD835\uDCF7 \uD835\uDCD2\uD835\uDCFE\uD835\uDCFC\uD835\uDCFD\uD835\uDCF8\uD835\uDCF6")

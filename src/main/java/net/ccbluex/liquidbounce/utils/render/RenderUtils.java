@@ -2,7 +2,7 @@ package net.ccbluex.liquidbounce.utils.render;
 
 import me.CustomUI;
 import net.ccbluex.liquidbounce.DarkNya;
-import net.ccbluex.liquidbounce.features.module.modules.render.HUD;
+import net.ccbluex.liquidbounce.features.module.modules.client.HUD;
 import net.ccbluex.liquidbounce.ui.font.Fonts;
 import net.ccbluex.liquidbounce.utils.ImageUtils;
 import net.ccbluex.liquidbounce.utils.MinecraftInstance;

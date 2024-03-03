@@ -6,7 +6,7 @@
 package op.wawa.utils.render;
 
 import net.ccbluex.liquidbounce.DarkNya;
-import net.ccbluex.liquidbounce.features.module.modules.render.Wings;
+import net.ccbluex.liquidbounce.features.module.modules.client.Wings;
 import net.ccbluex.liquidbounce.utils.render.ColorUtils;
 import net.ccbluex.liquidbounce.utils.render.RenderUtils;
 import net.minecraft.client.Minecraft;

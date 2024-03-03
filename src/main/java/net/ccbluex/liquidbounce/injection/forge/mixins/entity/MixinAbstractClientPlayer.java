@@ -2,7 +2,7 @@ package net.ccbluex.liquidbounce.injection.forge.mixins.entity;
 
 import net.ccbluex.liquidbounce.DarkNya;
 import net.ccbluex.liquidbounce.features.module.modules.misc.NameProtect;
-import net.ccbluex.liquidbounce.features.module.modules.render.Cape;
+import net.ccbluex.liquidbounce.features.module.modules.client.Cape;
 import net.ccbluex.liquidbounce.features.module.modules.render.NoFOV;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.AbstractClientPlayer;

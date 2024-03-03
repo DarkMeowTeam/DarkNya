@@ -6,7 +6,7 @@ import com.google.common.collect.Lists
 import com.mojang.realmsclient.gui.ChatFormatting
 import me.utils.render.ShadowUtils
 import net.ccbluex.liquidbounce.DarkNya
-import net.ccbluex.liquidbounce.features.module.modules.render.HUD
+import net.ccbluex.liquidbounce.features.module.modules.client.HUD
 import net.ccbluex.liquidbounce.features.value.*
 import net.ccbluex.liquidbounce.ui.client.hud.element.Border
 import net.ccbluex.liquidbounce.ui.client.hud.element.Element

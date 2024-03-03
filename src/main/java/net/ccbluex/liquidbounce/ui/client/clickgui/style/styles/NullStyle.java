@@ -1,6 +1,6 @@
 package net.ccbluex.liquidbounce.ui.client.clickgui.style.styles;
 
-import net.ccbluex.liquidbounce.features.module.modules.render.ClickGUI;
+import net.ccbluex.liquidbounce.features.module.modules.client.ClickGUI;
 import net.ccbluex.liquidbounce.features.value.*;
 import net.ccbluex.liquidbounce.ui.client.clickgui.Panel;
 import net.ccbluex.liquidbounce.ui.client.clickgui.elements.ButtonElement;

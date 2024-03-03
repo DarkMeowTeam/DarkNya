@@ -2,7 +2,7 @@ package net.ccbluex.liquidbounce.ui.font
 
 import net.ccbluex.liquidbounce.DarkNya
 import net.ccbluex.liquidbounce.event.TextEvent
-import net.ccbluex.liquidbounce.features.module.modules.render.HUD
+import net.ccbluex.liquidbounce.features.module.modules.client.HUD
 import net.ccbluex.liquidbounce.utils.render.ColorUtils
 import net.ccbluex.liquidbounce.utils.render.RenderUtils
 import net.ccbluex.liquidbounce.utils.render.shader.shaders.RainbowFontShader

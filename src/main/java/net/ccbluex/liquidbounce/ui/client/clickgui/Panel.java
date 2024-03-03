@@ -1,7 +1,7 @@
 package net.ccbluex.liquidbounce.ui.client.clickgui;
 
 import net.ccbluex.liquidbounce.DarkNya;
-import net.ccbluex.liquidbounce.features.module.modules.render.ClickGUI;
+import net.ccbluex.liquidbounce.features.module.modules.client.ClickGUI;
 import net.ccbluex.liquidbounce.ui.client.clickgui.elements.Element;
 import net.ccbluex.liquidbounce.utils.MinecraftInstance;
 import net.minecraft.util.StringUtils;

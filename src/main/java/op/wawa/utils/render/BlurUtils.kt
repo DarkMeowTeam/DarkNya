@@ -10,7 +10,7 @@ package op.wawa.utils.render
 import me.utils.render.GaussianBlur
 import me.utils.render.StencilUtil
 import net.ccbluex.liquidbounce.DarkNya
-import net.ccbluex.liquidbounce.features.module.modules.render.HUD
+import net.ccbluex.liquidbounce.features.module.modules.client.HUD
 import net.ccbluex.liquidbounce.utils.ClientUtils
 import net.ccbluex.liquidbounce.utils.render.RenderUtils
 import net.ccbluex.liquidbounce.utils.render.Stencil

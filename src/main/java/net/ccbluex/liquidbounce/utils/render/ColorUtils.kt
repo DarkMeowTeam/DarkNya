@@ -1,6 +1,5 @@
 package net.ccbluex.liquidbounce.utils.render
 
-import net.ccbluex.liquidbounce.features.module.modules.render.HUD
 import net.minecraft.client.Minecraft
 import java.awt.Color
 import java.util.*
