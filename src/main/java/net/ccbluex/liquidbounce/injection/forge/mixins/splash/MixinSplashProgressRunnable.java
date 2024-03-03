@@ -1,5 +1,6 @@
 package net.ccbluex.liquidbounce.injection.forge.mixins.splash;
 
+import net.ccbluex.liquidbounce.ui.cnfont.FontLoaders;
 import net.ccbluex.liquidbounce.utils.render.AnimatedValue;
 import net.ccbluex.liquidbounce.utils.render.EaseUtils;
 import net.ccbluex.liquidbounce.utils.render.RenderUtils;
@@ -87,6 +88,8 @@ public abstract class MixinSplashProgressRunnable {
                 GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
                 RenderUtils.drawRoundedCornerRect(rectX, (float) height / 2 - 5, rectX + ((rectX2 - rectX) * progress), (float) height / 2 - 13, 0.0F, (new Color(255, 255, 255, 255)).getRGB());
             }
+
+            FontLoaders.getFont("misans.ttf", 55, true).drawCenteredString("DarkNya", (double) width / 2, (double) height / 2 - 70, Color.WHITE.getRGB(), true);
 
             SplashProgress.mutex.acquireUninterruptibly();
             Display.update();
