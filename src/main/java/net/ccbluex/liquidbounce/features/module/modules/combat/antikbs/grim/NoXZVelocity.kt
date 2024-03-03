@@ -1,6 +1,6 @@
 package net.ccbluex.liquidbounce.features.module.modules.combat.antikbs.grim
 
-import net.ccbluex.liquidbounce.Pride
+import net.ccbluex.liquidbounce.DarkNya
 import net.ccbluex.liquidbounce.event.*
 import net.ccbluex.liquidbounce.features.module.modules.combat.antikbs.AntiKBMode
 import net.ccbluex.liquidbounce.injection.implementations.IMixinTimer
@@ -65,7 +65,7 @@ class NoXZVelocity : AntiKBMode("NoXZ") {
 
             if (raycastedEntity != null && raycastedEntity != mc.player) {
                 repeat(5) {
-                    Pride.eventManager.callEvent(AttackEvent(raycastedEntity))
+                    DarkNya.eventManager.callEvent(AttackEvent(raycastedEntity))
                     mc.connection!!.sendPacket(CPacketUseEntity(raycastedEntity))
                     mc.player!!.swingArm(EnumHand.MAIN_HAND)
                 }
