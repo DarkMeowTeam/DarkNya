@@ -21,7 +21,7 @@ import net.minecraft.network.play.client.CPacketEntityAction
 
 import net.minecraft.network.play.server.SPacketTitle
 
-@ModuleInfo(name = "PUBGHelper", description = "花雨庭代号吃鸡助手 适用于lowiq的自动跳伞和自动开无敌", category = ModuleCategory.EXPLOIT)
+@ModuleInfo(name = "PUBGHelper", description = "花雨庭代号吃鸡助手 适用于lowiq的自动跳伞和自动开无敌 | by CatX_feitu", category = ModuleCategory.MISC)
 class PUBGHelper : Module() {
     private val autoParachuteValue = BoolValue("AutoParachute", false)
     private val autoDisableValue = BoolValue("AutoDisable", false)
@@ -57,6 +57,8 @@ class PUBGHelper : Module() {
                 if (autoToggleAntiAim.get()) DarkNya.moduleManager[AntiAim::class.java].state = true
                 if (autoToggleCriticals.get()) DarkNya.moduleManager[Criticals::class.java].state = true
                 if (autoToggleFly.get()) DarkNya.moduleManager[Fly::class.java].state = true
+
+                ClientUtils.displayChatMessage("§d${DarkNya.CLIENT_NAME} §8>> §a游戏开始~助君飘得愉快~")
 
                 parachuteTicket = -1
             }
