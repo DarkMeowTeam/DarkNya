@@ -27,7 +27,7 @@ import net.minecraft.network.play.server.SPacketTitle
 class PUBGHelper : Module() {
     private val autoParachuteValue = BoolValue("AutoParachute", false)
     private val autoDisableValue = BoolValue("AutoDisable", false)
-    private val autoDisableTicketValue = IntegerValue("AutoDisableTicket", 40,0,200)
+    private val autoDisableTicketValue = IntegerValue("AutoDisableTicket", 20,0,200)
     private val lowIQFix = BoolValue("LowIQFix", false)
     private val autoToggleCriticals = BoolValue("AutoToggleCriticals", false)
     private val autoToggleAntiAim = BoolValue("AutoToggleAntiAim", false)
@@ -43,10 +43,7 @@ class PUBGHelper : Module() {
                 mc.connection!!.sendPacket(CPacketEntityAction(mc.player!!, CPacketEntityAction.Action.START_SNEAKING))
                 mc.connection!!.sendPacket(CPacketEntityAction(mc.player!!, CPacketEntityAction.Action.STOP_SNEAKING))
             }
-            if (packet.message.unformattedText == "§a跳伞成功" && autoDisableValue.get()) {
-                ClientUtils.displayChatMessage("§d${DarkNya.CLIENT_NAME} §8>> §7" + packet.message)
-                parachuteTicket = 0
-            }
+            if (packet.message.unformattedText == "§a跳伞成功" && autoDisableValue.get()) parachuteTicket = 0
         }
     }
     @EventTarget
