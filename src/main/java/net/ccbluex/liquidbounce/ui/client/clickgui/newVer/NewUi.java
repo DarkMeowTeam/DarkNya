@@ -1,7 +1,7 @@
 package net.ccbluex.liquidbounce.ui.client.clickgui.newVer;
 
 import net.ccbluex.liquidbounce.features.module.ModuleCategory;
-import net.ccbluex.liquidbounce.features.module.modules.other.ClickGUINew;
+import net.ccbluex.liquidbounce.features.module.modules.client.ClickGUINew;
 import net.ccbluex.liquidbounce.ui.client.clickgui.newVer.element.CategoryElement;
 import net.ccbluex.liquidbounce.ui.client.clickgui.newVer.element.SearchElement;
 import net.ccbluex.liquidbounce.ui.client.clickgui.newVer.element.module.ModuleElement;

@@ -3,7 +3,7 @@
  * A free open source mixin-based injection hacked client for Minecraft using Minecraft Forge.
  * https://github.com/WYSI-Foundation/LiquidBouncePlus/
  */
-package net.ccbluex.liquidbounce.features.module.modules.other;
+package net.ccbluex.liquidbounce.features.module.modules.client;
 
 import net.ccbluex.liquidbounce.features.module.Module;
 import net.ccbluex.liquidbounce.features.module.ModuleCategory;
@@ -19,7 +19,7 @@ import org.lwjgl.input.Keyboard;
 
 import java.awt.*;
 
-@ModuleInfo(name = "ClickGUINew", description = "next generation clickgui.", category = ModuleCategory.RENDER,keyBind = Keyboard.KEY_RSHIFT,canEnable = false)
+@ModuleInfo(name = "ClickGUINew", description = "next generation clickgui.", category = ModuleCategory.CLIENT, canEnable = false)
 public class ClickGUINew extends Module {
     public static final BoolValue fastRenderValue = new BoolValue("FastRender", true);
 
