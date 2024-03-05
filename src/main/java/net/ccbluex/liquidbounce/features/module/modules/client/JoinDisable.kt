@@ -16,6 +16,7 @@ import net.ccbluex.liquidbounce.features.module.modules.world.ChestAura
 import net.ccbluex.liquidbounce.features.module.modules.world.ChestStealer
 import net.ccbluex.liquidbounce.features.value.BoolValue
 import net.ccbluex.liquidbounce.features.value.ListValue
+import org.lwjgl.input.Keyboard
 
 @ModuleInfo(name = "JoinDisable", description = "进入服务器自动关闭某些功能 避免卡住", category = ModuleCategory.CLIENT)
 class JoinDisable : Module() {
@@ -41,6 +42,6 @@ class JoinDisable : Module() {
         if (pingSpoofValue.get()) DarkNya.moduleManager[PingSpoof::class.java].state = false
         if (serverCrasherValue.get()) DarkNya.moduleManager[ServerCrasher::class.java].state = false
         if (hudValue.get() != "None") DarkNya.moduleManager[HUD::class.java].state = hudValue.get() == "Display"
-        if (bindKickNoneValue.get() && DarkNya.moduleManager[Kick::class.java].keyBind != 0) DarkNya.moduleManager[Kick::class.java].keyBind = 0
+        if (bindKickNoneValue.get() && DarkNya.moduleManager[Kick::class.java].keyBind != Keyboard.CHAR_NONE) DarkNya.moduleManager[Kick::class.java].keyBind = Keyboard.CHAR_NONE
     }
 }
