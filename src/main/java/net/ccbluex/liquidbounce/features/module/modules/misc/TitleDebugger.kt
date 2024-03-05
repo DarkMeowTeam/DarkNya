@@ -1,12 +1,11 @@
 package net.ccbluex.liquidbounce.features.module.modules.misc
 
-import net.ccbluex.liquidbounce.DarkNya
 import net.ccbluex.liquidbounce.event.*
 import net.ccbluex.liquidbounce.features.module.Module
 import net.ccbluex.liquidbounce.features.module.ModuleCategory
 import net.ccbluex.liquidbounce.features.module.ModuleInfo
+import net.ccbluex.liquidbounce.features.module.modules.client.DebugManage
 import net.ccbluex.liquidbounce.features.value.BoolValue
-import net.ccbluex.liquidbounce.utils.ClientUtils
 
 import net.minecraft.network.play.server.SPacketTitle
 
@@ -18,7 +17,7 @@ class TitleDebugger : Module() {
     fun onPacket(event:PacketEvent) {
         val packet = event.packet
         if (packet is SPacketTitle) {
-            ClientUtils.displayChatMessage("§d${DarkNya.CLIENT_NAME} §8>> §7" + packet.message)
+            DebugManage.info(packet.message.toString())
             if (cancelEventValue.get()) event.cancelEvent()
         }
 

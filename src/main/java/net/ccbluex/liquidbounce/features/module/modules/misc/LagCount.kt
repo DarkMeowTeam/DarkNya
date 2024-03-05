@@ -7,11 +7,11 @@ import net.ccbluex.liquidbounce.event.UpdateEvent
 import net.ccbluex.liquidbounce.features.module.Module
 import net.ccbluex.liquidbounce.features.module.ModuleCategory
 import net.ccbluex.liquidbounce.features.module.ModuleInfo
+import net.ccbluex.liquidbounce.features.module.modules.client.DebugManage
 import net.ccbluex.liquidbounce.features.module.modules.player.Blink
 import net.ccbluex.liquidbounce.features.value.BoolValue
 import net.ccbluex.liquidbounce.features.value.IntegerValue
 import net.ccbluex.liquidbounce.features.value.ListValue
-import net.ccbluex.liquidbounce.utils.ClientUtils
 import net.minecraft.network.play.server.SPacketChat
 import net.minecraft.network.play.server.SPacketPlayerPosLook
 
@@ -39,7 +39,7 @@ class LagCount : Module() {
         // Lag ++
         if ((packet is SPacketPlayerPosLook) && b >= 20 && !DarkNya.moduleManager[Blink::class.java].state && c <= 8){
             a += 1
-            if (debug.get()) ClientUtils.displayChatMessage("§d${DarkNya.CLIENT_NAME} §8>> §cFlag:$a")
+            if (debug.get()) DebugManage.info("§cFlag:$a")
         }
 
         // Lag 清除处理
@@ -60,7 +60,7 @@ class LagCount : Module() {
                 ) {
                     b = 0
                     a = 0
-                    if (debug.get()) ClientUtils.displayChatMessage("§d${DarkNya.CLIENT_NAME} §8>> §aFlag 重置")
+                    if (debug.get()) DebugManage.info("§aFlag 重置")
                 }
             }
         }
@@ -75,7 +75,7 @@ class LagCount : Module() {
         if (autoHub.get() && a == autoHubFlagValue.get()){
             mc.player!!.sendChatMessage("/hub")
             a = 0
-            if (debug.get()) ClientUtils.displayChatMessage("§d${DarkNya.CLIENT_NAME} §8>> §eFlag 到达上限")
+            if (debug.get()) DebugManage.warn("§eFlag 到达上限")
         }
 
         if (mc.player!!.health <= 0f || mc.player!!.isDead ) {
