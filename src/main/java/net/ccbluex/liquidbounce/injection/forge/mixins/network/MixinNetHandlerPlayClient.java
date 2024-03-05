@@ -106,7 +106,7 @@ public abstract class MixinNetHandlerPlayClient {
     @Inject(method={"onDisconnect"}, at={@At(value="HEAD")}, cancellable=true)
     private void onDisconnect(ITextComponent reason, CallbackInfo callbackInfo) {
         if (DarkNya.moduleManager.getModule(SilentDisconnect.class).getState()) {
-            if (((BoolValue) Objects.requireNonNull(DarkNya.moduleManager.getModule(SilentDisconnect.class).getValue("Debug"))).get()) DebugManage.info(reason.getFormattedText());
+            if (((BoolValue) Objects.requireNonNull(DarkNya.moduleManager.getModule(SilentDisconnect.class).getValue("Debug"))).get()) DebugManage.info("连接丢失: " + reason.getFormattedText());
             callbackInfo.cancel();
         }
     }
