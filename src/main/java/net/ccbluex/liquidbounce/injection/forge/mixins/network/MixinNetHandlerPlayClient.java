@@ -3,8 +3,11 @@ package net.ccbluex.liquidbounce.injection.forge.mixins.network;
 import io.netty.buffer.Unpooled;
 import net.ccbluex.liquidbounce.DarkNya;
 import net.ccbluex.liquidbounce.event.EntityMovementEvent;
+import net.ccbluex.liquidbounce.features.module.modules.client.DebugManage;
+import net.ccbluex.liquidbounce.features.module.modules.client.SilentDisconnect;
 import net.ccbluex.liquidbounce.features.module.modules.misc.disabler.Disabler;
 import net.ccbluex.liquidbounce.features.special.AntiForge;
+import net.ccbluex.liquidbounce.features.value.BoolValue;
 import net.ccbluex.liquidbounce.utils.ClientUtils;
 import net.minecraft.client.ClientBrandRetriever;
 import net.minecraft.client.Minecraft;
@@ -26,6 +29,7 @@ import net.minecraft.network.play.server.SPacketConfirmTransaction;
 import net.minecraft.network.play.server.SPacketEntity;
 import net.minecraft.network.play.server.SPacketJoinGame;
 import net.minecraft.network.play.server.SPacketResourcePackSend;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.WorldSettings;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -37,6 +41,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.Objects;
 
 @Mixin(NetHandlerPlayClient.class)
 public abstract class MixinNetHandlerPlayClient {
@@ -98,7 +103,13 @@ public abstract class MixinNetHandlerPlayClient {
             callbackInfo.cancel();
         }
     }
-
+    @Inject(method={"onDisconnect"}, at={@At(value="HEAD")}, cancellable=true)
+    private void onDisconnect(ITextComponent reason, CallbackInfo callbackInfo) {
+        if (DarkNya.moduleManager.getModule(SilentDisconnect.class).getState()) {
+            if (((BoolValue) Objects.requireNonNull(DarkNya.moduleManager.getModule(SilentDisconnect.class).getValue("Debug"))).get()) DebugManage.info(reason.getFormattedText());
+            callbackInfo.cancel();
+        }
+    }
     @Inject(method = "handleJoinGame", at = @At("HEAD"), cancellable = true)
     private void handleJoinGameWithAntiForge(SPacketJoinGame packetIn, final CallbackInfo callbackInfo) {
         if (!AntiForge.enabled || !AntiForge.blockFML || Minecraft.getMinecraft().isIntegratedServerRunning())
