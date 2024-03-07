@@ -3,7 +3,6 @@ package net.ccbluex.liquidbounce.utils
 import net.ccbluex.liquidbounce.DarkNya
 import net.ccbluex.liquidbounce.event.PacketEvent
 import net.ccbluex.liquidbounce.features.module.modules.misc.disabler.Disabler
-import net.ccbluex.liquidbounce.utils.MinecraftInstance
 import net.ccbluex.liquidbounce.utils.misc.MathUtil
 import net.minecraft.block.Block
 import net.minecraft.item.*
