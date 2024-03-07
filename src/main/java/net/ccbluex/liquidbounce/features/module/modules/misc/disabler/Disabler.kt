@@ -9,6 +9,7 @@ import net.ccbluex.liquidbounce.features.module.ModuleInfo
 import net.ccbluex.liquidbounce.features.module.modules.combat.KillAura
 import net.ccbluex.liquidbounce.features.value.BoolValue
 import net.ccbluex.liquidbounce.features.value.ListValue
+import net.ccbluex.liquidbounce.utils.PacketUtils
 import net.minecraft.client.gui.GuiDownloadTerrain
 import net.minecraft.item.ItemBow
 import net.minecraft.item.ItemBucketMilk
