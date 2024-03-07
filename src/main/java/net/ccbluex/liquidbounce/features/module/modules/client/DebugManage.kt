@@ -10,7 +10,8 @@ import net.ccbluex.liquidbounce.utils.ClientUtils
 
 @ModuleInfo(name = "DebugManage", description = "控制全局模块输出debugger", category = ModuleCategory.CLIENT, array = false)
 class DebugManage : Module() {
-    var optValue = ListValue("Opt",arrayOf("All","Less"),"Only")
+    var prefixValue = BoolValue("Prefix",true)
+    var optValue = ListValue("Opt",arrayOf("All","Less"),"All")
 
     companion object {
         @JvmStatic
@@ -19,14 +20,19 @@ class DebugManage : Module() {
                 DarkNya.moduleManager[DebugManage::class.java].state  &&
                 (DarkNya.moduleManager[DebugManage::class.java] as DebugManage).optValue.get().toLowerCase() == "less"
             ) {
-                ClientUtils.displayChatMessage("§d${DarkNya.CLIENT_NAME} §8>> §7$info")
+                ClientUtils.displayChatMessage("${getPrefix()}§7$info")
             }
         }
         @JvmStatic
         fun warn(info: String) {
             if (DarkNya.moduleManager[DebugManage::class.java].state) {
-                ClientUtils.displayChatMessage("§d${DarkNya.CLIENT_NAME} §c>> §7$info")
+                ClientUtils.displayChatMessage("${getPrefix()}§c$info")
             }
+        }
+        fun getPrefix(): String {
+            return if ((DarkNya.moduleManager[DebugManage::class.java] as DebugManage).prefixValue.get())
+                "§d${DarkNya.CLIENT_NAME} §8>> "
+                else ""
         }
     }
 }
