@@ -17,7 +17,7 @@ import net.ccbluex.liquidbounce.utils.ClientUtils
 import net.ccbluex.liquidbounce.utils.InventoryUtils
 import net.ccbluex.liquidbounce.utils.MinecraftInstance
 import net.ccbluex.liquidbounce.utils.MovementUtils
-import op.wawa.utils.PacketUtils
+import net.ccbluex.liquidbounce.utils.PacketUtils
 import java.io.File
 import javax.script.ScriptEngine
 

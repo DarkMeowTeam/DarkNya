@@ -1597,7 +1597,7 @@ class KillAura : Module() {
     @EventTarget
     fun onPacket(event: PacketEvent) {
         val packet = event.packet
-        op.wawa.utils.PacketUtils.cancelC08(event, packet)
+        PacketUtils.cancelC08(event, packet)
     }
 
     /**

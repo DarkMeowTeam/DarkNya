@@ -1,6 +1,5 @@
-package op.wawa.utils
+package net.ccbluex.liquidbounce.utils
 
-import me.utils.PacketUtils
 import net.ccbluex.liquidbounce.DarkNya
 import net.ccbluex.liquidbounce.event.PacketEvent
 import net.ccbluex.liquidbounce.features.module.modules.misc.disabler.Disabler

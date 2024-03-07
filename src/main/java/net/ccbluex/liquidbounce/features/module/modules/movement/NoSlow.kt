@@ -27,7 +27,7 @@ import net.minecraft.network.status.client.CPacketServerQuery
 import net.minecraft.util.EnumFacing
 import net.minecraft.util.EnumHand
 import net.minecraft.util.math.BlockPos
-import op.wawa.utils.PacketUtils
+import net.ccbluex.liquidbounce.utils.PacketUtils
 import java.util.*
 
 @ModuleInfo(

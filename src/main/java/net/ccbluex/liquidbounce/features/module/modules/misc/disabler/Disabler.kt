@@ -1,7 +1,6 @@
 package net.ccbluex.liquidbounce.features.module.modules.misc.disabler
 
 
-import me.utils.PacketUtils
 import net.ccbluex.liquidbounce.DarkNya
 import net.ccbluex.liquidbounce.event.*
 import net.ccbluex.liquidbounce.features.module.Module
@@ -26,7 +25,7 @@ import java.util.concurrent.ConcurrentLinkedDeque
 import java.util.concurrent.CopyOnWriteArrayList
 
 
-@ModuleInfo(name = "Disabler", description = "Disabler", category = ModuleCategory.MISC)
+@ModuleInfo(name = "GrimDisabler", description = "Disabler", category = ModuleCategory.MISC)
 class Disabler : Module() {
     val modeValue = ListValue("Mode", arrayOf("GrimAC"), "GrimAC")
     val post = BoolValue("Post",true)
