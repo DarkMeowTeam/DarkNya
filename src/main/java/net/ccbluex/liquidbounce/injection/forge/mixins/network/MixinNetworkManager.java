@@ -2,7 +2,7 @@ package net.ccbluex.liquidbounce.injection.forge.mixins.network;
 
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
-import me.utils.PacketUtils;
+import net.ccbluex.liquidbounce.utils.PacketUtils;
 import net.ccbluex.liquidbounce.DarkNya;
 import net.ccbluex.liquidbounce.event.PacketEvent;
 import net.ccbluex.liquidbounce.features.module.modules.misc.disabler.Disabler;

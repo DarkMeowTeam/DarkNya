@@ -14,6 +14,9 @@ import net.minecraft.network.play.client.CPacketPlayerTryUseItemOnBlock
 import net.minecraft.util.EnumHand
 
 object PacketUtils : MinecraftInstance() {
+    @kotlin.jvm.JvmField
+    var isPacketSend: Boolean = false
+
     @JvmStatic
     fun sendPacket(packet: Packet<INetHandlerPlayServer>) {
         //packets.add(packet)
