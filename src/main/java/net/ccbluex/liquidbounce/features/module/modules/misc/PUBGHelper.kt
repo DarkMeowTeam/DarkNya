@@ -37,7 +37,7 @@ class PUBGHelper : Module() {
     @EventTarget
     fun onPacket(event:PacketEvent) {
         val packet = event.packet
-        if (packet is SPacketTitle) {
+        if (packet is SPacketTitle && packet.message != null) {
             if (packet.message.unformattedText == "§a§l按Shift跳伞" && autoParachuteValue.get()) {
                 ClientUtils.displayChatMessage("§d${DarkNya.CLIENT_NAME} §8>> §a自动跳伞")
                 mc.connection!!.sendPacket(CPacketEntityAction(mc.player!!, CPacketEntityAction.Action.START_SNEAKING))
