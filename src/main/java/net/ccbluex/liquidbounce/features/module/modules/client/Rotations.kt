@@ -1,4 +1,4 @@
-package net.ccbluex.liquidbounce.features.module.modules.render
+package net.ccbluex.liquidbounce.features.module.modules.client
 
 import net.ccbluex.liquidbounce.DarkNya
 import net.ccbluex.liquidbounce.event.EventTarget
@@ -11,7 +11,7 @@ import net.ccbluex.liquidbounce.features.value.BoolValue
 import net.ccbluex.liquidbounce.utils.RotationUtils
 import net.minecraft.network.play.client.CPacketPlayer
 
-@ModuleInfo(name = "Rotations", description = "Allows you to see server-sided head and body rotations.", category = ModuleCategory.RENDER)
+@ModuleInfo(name = "Rotations", description = "Allows you to see server-sided head and body rotations.", category = ModuleCategory.CLIENT)
 class Rotations : Module() {
 
     private val bodyValue = BoolValue("Body", true)
