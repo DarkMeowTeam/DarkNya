@@ -17,8 +17,9 @@ class SilentDisconnect : Module() {
 
     @Inject(method={"onDisconnect"}, at={@At(value="HEAD")}, cancellable=true)
     private void onDisconnect(ITextComponent reason, CallbackInfo callbackInfo) {
+        if (this.gameController.world == null || this.gameController.player == null) return;
         if (DarkNya.moduleManager.getModule(SilentDisconnect.class).getState()) {
-            if (((BoolValue) Objects.requireNonNull(DarkNya.moduleManager.getModule(SilentDisconnect.class).getValue("Debug"))).get()) DebugManage.info(reason.toString());
+            if (((BoolValue) Objects.requireNonNull(DarkNya.moduleManager.getModule(SilentDisconnect.class).getValue("Debug"))).get()) DebugManage.info(I18n.format("disconnect.lost") + ": "+ reason.getFormattedText());
             callbackInfo.cancel();
         }
     }
