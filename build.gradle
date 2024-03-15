@@ -152,7 +152,6 @@ jar {
 shadowJar {
     dependencies {
         include(dependency('org.spongepowered:mixin'))
-        include(dependency('com.jagrosh:DiscordIPC'))
         include(dependency('org.slf4j:slf4j-api'))
         include(dependency('log4j:log4j:2.0'))
         include(dependency('org.scijava:native-lib-loader'))
