@@ -56,6 +56,10 @@ sourceSets {
     main.resources.srcDirs += 'src/main/resources'
 }
 
+// 屏蔽mixin一系列不影响构建的报错
+tasks.withType(JavaCompile).configureEach {
+    options.compilerArgs << "-Xlint:none"
+}
 
 compileKotlin {
     kotlinOptions {
