@@ -3,11 +3,9 @@ package net.ccbluex.liquidbounce.injection.forge.mixins.network;
 import io.netty.buffer.Unpooled;
 import net.ccbluex.liquidbounce.DarkNya;
 import net.ccbluex.liquidbounce.event.EntityMovementEvent;
-import net.ccbluex.liquidbounce.features.module.modules.client.DebugManage;
 import net.ccbluex.liquidbounce.features.module.modules.client.SilentDisconnect;
 import net.ccbluex.liquidbounce.features.module.modules.misc.disabler.Disabler;
 import net.ccbluex.liquidbounce.features.special.AntiForge;
-import net.ccbluex.liquidbounce.features.value.BoolValue;
 import net.ccbluex.liquidbounce.utils.ClientUtils;
 import net.minecraft.client.ClientBrandRetriever;
 import net.minecraft.client.Minecraft;
@@ -16,7 +14,6 @@ import net.minecraft.client.gui.GuiDownloadTerrain;
 import net.minecraft.client.multiplayer.PlayerControllerMP;
 import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.client.network.NetHandlerPlayClient;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.Entity;
 import net.minecraft.inventory.Container;
 import net.minecraft.network.NetworkManager;
@@ -42,7 +39,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.Objects;
 
 @Mixin(NetHandlerPlayClient.class)
 public abstract class MixinNetHandlerPlayClient {
@@ -108,7 +104,7 @@ public abstract class MixinNetHandlerPlayClient {
     private void onDisconnect(ITextComponent reason, CallbackInfo callbackInfo) {
         if (this.gameController.world == null || this.gameController.player == null) return;
         if (DarkNya.moduleManager.getModule(SilentDisconnect.class).getState()) {
-            if (((BoolValue) Objects.requireNonNull(DarkNya.moduleManager.getModule(SilentDisconnect.class).getValue("Debug"))).get()) DebugManage.info(I18n.format("disconnect.lost") + ": "+ reason.getFormattedText());
+            SilentDisconnect.onDisconnect(reason);
             callbackInfo.cancel();
         }
     }
