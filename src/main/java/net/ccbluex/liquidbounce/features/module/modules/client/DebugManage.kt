@@ -18,7 +18,7 @@ class DebugManage : Module() {
         fun info(info: String) {
             if (
                 DarkNya.moduleManager[DebugManage::class.java].state  &&
-                (DarkNya.moduleManager[DebugManage::class.java] as DebugManage).optValue.get().toLowerCase() == "less"
+                (DarkNya.moduleManager[DebugManage::class.java] as DebugManage).optValue.get().toLowerCase() != "less"
             ) {
                 ClientUtils.displayChatMessage("${getPrefix()}§7$info")
             }
