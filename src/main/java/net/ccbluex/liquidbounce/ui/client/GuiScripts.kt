@@ -32,8 +32,6 @@ class GuiScripts(private val prevGui: GuiScreen) : GuiScreen() {
         buttonList.add(GuiButton(2, width - 80, j + 24 * 2, 70, 20, "Delete"))
         buttonList.add(GuiButton(3, width - 80, j + 24 * 3, 70, 20, "Reload"))
         buttonList.add(GuiButton(4, width - 80, j + 24 * 4, 70, 20, "Folder"))
-        buttonList.add(GuiButton(5, width - 80, j + 24 * 5, 70, 20, "Docs"))
-        buttonList.add(GuiButton(6, width - 80, j + 24 * 6, 70, 20, "Find Scripts"))
     }
 
     override fun drawScreen(mouseX: Int, mouseY: Int, partialTicks: Float) {
@@ -125,13 +123,6 @@ class GuiScripts(private val prevGui: GuiScreen) : GuiScreen() {
                 ClientUtils.getLogger().error("Something went wrong while trying to open your scripts folder.", t)
                 MiscUtils.showErrorPopup(t.javaClass.name, t.message)
             }
-            5 -> try {
-                Desktop.getDesktop().browse(URL("https://liquidbounce.net/docs/ScriptAPI/Getting%20Started").toURI())
-            } catch (ignored: Exception) { }
-
-            6 -> try {
-                Desktop.getDesktop().browse(URL("https://forum.ccbluex.net/viewforum.php?id=16").toURI())
-            } catch (ignored: Exception) { }
         }
     }
 
