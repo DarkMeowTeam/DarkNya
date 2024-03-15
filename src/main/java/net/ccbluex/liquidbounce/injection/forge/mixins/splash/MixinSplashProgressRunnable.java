@@ -1,5 +1,6 @@
 package net.ccbluex.liquidbounce.injection.forge.mixins.splash;
 
+import net.ccbluex.liquidbounce.ui.cnfont.FontDrawer;
 import net.ccbluex.liquidbounce.ui.cnfont.FontLoaders;
 import net.ccbluex.liquidbounce.utils.render.AnimatedValue;
 import net.ccbluex.liquidbounce.utils.render.EaseUtils;
@@ -39,7 +40,7 @@ public abstract class MixinSplashProgressRunnable {
         int tex;
 
         try {
-            tex = RenderUtils.loadGlTexture(ImageIO.read(Objects.requireNonNull(this.getClass().getResourceAsStream("/assets/minecraft/wawa/splash.png"))));
+            tex = RenderUtils.loadGlTexture(ImageIO.read(Objects.requireNonNull(this.getClass().getResourceAsStream("/assets/minecraft/darknya/splash.png"))));
         } catch (IOException ioexception) {
             tex = 0;
         }
@@ -75,19 +76,8 @@ public abstract class MixinSplashProgressRunnable {
             GL11.glVertex2f(0.0F, (float) height);
             GL11.glEnd();
             GL11.glDisable(3553);
-            float rectX = (float) width * 0.332F;
-            float rectX2 = (float) width * 0.664F;
-            float progress = (float) animatedValue.sync(getProgress());
 
-            if (progress != 1.0F) {
-                GL11.glColor4f(0.0F, 0.0F, 0.0F, 0.3F);
-                RenderUtils.drawRoundedCornerRect(rectX, (float) height / 2 - 5, rectX2, (float) height / 2 - 13, 0.0F, (new Color(49, 51, 53, 255)).getRGB());
-            }
-
-            if (progress != 0.0F) {
-                GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-                RenderUtils.drawRoundedCornerRect(rectX, (float) height / 2 - 5, rectX + ((rectX2 - rectX) * progress), (float) height / 2 - 13, 0.0F, (new Color(255, 255, 255, 255)).getRGB());
-            }
+            drawProgress((int) getProgress());
 
             FontLoaders.getFont("misans.ttf", 55, true).drawCenteredString("DarkNya", (double) width / 2, (double) height / 2 - 70, Color.WHITE.getRGB(), true);
 
@@ -104,7 +94,7 @@ public abstract class MixinSplashProgressRunnable {
         this.clearGL();
     }
 
-    private static float getProgress() {
+    private static int getProgress() {
         float progress = 0;
         Iterator<ProgressManager.ProgressBar> it = ProgressManager.barIterator();
         if (it.hasNext()) {
@@ -112,6 +102,42 @@ public abstract class MixinSplashProgressRunnable {
             progress = bar.getStep() / (float) bar.getSteps();
         }
 
-        return progress;
+        return (int) (progress * 100);
+    }
+    private static void drawProgress(int progress) {
+        int width = Display.getWidth();
+        int height = Display.getHeight();
+
+        int renderProgress = (int) (((float) width / 100) * progress);
+
+        RenderUtils.drawRect(
+                0,
+                height - 35,
+                width,
+                height,
+                new Color(0, 0, 0, 50).getRGB()
+        );
+        String leftString = "   ";
+        String rightString = progress + "%";
+
+        FontDrawer font = FontLoaders.getFont("misans.ttf", 48, true);
+        // 进度条左上侧文字
+        font.drawString(leftString,
+                2,
+                height - 32,
+                Color.WHITE.getRGB(), true);
+        // 进度条右上侧文字 1 ~ 100%
+        font.drawString(rightString,
+                        width - font.getStringWidth(rightString) - 2,
+                        height - 32,
+                        Color.WHITE.getRGB(), true);
+        // 进度条绘制
+        RenderUtils.drawRect(
+                0,
+                height - 8,
+                renderProgress,
+                height,
+                new Color(255, 255, 255).getRGB()
+        );
     }
 }
