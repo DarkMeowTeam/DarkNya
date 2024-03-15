@@ -1,8 +1,3 @@
-/*
- * PridePlus Hacked Client
- * A free open source mixin-based injection hacked client for Minecraft using Minecraft Forge.
- * https://github.com/MolokyMC/PridePlus/
- */
 package net.ccbluex.liquidbounce.features.module.modules.movement
 
 import net.ccbluex.liquidbounce.event.EventTarget
@@ -43,11 +38,8 @@ class NoWeb : Module() {
                 val searchBlocks = BlockUtils.searchBlocks(4)
 
                 for (block in searchBlocks){
-                    val blockpos = block.key
-                    val blocks = block.value
-
-                    if(blocks is BlockWeb){
-                        mc.connection!!.sendPacket(CPacketPlayerDigging(CPacketPlayerDigging.Action.STOP_DESTROY_BLOCK,blockpos, EnumFacing.DOWN))
+                    if(block.value is BlockWeb){
+                        mc.connection!!.sendPacket(CPacketPlayerDigging(CPacketPlayerDigging.Action.STOP_DESTROY_BLOCK,block.key, EnumFacing.DOWN))
                         mc.player.isInWeb = false
                     }
                 }
