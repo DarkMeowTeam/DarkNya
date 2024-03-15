@@ -29,7 +29,7 @@ class DebugManage : Module() {
                 ClientUtils.displayChatMessage("${getPrefix()}§c$info")
             }
         }
-        fun getPrefix(): String {
+        private fun getPrefix(): String {
             return if ((DarkNya.moduleManager[DebugManage::class.java] as DebugManage).prefixValue.get())
                 "§d${DarkNya.CLIENT_NAME} §8>> "
                 else ""
