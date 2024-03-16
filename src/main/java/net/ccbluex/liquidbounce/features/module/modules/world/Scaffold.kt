@@ -98,9 +98,12 @@ class Scaffold : Module() {
     // Rotation Options
     private val strafeMode = ListValue("Strafe", arrayOf("Off", "AAC"), "AAC")
     private val rotationsValue = BoolValue("Rotations", true)
+    private val rotationshypValue = BoolValue("Rotationshyp", true)
     private val silentRotationValue = BoolValue("SilentRotation", true)
     private val keepRotationValue = BoolValue("KeepRotation", false)
     private val keepLengthValue = IntegerValue("KeepRotationLength", 0, 0, 20)
+    private val customYawValue = FloatValue("customYawValue", 180f, -360f, 360f)
+    private val customPitchValue = FloatValue("customPitchValue", 79f, 60f, 100f)
 
     // XZ/Y range
     private val searchMode = ListValue("XYZSearch", arrayOf("Auto", "AutoCenter", "Manual"), "AutoCenter")
@@ -768,9 +771,12 @@ class Scaffold : Module() {
                                 continue
                             }
                         }
-                        val rotation = Rotation(
+                        var rotation = Rotation(
                             wrapAngleTo180_float(Math.toDegrees(atan2(diffZ, diffX)).toFloat() - 90f),
                             wrapAngleTo180_float(-Math.toDegrees(atan2(diffY, diffXZ)).toFloat())
+                        )
+                        if (rotationshypValue.get()) rotation = Rotation(
+                            mc.player!!.rotationYaw + customYawValue.get(), customPitchValue.get()
                         )
                         val rotationVector = RotationUtils.getVectorForRotation(rotation)
                         val vector = eyesPos.addVector(
