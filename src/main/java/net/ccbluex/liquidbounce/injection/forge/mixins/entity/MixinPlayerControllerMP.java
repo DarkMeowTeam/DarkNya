@@ -4,7 +4,6 @@ import net.ccbluex.liquidbounce.DarkNya;
 import net.ccbluex.liquidbounce.event.AttackEvent;
 import net.ccbluex.liquidbounce.event.ClickWindowEvent;
 import net.ccbluex.liquidbounce.features.module.modules.exploit.AbortBreaking;
-import net.ccbluex.liquidbounce.features.module.modules.misc.PostDisabler;
 import net.minecraft.client.multiplayer.PlayerControllerMP;
 import net.minecraft.client.network.NetHandlerPlayClient;
 import net.minecraft.entity.Entity;
@@ -12,7 +11,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ClickType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.play.client.CPacketClickWindow;
-import net.minecraft.network.play.client.CPacketConfirmTransaction;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.spongepowered.asm.mixin.Final;
@@ -59,10 +57,6 @@ public class MixinPlayerControllerMP {
 
         short short1 = player.openContainer.getNextTransactionID(player.inventory);
         ItemStack itemstack = player.openContainer.slotClick(slotId, mouseButton, type, player);
-
-
-        if (DarkNya.moduleManager.get(PostDisabler.class).getState())
-            this.connection.sendPacket(new CPacketConfirmTransaction(windowId, (short) 1, true));
 
         this.connection.sendPacket(new CPacketClickWindow(windowId, slotId, mouseButton, type, itemstack, short1));
         return itemstack;
