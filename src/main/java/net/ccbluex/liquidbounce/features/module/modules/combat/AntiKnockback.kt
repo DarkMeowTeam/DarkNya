@@ -1,8 +1,3 @@
-/*
- * FDPClient Hacked Client
- * A free open source mixin-based injection hacked client for Minecraft using Minecraft Forge by LiquidBounce.
- * https://github.com/SkidderMC/FDPClient/
- */
 package net.ccbluex.liquidbounce.features.module.modules.combat
 
 import net.ccbluex.liquidbounce.DarkNya
@@ -20,6 +15,7 @@ import net.ccbluex.liquidbounce.utils.ClassUtils
 import net.ccbluex.liquidbounce.utils.MovementUtils
 import net.ccbluex.liquidbounce.utils.timer.MSTimer
 import net.minecraft.network.play.server.SPacketEntityVelocity
+import net.minecraft.network.play.server.SPacketPlayerPosLook
 import kotlin.math.cos
 import kotlin.math.sin
 import kotlin.math.sqrt
@@ -54,6 +50,7 @@ object AntiKnockback : Module() {
     val onlyCombatValue = BoolValue("OnlyCombat", false)
     // private val onlyHitVelocityValue = BoolValue("OnlyHitVelocity",false)
     private val noFireValue = BoolValue("noFire", false)
+    private val disableOnLagValue = BoolValue("disableOnLag", false)
 
     private val overrideDirectionValue = ListValue("OverrideDirection", arrayOf("None", "Hard", "Offset"), "None")
     private val overrideDirectionYawValue = FloatValue("OverrideDirectionYaw", 0F, -180F, 180F)
@@ -135,6 +132,10 @@ object AntiKnockback : Module() {
 
     @EventTarget
     fun onPacket(event: PacketEvent) {
+        if (disableOnLagValue.get() && event.packet is SPacketPlayerPosLook) {
+            toggle()
+            return
+        }
         if ((OnlyMove.get() && !MovementUtils.isMoving) || (OnlyGround.get() && !mc.player.onGround))
             return
         mode.onPacket(event)
