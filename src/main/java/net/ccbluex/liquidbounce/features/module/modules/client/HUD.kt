@@ -53,7 +53,7 @@ class HUD : Module() {
     val greenValue = IntegerValue("NovolineGreen", 255, 0, 255)
     val blueValue = IntegerValue("NovolineBlue", 255, 0, 255)
     @JvmField
-    val domainValue = TextValue("Scoreboard-Domain", "PridePlus-2K23")
+    val domainValue = TextValue("Scoreboard-Domain", DarkNya.CLIENT_NAME)
     val hueInterpolation = BoolValue("DoubleColor-Interpolate", false)
     val liteInfo = BoolValue("LiteInfo", true)
     val rainbowStart = FloatValue("RainbowStart", 0.41f, 0f, 1f)
