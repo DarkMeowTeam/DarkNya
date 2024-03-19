@@ -3,7 +3,7 @@ package net.ccbluex.liquidbounce.ui.client.clickgui.newVer.element.module.value.
 import net.ccbluex.liquidbounce.ui.client.clickgui.newVer.element.components.Checkbox
 import net.ccbluex.liquidbounce.ui.client.clickgui.newVer.element.module.value.ValueElement
 import net.ccbluex.liquidbounce.ui.font.Fonts
-import net.ccbluex.liquidbounce.features.value.BoolValue
+import net.ccbluex.liquidbounce.value.BoolValue
 import op.wawa.utils.MouseUtils
 
 import java.awt.Color

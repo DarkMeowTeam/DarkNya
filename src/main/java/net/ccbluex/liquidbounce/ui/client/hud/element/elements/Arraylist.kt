@@ -12,7 +12,7 @@ import me.utils.render.ShadowUtils
 import me.utils.render.VisualUtils
 import net.ccbluex.liquidbounce.DarkNya
 import net.ccbluex.liquidbounce.features.module.Module
-import net.ccbluex.liquidbounce.features.value.*
+import net.ccbluex.liquidbounce.value.*
 import net.ccbluex.liquidbounce.ui.client.hud.designer.GuiHudDesigner
 import net.ccbluex.liquidbounce.ui.client.hud.element.Border
 import net.ccbluex.liquidbounce.ui.client.hud.element.Element

@@ -1,6 +1,6 @@
 package net.ccbluex.liquidbounce.ui.client.clickgui.newVer.element.module.value.impl
 
-import net.ccbluex.liquidbounce.features.value.ListValue
+import net.ccbluex.liquidbounce.value.ListValue
 import net.ccbluex.liquidbounce.ui.client.clickgui.newVer.ColorManager
 import net.ccbluex.liquidbounce.ui.client.clickgui.newVer.element.module.value.ValueElement
 import net.ccbluex.liquidbounce.ui.client.clickgui.newVer.extensions.animSmooth

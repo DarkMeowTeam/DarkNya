@@ -16,14 +16,13 @@ import net.ccbluex.liquidbounce.utils.item.ArmorComparator
 import net.ccbluex.liquidbounce.utils.item.ArmorPiece
 import net.ccbluex.liquidbounce.utils.item.ItemUtils
 import net.ccbluex.liquidbounce.utils.timer.TimeUtils
-import net.ccbluex.liquidbounce.features.value.BoolValue
-import net.ccbluex.liquidbounce.features.value.IntegerValue
-import net.ccbluex.liquidbounce.features.value.ListValue
+import net.ccbluex.liquidbounce.value.BoolValue
+import net.ccbluex.liquidbounce.value.IntegerValue
+import net.ccbluex.liquidbounce.value.ListValue
 import net.ccbluex.liquidbounce.injection.implementations.IMixinItemStack
 import net.ccbluex.liquidbounce.utils.extensions.toClickType
 import net.minecraft.client.gui.inventory.GuiInventory
 import net.minecraft.init.Blocks
-import net.minecraft.init.Enchantments
 import net.minecraft.init.Enchantments.*
 import net.minecraft.inventory.EntityEquipmentSlot
 import net.minecraft.item.*

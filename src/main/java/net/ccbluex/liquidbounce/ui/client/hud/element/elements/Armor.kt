@@ -10,10 +10,10 @@ import me.utils.render.BlurBuffer
 import net.ccbluex.liquidbounce.utils.render.RenderUtils
 import me.utils.render.ShadowUtils
 import net.ccbluex.liquidbounce.utils.render.RoundedUtil
-import net.ccbluex.liquidbounce.features.value.BoolValue
-import net.ccbluex.liquidbounce.features.value.FloatValue
-import net.ccbluex.liquidbounce.features.value.IntegerValue
-import net.ccbluex.liquidbounce.features.value.ListValue
+import net.ccbluex.liquidbounce.value.BoolValue
+import net.ccbluex.liquidbounce.value.FloatValue
+import net.ccbluex.liquidbounce.value.IntegerValue
+import net.ccbluex.liquidbounce.value.ListValue
 import net.minecraft.client.gui.Gui
 import net.minecraft.client.renderer.GlStateManager
 import org.lwjgl.opengl.GL11

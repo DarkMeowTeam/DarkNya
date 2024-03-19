@@ -5,10 +5,12 @@ import net.ccbluex.liquidbounce.event.UpdateEvent
 import net.ccbluex.liquidbounce.features.module.Module
 import net.ccbluex.liquidbounce.features.module.ModuleCategory
 import net.ccbluex.liquidbounce.features.module.ModuleInfo
-import net.ccbluex.liquidbounce.features.value.FloatValue
+import net.ccbluex.liquidbounce.value.BoolValue
+import net.ccbluex.liquidbounce.value.FloatValue
 
 @ModuleInfo(name = "NoClip", description = "Allows you to freely move through walls (A sandblock has to fall on your head).", category = ModuleCategory.MOVEMENT)
 class NoClip : Module() {
+    private val resetFallDistanceValue = BoolValue("ResetFallDistance",true)
     private val speedValue = FloatValue("Speed", 0.1f, 0f, 5f)
 
     override fun onDisable() {
@@ -20,7 +22,7 @@ class NoClip : Module() {
         val player = mc.player ?: return
 
         player.noClip = true
-        player.fallDistance = 0f
+        if (resetFallDistanceValue.get()) player.fallDistance = 0f
         player.onGround = false
 
         player.capabilities.isFlying = false

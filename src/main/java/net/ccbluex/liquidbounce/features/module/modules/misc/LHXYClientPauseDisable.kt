@@ -5,7 +5,7 @@ import net.ccbluex.liquidbounce.features.module.Module
 import net.ccbluex.liquidbounce.features.module.ModuleCategory
 import net.ccbluex.liquidbounce.features.module.ModuleInfo
 import net.ccbluex.liquidbounce.features.module.modules.client.DebugManage
-import net.ccbluex.liquidbounce.features.value.BoolValue
+import net.ccbluex.liquidbounce.value.BoolValue
 import net.minecraft.network.play.INetHandlerPlayClient
 import net.minecraft.network.play.server.SPacketChat
 import net.minecraft.network.play.server.SPacketTitle

@@ -1,6 +1,6 @@
 package net.ccbluex.liquidbounce.utils
 
-import net.ccbluex.liquidbounce.features.value.Value
+import net.ccbluex.liquidbounce.value.Value
 import org.apache.logging.log4j.core.config.plugins.util.ResolverUtil
 import java.lang.reflect.Modifier
 import java.net.URI

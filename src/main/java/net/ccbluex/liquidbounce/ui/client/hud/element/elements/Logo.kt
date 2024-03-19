@@ -2,7 +2,7 @@ package net.ccbluex.liquidbounce.ui.client.hud.element.elements
 
 import me.utils.render.ShadowUtils
 import net.ccbluex.liquidbounce.DarkNya.CLIENT_NAME
-import net.ccbluex.liquidbounce.features.value.ListValue
+import net.ccbluex.liquidbounce.value.ListValue
 import net.ccbluex.liquidbounce.ui.client.hud.element.Border
 import net.ccbluex.liquidbounce.ui.client.hud.element.Element
 import net.ccbluex.liquidbounce.ui.client.hud.element.ElementInfo

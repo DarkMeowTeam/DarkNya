@@ -1,6 +1,6 @@
 package op.wawa.utils.animation
 
-import net.ccbluex.liquidbounce.features.value.ListValue
+import net.ccbluex.liquidbounce.value.ListValue
 import kotlin.math.*
 
 /***

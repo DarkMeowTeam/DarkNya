@@ -1,4 +1,4 @@
-package net.ccbluex.liquidbounce.features.value
+package net.ccbluex.liquidbounce.value
 
 import com.google.gson.JsonElement
 import com.google.gson.JsonObject

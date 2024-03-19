@@ -5,7 +5,7 @@ import net.ccbluex.liquidbounce.event.EventTarget
 import net.ccbluex.liquidbounce.features.module.Module
 import net.ccbluex.liquidbounce.features.module.ModuleCategory
 import net.ccbluex.liquidbounce.features.module.ModuleInfo
-import net.ccbluex.liquidbounce.features.value.TextValue
+import net.ccbluex.liquidbounce.value.TextValue
 import net.ccbluex.liquidbounce.utils.JammingUtils
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.player.EntityPlayer

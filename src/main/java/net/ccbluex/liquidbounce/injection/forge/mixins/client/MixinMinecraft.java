@@ -83,10 +83,11 @@ public abstract class MixinMinecraft {
             displayHeight = 622;
     }
 
+    /*
     @Inject(method = "init", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/Minecraft;checkGLError(Ljava/lang/String;)V", ordinal = 1, shift = At.Shift.AFTER))
     public void step1(CallbackInfo ci) {
         //GuiSplashProgress.INSTANCE.setProgress(1, "textures");
-    }
+    }*/
     @Inject(method = "init", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/Minecraft;checkGLError(Ljava/lang/String;)V", ordinal = 2, shift = At.Shift.AFTER))
     private void startGame(CallbackInfo callbackInfo) {
         DarkNya.INSTANCE.startClient();

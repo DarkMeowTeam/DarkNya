@@ -5,7 +5,7 @@ import net.ccbluex.liquidbounce.ui.client.clickgui.newVer.element.components.Sli
 import net.ccbluex.liquidbounce.ui.client.clickgui.newVer.element.module.value.ValueElement
 import net.ccbluex.liquidbounce.ui.font.Fonts
 import net.ccbluex.liquidbounce.utils.render.RenderUtils
-import net.ccbluex.liquidbounce.features.value.FloatValue
+import net.ccbluex.liquidbounce.value.FloatValue
 import op.wawa.utils.MouseUtils
 
 import java.awt.Color

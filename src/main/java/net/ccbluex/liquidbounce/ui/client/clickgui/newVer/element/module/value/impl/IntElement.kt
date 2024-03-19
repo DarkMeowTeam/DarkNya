@@ -1,6 +1,6 @@
 package net.ccbluex.liquidbounce.ui.client.clickgui.newVer.element.module.value.impl
 
-import net.ccbluex.liquidbounce.features.value.IntegerValue
+import net.ccbluex.liquidbounce.value.IntegerValue
 import net.ccbluex.liquidbounce.ui.client.clickgui.newVer.ColorManager
 import net.ccbluex.liquidbounce.ui.client.clickgui.newVer.element.components.Slider
 import net.ccbluex.liquidbounce.ui.client.clickgui.newVer.element.module.value.ValueElement
@@ -9,7 +9,6 @@ import net.ccbluex.liquidbounce.utils.render.RenderUtils
 import op.wawa.utils.MouseUtils
 
 import java.awt.Color
-import java.math.BigDecimal
 
 class IntElement(val savedValue: IntegerValue): ValueElement<Int>(savedValue) {
     private val slider = Slider()

@@ -8,7 +8,7 @@ import net.ccbluex.liquidbounce.features.module.ModuleInfo
 
 import net.ccbluex.liquidbounce.utils.InventoryUtils
 import net.ccbluex.liquidbounce.utils.createUseItemPacket
-import net.ccbluex.liquidbounce.features.value.ListValue
+import net.ccbluex.liquidbounce.value.ListValue
 import net.minecraft.init.Items
 import net.minecraft.network.play.client.CPacketHeldItemChange
 import net.minecraft.util.EnumHand

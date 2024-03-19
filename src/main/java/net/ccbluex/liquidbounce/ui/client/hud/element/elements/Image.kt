@@ -1,7 +1,7 @@
 package net.ccbluex.liquidbounce.ui.client.hud.element.elements
 
 import com.google.gson.JsonElement
-import net.ccbluex.liquidbounce.features.value.TextValue
+import net.ccbluex.liquidbounce.value.TextValue
 import net.ccbluex.liquidbounce.ui.client.hud.element.Border
 import net.ccbluex.liquidbounce.ui.client.hud.element.Element
 import net.ccbluex.liquidbounce.ui.client.hud.element.ElementInfo
