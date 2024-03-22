@@ -18,8 +18,8 @@ import net.ccbluex.liquidbounce.value.BoolValue
 import net.ccbluex.liquidbounce.value.ListValue
 import org.lwjgl.input.Keyboard
 
-@ModuleInfo(name = "JoinDisable", description = "进入服务器自动关闭某些功能 避免卡住", category = ModuleCategory.CLIENT)
-class JoinDisable : Module() {
+@ModuleInfo(name = "JoinToggleOff", description = "进入服务器自动关闭某些功能 避免卡住", category = ModuleCategory.CLIENT)
+class JoinToggleOff : Module() {
     private val killauraValue = BoolValue("Killaura", false)
     private val invManagerValue = BoolValue("InvManager", false)
     private val chestStealerValue = BoolValue("ChestStealer", false)
