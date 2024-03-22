@@ -468,6 +468,11 @@ public final class RotationUtils extends MinecraftInstance implements Listenable
         return Math.hypot(getAngleDifference(a.getYaw(), b.getYaw()), a.getPitch() - b.getPitch());
     }
 
+    public static double getRotationBackDifference(final Entity entity) {
+        final Rotation rotation = toRotation(getCenter(entity.getEntityBoundingBox()), true);
+        return getRotationDifference(rotation, new Rotation(mc.player.rotationYaw - 180, mc.player.rotationPitch));
+    }
+
     /**
      * Limit your rotation using a turn speed
      *
