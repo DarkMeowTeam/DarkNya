@@ -55,7 +55,7 @@ public abstract class MixinGuiInGame extends MixinGui {
         final HUD hud = (HUD) DarkNya.moduleManager.getModule(HUD.class);
 
         if (Minecraft.getMinecraft().getRenderViewEntity() instanceof EntityPlayer && hud.getState()) {
-            switch (HUD.getHotbarModeSection().get().toLowerCase()) {
+            switch (HUD.hotbarModeSection.get().toLowerCase()) {
                 case "prideplus": {
                     EntityPlayer entityPlayer = (EntityPlayer) this.mc.getRenderViewEntity();
                     GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
