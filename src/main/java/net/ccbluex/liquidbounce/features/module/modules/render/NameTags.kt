@@ -33,16 +33,6 @@ class NameTags : Module() {
 
     @EventTarget
     fun onRender3D(event: Render3DEvent) {
-        // Disable lightning and depth test
-        glDisable(GL_LIGHTING)
-        glDisable(GL_DEPTH_TEST)
-
-        glEnable(GL_LINE_SMOOTH)
-
-        // Enable blend
-        glEnable(GL_BLEND)
-        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
-
         for (entity in mc.world!!.loadedEntityList) {
             if (!EntityUtils.isSelected(entity, false))
                 continue
@@ -54,9 +44,6 @@ class NameTags : Module() {
                     (entity.displayName ?: continue).unformattedText
             )
         }
-
-        // Reset color
-        glColor4f(1F, 1F, 1F, 1F)
     }
 
     private fun renderNameTag(entity: EntityLivingBase, tag: String) {

@@ -99,6 +99,5 @@ class Tracers : Module() {
             GL11.glVertex3d(x, y, z)
         }
         GL11.glEnd()
-        GlStateManager.resetColor()
     }
 }
