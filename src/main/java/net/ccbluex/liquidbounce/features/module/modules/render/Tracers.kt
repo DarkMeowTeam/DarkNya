@@ -44,8 +44,6 @@ class Tracers : Module() {
         GL11.glDisable(GL11.GL_DEPTH_TEST)
         GL11.glDepthMask(false)
 
-        GL11.glBegin(GL11.GL_LINES)
-
         for (entity in if (fovModeValue.get().equals("all", true)) mc.world.loadedEntityList else mc.world.loadedEntityList.filter { if (fovModeValue.get().equals("back", true)) RotationUtils.getRotationBackDifference(it) <= fovValue.get() else RotationUtils.getRotationDifference(it) <= fovValue.get() }) {
             if (entity != null && entity != mc.player && EntityUtils.isSelected(entity, false)) {
                 var dist = (mc.player.getDistance(entity) * 2).toInt()
@@ -63,8 +61,6 @@ class Tracers : Module() {
                 drawTraces(entity, color, !directLineValue.get())
             }
         }
-
-        GL11.glEnd()
 
         GL11.glEnable(GL11.GL_TEXTURE_2D)
         GL11.glDisable(GL11.GL_LINE_SMOOTH)

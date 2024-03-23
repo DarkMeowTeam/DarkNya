@@ -29,7 +29,6 @@ open class HUD : MinecraftInstance() {
         fun createDefault() = HUD()
                 .addElement(Arraylist())
                 .addElement(ScoreboardElement())
-                .addElement(Armor())
                 .addElement(Effects())
                 .addElement(Notifications())
     }

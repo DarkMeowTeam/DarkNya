@@ -1,8 +1,3 @@
-/*
-* LiquidBounce+ Hacked Client
-* A free open source mixin-based injection hacked client for Minecraft using Minecraft Forge.
-* https://github.com/WYSI-Foundation/LiquidBouncePlus/
-*/
 package net.ccbluex.liquidbounce.ui.client.hud.element.elements
 
 
@@ -12,6 +7,7 @@ import me.utils.render.ShadowUtils
 import me.utils.render.VisualUtils
 import net.ccbluex.liquidbounce.DarkNya
 import net.ccbluex.liquidbounce.features.module.Module
+import net.ccbluex.liquidbounce.features.module.modules.client.ColorManage
 import net.ccbluex.liquidbounce.value.*
 import net.ccbluex.liquidbounce.ui.client.hud.designer.GuiHudDesigner
 import net.ccbluex.liquidbounce.ui.client.hud.element.Border
@@ -29,6 +25,7 @@ import op.wawa.utils.animation.AnimationUtil
 import java.awt.Color
 
 import org.lwjgl.opengl.GL11
+import kotlin.math.abs
 
 /**
  * CustomHUD Arraylist element
@@ -38,7 +35,7 @@ import org.lwjgl.opengl.GL11
 @ElementInfo(name = "Arraylist", single = true)
 class Arraylist(x: Double = 1.0, y: Double = 2.0, scale: Float = 1F,
                 side: Side = Side(Horizontal.RIGHT, Vertical.UP)) : Element(x, y, scale, side) {
-    private val colorModeValue = ListValue("Color", arrayOf("Custom", "Random", "Sky", "CRainbow", "LiquidSlowly", "Fade", "Gradinet"), "Gradinet")
+    private val colorModeValue = ListValue("Color", arrayOf("Custom", "Random", "Gradinet", "DarkNya"), "DarkNya")
     private val blurValue = BoolValue("Blur", false)
     private val blurStrength = FloatValue("Blur-Strength", 0F, 0F, 30F)
     private val shadow = BoolValue("ShadowText", true)
@@ -60,7 +57,6 @@ class Arraylist(x: Double = 1.0, y: Double = 2.0, scale: Float = 1F,
     private val gidentspeed = IntegerValue("GidentSpeed", 100, 1, 1000)
     val colorAlphaValue = IntegerValue("Alpha", 255, 0, 255)
     private val fadeOffset = FloatValue("Gradinet-Offset", 0.2f, 0.1f, 1f)
-    private val fadeSpeed = FloatValue("Gradinet-Speed", 2f, 1f, 10f)
 
     private val textRed = IntegerValue("Gradinet-Red", 0, 0, 255)
     private val textGreen = IntegerValue("Gradinet-Green", 0, 0, 255)
@@ -72,11 +68,6 @@ class Arraylist(x: Double = 1.0, y: Double = 2.0, scale: Float = 1F,
 
     private val saturationValue = FloatValue("Saturation", 0.9f, 0f, 1f)
     private val brightnessValue = FloatValue("Brightness", 1f, 0f, 1f)
-    private val skyDistanceValue = IntegerValue("Sky-Distance", 2, 0, 4)
-    private val cRainbowSecValue = IntegerValue("CRainbow-Seconds", 2, 1, 10)
-    private val cRainbowDistValue = IntegerValue("CRainbow-Distance", 2, 1, 6)
-    private val liquidSlowlyDistanceValue = IntegerValue("LiquidSlowly-Distance", 90, 1, 90)
-    private val fadeDistanceValue = IntegerValue("Fade-Distance", 50, 1, 100)
     private val hAnimation = ListValue("HorizontalAnimation", arrayOf("Default", "None", "Slide", "Astolfo"), "None")
     private val vAnimation = ListValue("VerticalAnimation", arrayOf("None", "LiquidSense", "Slide", "Rise", "Astolfo"), "None")
     private val animationSpeed = FloatValue("Animation-Speed", 0.25F, 0.01F, 1F)
@@ -248,20 +239,8 @@ class Arraylist(x: Double = 1.0, y: Double = 2.0, scale: Float = 1F,
                                     "text" -> {
                                         val moduleColor = Color.getHSBColor(module.hue, saturation, brightness).rgb
 
-                                        var Sky = RenderUtils.SkyRainbow(counter[0] * (skyDistanceValue.get() * 50), saturationValue.get(), brightnessValue.get())
-                                        var CRainbow = RenderUtils.getRainbowOpaque(cRainbowSecValue.get(), saturationValue.get(), brightnessValue.get(), counter[0] * (50 * cRainbowDistValue.get()))
-                                        var FadeColor = ColorUtils.fade(Color(colorRedValue.get(), colorGreenValue.get(), colorBlueValue.get(), colorAlphaValue.get()), index * fadeDistanceValue.get(), 100).rgb
-                                        counter[0] = counter[0] - 1
-
-                                        val test = ColorUtils.LiquidSlowly(System.nanoTime(), index * liquidSlowlyDistanceValue.get(), saturationValue.get(), brightnessValue.get())?.rgb
-                                        var LiquidSlowly : Int = test!!
-
                                         when {
                                             colorMode.equals("Random", ignoreCase = true) -> moduleColor
-                                            colorMode.equals("Sky", ignoreCase = true) -> Sky
-                                            colorMode.equals("CRainbow", ignoreCase = true) -> CRainbow
-                                            colorMode.equals("LiquidSlowly", ignoreCase = true) -> LiquidSlowly
-                                            colorMode.equals("Fade", ignoreCase = true) -> FadeColor
                                             colorMode.equals("Gradinet", true) -> VisualUtils.getGradientOffset(Color(textRed.get(), textGreen.get(), textBlue.get()), Color(textRed2.get(), textGreen2.get(), textBlue2.get()), index * fadeOffset.get().toDouble()).rgb
                                             else -> customColor
                                         }
@@ -332,15 +311,6 @@ class Arraylist(x: Double = 1.0, y: Double = 2.0, scale: Float = 1F,
 
                     val moduleColor = Color.getHSBColor(module.hue, saturation, brightness).rgb
 
-                    var Sky: Int
-                    Sky = RenderUtils.SkyRainbow(counter[0] * (skyDistanceValue.get() * 50), saturationValue.get(), brightnessValue.get())
-                    var CRainbow: Int
-                    CRainbow = RenderUtils.getRainbowOpaque(cRainbowSecValue.get(), saturationValue.get(), brightnessValue.get(), counter[0] * (50 * cRainbowDistValue.get()))
-                    var FadeColor: Int = ColorUtils.fade(Color(colorRedValue.get(), colorGreenValue.get(), colorBlueValue.get(), colorAlphaValue.get()), index * fadeDistanceValue.get(), 100).rgb
-                    counter[0] = counter[0] - 1
-
-                    val test = ColorUtils.LiquidSlowly(System.nanoTime(), index * liquidSlowlyDistanceValue.get(), saturationValue.get(), brightnessValue.get())?.rgb
-                    var LiquidSlowly : Int = test!!
 
                     RenderUtils.drawRect(
                         xPos - if (rectRightValue.get().equals("right", true)) 3 else 2,
@@ -353,10 +323,6 @@ class Arraylist(x: Double = 1.0, y: Double = 2.0, scale: Float = 1F,
                         ((xPos - if (rectRightValue.get().equals("right", true)) 1 else 0)),
                         ((module.higt + textY)), when {
                             colorMode.equals("Random", ignoreCase = true) -> moduleColor
-                            colorMode.equals("Sky", ignoreCase = true) -> Sky
-                            colorMode.equals("CRainbow", ignoreCase = true) -> CRainbow
-                            colorMode.equals("LiquidSlowly", ignoreCase = true) -> LiquidSlowly
-                            colorMode.equals("Fade", ignoreCase = true) -> FadeColor
                             colorMode.equals("Gradinet", true) ->VisualUtils.getGradientOffset(Color(colorRedValue.get(), colorGreenValue.get(), colorBlueValue.get(),1), Color(colorRedValue2.get(), colorGreenValue2.get(), colorBlueValue2.get(),1), (Math.abs(
                                 System.currentTimeMillis() / gidentspeed.get()
                                     .toDouble() + (module.higt / fontRenderer.FONT_HEIGHT)
@@ -369,10 +335,6 @@ class Arraylist(x: Double = 1.0, y: Double = 2.0, scale: Float = 1F,
                     if (!rectRightValue.get().equals("none", true)) {
                         val rectColor = when {
                             rectColorMode.equals("Random", ignoreCase = true) -> moduleColor
-                            rectColorMode.equals("Sky", ignoreCase = true) -> Sky
-                            rectColorMode.equals("CRainbow", ignoreCase = true) -> CRainbow
-                            rectColorMode.equals("LiquidSlowly", ignoreCase = true) -> LiquidSlowly
-                            rectColorMode.equals("Fade", ignoreCase = true) -> FadeColor
                             rectColorMode.equals("Gradinet", true) ->VisualUtils.getGradientOffset(Color(colorRedValue.get(), colorGreenValue.get(), colorBlueValue.get(),1), Color(colorRedValue2.get(), colorGreenValue2.get(), colorBlueValue2.get(),1), (Math.abs(
                                 System.currentTimeMillis() / gidentspeed.get()
                                     .toDouble() + (module.higt / fontRenderer.FONT_HEIGHT)
@@ -443,20 +405,8 @@ class Arraylist(x: Double = 1.0, y: Double = 2.0, scale: Float = 1F,
                                     "text" -> {
                                         val moduleColor = Color.getHSBColor(module.hue, saturation, brightness).rgb
 
-                                        var Sky = RenderUtils.SkyRainbow(counter[0] * (skyDistanceValue.get() * 50), saturationValue.get(), brightnessValue.get())
-                                        var CRainbow = RenderUtils.getRainbowOpaque(cRainbowSecValue.get(), saturationValue.get(), brightnessValue.get(), counter[0] * (50 * cRainbowDistValue.get()))
-                                        var FadeColor = ColorUtils.fade(Color(colorRedValue.get(), colorGreenValue.get(), colorBlueValue.get(), colorAlphaValue.get()), index * fadeDistanceValue.get(), 100).rgb
-                                        counter[0] = counter[0] - 1
-
-                                        val test = ColorUtils.LiquidSlowly(System.nanoTime(), index * liquidSlowlyDistanceValue.get(), saturationValue.get(), brightnessValue.get())?.rgb
-                                        var LiquidSlowly : Int = test!!
-
                                         when {
                                             colorMode.equals("Random", ignoreCase = true) -> moduleColor
-                                            colorMode.equals("Sky", ignoreCase = true) -> Sky
-                                            colorMode.equals("CRainbow", ignoreCase = true) -> CRainbow
-                                            colorMode.equals("LiquidSlowly", ignoreCase = true) -> LiquidSlowly
-                                            colorMode.equals("Fade", ignoreCase = true) -> FadeColor
                                             colorMode.equals("Gradinet", true) ->VisualUtils.getGradientOffset(Color(colorRedValue.get(), colorGreenValue.get(), colorBlueValue.get(),1), Color(colorRedValue2.get(), colorGreenValue2.get(), colorBlueValue2.get(),1), (Math.abs(
                                                 System.currentTimeMillis() / gidentspeed.get()
                                                     .toDouble() + (module.higt / fontRenderer.FONT_HEIGHT)
@@ -533,15 +483,6 @@ class Arraylist(x: Double = 1.0, y: Double = 2.0, scale: Float = 1F,
                     val width = fontRenderer.getStringWidth(displayString)
                     val xPos = -(width - module.slide) + if (rectLeftValue.get().equals("left", true)) 3 else 2
                     val moduleColor = Color.getHSBColor(module.hue, saturation, brightness).rgb
-                    var Sky: Int
-                    Sky = RenderUtils.SkyRainbow(counter[0] * (skyDistanceValue.get() * 50), saturationValue.get(), brightnessValue.get())
-                    var CRainbow: Int
-                    CRainbow = RenderUtils.getRainbowOpaque(cRainbowSecValue.get(), saturationValue.get(), brightnessValue.get(), counter[0] * (50 * cRainbowDistValue.get()))
-                    var FadeColor: Int = ColorUtils.fade(Color(colorRedValue.get(), colorGreenValue.get(), colorBlueValue.get(), colorAlphaValue.get()), index * fadeDistanceValue.get(), 100).rgb
-                    counter[0] = counter[0] - 1
-                    val test = ColorUtils.LiquidSlowly(System.nanoTime(), index * liquidSlowlyDistanceValue.get(), saturationValue.get(), brightnessValue.get())?.rgb
-                    var LiquidSlowly : Int = test!!
-
 
                     RenderUtils.drawRect(
                         0F,
@@ -552,10 +493,6 @@ class Arraylist(x: Double = 1.0, y: Double = 2.0, scale: Float = 1F,
 
                     fontRenderer.drawString(displayString, xPos, ((module.higt + textY)), when {
                         colorMode.equals("Random", ignoreCase = true) -> moduleColor
-                        colorMode.equals("Sky", ignoreCase = true) -> Sky
-                        colorMode.equals("CRainbow", ignoreCase = true) -> CRainbow
-                        colorMode.equals("LiquidSlowly", ignoreCase = true) -> LiquidSlowly
-                        colorMode.equals("Fade", ignoreCase = true) -> FadeColor
                         colorMode.equals("Gradinet", true) ->VisualUtils.getGradientOffset(Color(colorRedValue.get(), colorGreenValue.get(), colorBlueValue.get(),1), Color(colorRedValue2.get(), colorGreenValue2.get(), colorBlueValue2.get(),1), (Math.abs(
                             System.currentTimeMillis() / gidentspeed.get()
                                 .toDouble() + (module.higt / fontRenderer.FONT_HEIGHT)
@@ -567,15 +504,44 @@ class Arraylist(x: Double = 1.0, y: Double = 2.0, scale: Float = 1F,
                     if (!rectLeftValue.get().equals("none", true)) {
                         val rectColor = when {
                             rectColorMode.equals("Random", ignoreCase = true) -> moduleColor
-                            rectColorMode.equals("Sky", ignoreCase = true) -> Sky
-                            rectColorMode.equals("CRainbow", ignoreCase = true) -> CRainbow
-                            rectColorMode.equals("LiquidSlowly", ignoreCase = true) -> LiquidSlowly
-                            rectColorMode.equals("Fade", ignoreCase = true) -> FadeColor
-                            rectColorMode.equals("Gradinet", true) ->VisualUtils.getGradientOffset(Color(colorRedValue.get(), colorGreenValue.get(), colorBlueValue.get(),1), Color(colorRedValue2.get(), colorGreenValue2.get(), colorBlueValue2.get(),1), (Math.abs(
-                                System.currentTimeMillis() / gidentspeed.get()
-                                    .toDouble() + (module.higt / fontRenderer.FONT_HEIGHT)
-                            ) / 10)).rgb
-
+                            rectColorMode.equals("Gradinet", true) ->
+                                VisualUtils.getGradientOffset(
+                                    Color(
+                                        colorRedValue.get(),
+                                        colorGreenValue.get(),
+                                        colorBlueValue.get(),
+                                        1
+                                    ),
+                                    Color(
+                                        colorRedValue2.get(),
+                                        colorGreenValue2.get(),
+                                        colorBlueValue2.get(),
+                                        1
+                                    ),
+                                    abs(
+                                        System.currentTimeMillis() / gidentspeed.get().toDouble() +
+                                        (module.higt / fontRenderer.FONT_HEIGHT)
+                                    ) / 10
+                                ).rgb
+                            rectColorMode.equals("DarkNya", true) ->
+                                VisualUtils.getGradientOffset(
+                                    Color(
+                                        ColorManage.redBeginValue.get(),
+                                        ColorManage.greenBeginValue.get(),
+                                        ColorManage.blueBeginValue.get(),
+                                        1
+                                    ),
+                                    Color(
+                                        ColorManage.redEndValue.get(),
+                                        ColorManage.greenEndValue.get(),
+                                        ColorManage.blueEndValue.get(),
+                                        1
+                                    ),
+                                    abs(
+                                        System.currentTimeMillis() / gidentspeed.get().toDouble() +
+                                        (module.higt / fontRenderer.FONT_HEIGHT)
+                                    ) / 10
+                                ).rgb
                             else -> rectCustomColor
                         }
 
