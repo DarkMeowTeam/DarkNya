@@ -29,10 +29,12 @@ class Speed : Module() {
         AAC4SlowHop(),
         SpartanYPort(),
         SlowHop(),
+        LegitSpeed(),
+        LegitSpeedTimer(),
         CustomSpeed()
     )
 
-    val modeValue: ListValue = object : ListValue("Mode", modes, "NCPBHop") {
+    val modeValue: ListValue = object : ListValue("Mode", modes, "LegitSpeed") {
         override fun onChange(oldValue: String, newValue: String) {
             if (state)
                 onDisable()
