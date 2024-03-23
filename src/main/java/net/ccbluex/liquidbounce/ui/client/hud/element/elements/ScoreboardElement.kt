@@ -6,6 +6,7 @@ import com.google.common.collect.Lists
 import com.mojang.realmsclient.gui.ChatFormatting
 import me.utils.render.ShadowUtils
 import net.ccbluex.liquidbounce.DarkNya
+import net.ccbluex.liquidbounce.features.module.modules.client.ColorManage
 import net.ccbluex.liquidbounce.features.module.modules.client.HUD
 import net.ccbluex.liquidbounce.value.*
 import net.ccbluex.liquidbounce.ui.client.hud.element.Border
@@ -35,45 +36,16 @@ class ScoreboardElement(
 ) : Element(x, y, scale, side) {
 
 
-    private val textRedValue = IntegerValue("Text-R", 255, 0, 255)
-    private val textGreenValue = IntegerValue("Text-G", 255, 0, 255)
-    private val textBlueValue = IntegerValue("Text-B", 255, 0, 255)
-
-    private val backgroundColorRedValue = IntegerValue("Background-R", 0, 0, 255)
-    private val backgroundColorGreenValue = IntegerValue("Background-G", 0, 0, 255)
-    private val backgroundColorBlueValue = IntegerValue("Background-B", 0, 0, 255)
-    private val backgroundColorAlphaValue = IntegerValue("Background-Alpha", 95, 0, 255)
-
-
-    private val noshadow = BoolValue("NoShadow",false)
     private val shadowShaderValue = BoolValue("Shadow", false)
     private val shadowStrength = FloatValue("Shadow-Strength", 0F, 0F, 30F)
 
     private val radius = IntegerValue("Radius",15,0,10)
-    private val domainrainbow = BoolValue("Domain-Rainbow",false)
-    private val dred = IntegerValue("Domain-R", 0, 0, 255)
-    private val dgreen = IntegerValue("Domain-G", 111, 0, 255)
-    private val dblue = IntegerValue("Domain-B", 255, 0, 255)
     //private val blur = BoolValue("Blur", true)
     //private val blurStrength = FloatValue("Blur-Strength", 2F, 0F, 50F)
-    private val outline = BoolValue("Novo-Outline",false)
-    private val linewidth = FloatValue("OutlineWidth",2f,0f,5f)
     private val rectValue = BoolValue("Rect", false)
-    private val rectColorModeValue = ListValue("Rect-Color", arrayOf("Custom", "Novo"), "Novo")
-    private val rectColorRedValue = IntegerValue("Rect-R", 0, 0, 255)
-    private val rectColorGreenValue = IntegerValue("Rect-G", 111, 0, 255)
-    private val rectColorBlueValue = IntegerValue("Rect-B", 255, 0, 255)
-    private val rectColorBlueAlpha = IntegerValue("Rect-Alpha", 255, 0, 255)
-    private val gidentspeed = IntegerValue("Rect-GidentSpeed", 100, 1, 1000)
-    private val distanceValue = IntegerValue("Rect-Distance", 337, 0, 400)
-    private val gradientAmountValue = IntegerValue("Rect-Gradient-Amount", 3, 1, 50)
-    private val rectHeight = IntegerValue("Rect-Height", 1, 1, 5)
 
-    private val serverValue = ListValue("ServerIp", arrayOf("None", "ClientName"), "ClientName")
     private val noPointValue = BoolValue("NoPoints", false)
     private val fontValue = FontValue("Font", Fonts.minecraftFont)
-
-    private val allowedDomains = arrayOf(".ac", ".academy", ".accountant", ".accountants", ".actor", ".adult", ".ag", ".agency", ".ai", ".airforce", ".am", ".amsterdam", ".apartments", ".app", ".archi", ".army", ".art", ".asia", ".associates", ".at", ".attorney", ".au", ".auction", ".auto", ".autos", ".baby", ".band", ".bar", ".barcelona", ".bargains", ".bayern", ".be", ".beauty", ".beer", ".berlin", ".best", ".bet", ".bid", ".bike", ".bingo", ".bio", ".biz", ".biz.pl", ".black", ".blog", ".blue", ".boats", ".boston", ".boutique", ".build", ".builders", ".business", ".buzz", ".bz", ".ca", ".cab", ".cafe", ".camera", ".camp", ".capital", ".car", ".cards", ".care", ".careers", ".cars", ".casa", ".cash", ".casino", ".catering", ".cc", ".center", ".ceo", ".ch", ".charity", ".chat", ".cheap", ".church", ".city", ".cl", ".claims", ".cleaning", ".clinic", ".clothing", ".cloud", ".club", ".cn", ".co", ".co.in", ".co.jp", ".co.kr", ".co.nz", ".co.uk", ".co.za", ".coach", ".codes", ".coffee", ".college", ".com", ".com.ag", ".com.au", ".com.br", ".com.bz", ".com.cn", ".com.co", ".com.es", ".com.mx", ".com.pe", ".com.ph", ".com.pl", ".com.ru", ".com.tw", ".community", ".company", ".computer", ".condos", ".construction", ".consulting", ".contact", ".contractors", ".cooking", ".cool", ".country", ".coupons", ".courses", ".credit", ".creditcard", ".cricket", ".cruises", ".cymru", ".cz", ".dance", ".date", ".dating", ".de", ".deals", ".degree", ".delivery", ".democrat", ".dental", ".dentist", ".design", ".dev", ".diamonds", ".digital", ".direct", ".directory", ".discount", ".dk", ".doctor", ".dog", ".domains", ".download", ".earth", ".education", ".email", ".energy", ".engineer", ".engineering", ".enterprises", ".equipment", ".es", ".estate", ".eu", ".events", ".exchange", ".expert", ".exposed", ".express", ".fail", ".faith", ".family", ".fan", ".fans", ".farm", ".fashion", ".film", ".finance", ".financial", ".firm.in", ".fish", ".fishing", ".fit", ".fitness", ".flights", ".florist", ".fm", ".football", ".forsale", ".foundation", ".fr", ".fun", ".fund", ".furniture", ".futbol", ".fyi", ".gallery", ".games", ".garden", ".gay", ".gen.in", ".gg", ".gifts", ".gives", ".glass", ".global", ".gmbh", ".gold", ".golf", ".graphics", ".gratis", ".green", ".gripe", ".group", ".gs", ".guide", ".guru", ".hair", ".haus", ".health", ".healthcare", ".hockey", ".holdings", ".holiday", ".homes", ".horse", ".hospital", ".host", ".house", ".idv.tw", ".immo", ".immobilien", ".in", ".inc", ".ind.in", ".industries", ".info", ".info.pl", ".ink", ".institute", ".insure", ".international", ".investments", ".io", ".irish", ".ist", ".istanbul", ".it", ".jetzt", ".jewelry", ".jobs", ".jp", ".kaufen", ".kim", ".kitchen", ".kiwi", ".kr", ".la", ".land", ".law", ".lawyer", ".lease", ".legal", ".lgbt", ".life", ".lighting", ".limited", ".limo", ".live", ".llc", ".loan", ".loans", ".london", ".love", ".ltd", ".ltda", ".luxury", ".maison", ".makeup", ".management", ".market", ".marketing", ".mba", ".me", ".me.uk", ".media", ".melbourne", ".memorial", ".men", ".menu", ".miami", ".mobi", ".moda", ".moe", ".money", ".monster", ".mortgage", ".motorcycles", ".movie", ".ms", ".mx", ".nagoya", ".name", ".navy", ".ne.kr", ".net", ".net.ag", ".net.au", ".net.br", ".net.bz", ".net.cn", ".net.co", ".net.in", ".net.nz", ".net.pe", ".net.ph", ".net.pl", ".net.ru", ".network", ".news", ".ninja", ".nl", ".no", ".nom.co", ".nom.es", ".nom.pe", ".nrw", ".nyc", ".okinawa", ".one", ".onl", ".online", ".org", ".org.ag", ".org.au", ".org.cn", ".org.es", ".org.in", ".org.nz", ".org.pe", ".org.ph", ".org.pl", ".org.ru", ".org.uk", ".page", ".paris", ".partners", ".parts", ".party", ".pe", ".pet", ".ph", ".photography", ".photos", ".pictures", ".pink", ".pizza", ".pl", ".place", ".plumbing", ".plus", ".poker", ".porn", ".press", ".pro", ".productions", ".promo", ".properties", ".protection", ".pub", ".pw", ".quebec", ".quest", ".racing", ".re.kr", ".realestate", ".recipes", ".red", ".rehab", ".reise", ".reisen", ".rent", ".rentals", ".repair", ".report", ".republican", ".rest", ".restaurant", ".review", ".reviews", ".rich", ".rip", ".rocks", ".rodeo", ".ru", ".run", ".ryukyu", ".sale", ".salon", ".sarl", ".school", ".schule", ".science", ".se", ".security", ".services", ".sex", ".sg", ".sh", ".shiksha", ".shoes", ".shop", ".shopping", ".show", ".singles", ".site", ".ski", ".skin", ".soccer", ".social", ".software", ".solar", ".solutions", ".space", ".storage", ".store", ".stream", ".studio", ".study", ".style", ".supplies", ".supply", ".support", ".surf", ".surgery", ".sydney", ".systems", ".tax", ".taxi", ".team", ".tech", ".technology", ".tel", ".tennis", ".theater", ".theatre", ".tienda", ".tips", ".tires", ".today", ".tokyo", ".tools", ".tours", ".town", ".toys", ".top", ".trade", ".training", ".travel", ".tube", ".tv", ".tw", ".uk", ".university", ".uno", ".us", ".vacations", ".vegas", ".ventures", ".vet", ".viajes", ".video", ".villas", ".vin", ".vip", ".vision", ".vodka", ".vote", ".voto", ".voyage", ".wales", ".watch", ".webcam", ".website", ".wedding", ".wiki", ".win", ".wine", ".work", ".works", ".world", ".ws", ".wtf", ".xxx", ".xyz", ".yachts", ".yoga", ".yokohama", ".zone", "花雨庭", "855712180")
 
     /**
      * Draw element
@@ -82,13 +54,6 @@ class ScoreboardElement(
         val fontRenderer = fontValue.get()
         val textColor = textColor().rgb
         val backColor = backgroundColor().rgb
-        val backColor2 = backgroundColor2().rgb
-
-        val rectColorMode = rectColorModeValue.get()
-        val rectCustomColor = Color(
-            rectColorRedValue.get(), rectColorGreenValue.get(), rectColorBlueValue.get(),
-            rectColorBlueAlpha.get()
-        ).rgb
 
         val worldScoreboard = mc.world!!.scoreboard
         var currObjective: ScoreObjective? = null
@@ -140,7 +105,7 @@ class ScoreboardElement(
                 GL11.glTranslated(renderX, renderY, 0.0)
                 GL11.glScalef(scale, scale, scale)
                 RenderUtils.drawRoundedRect(l1 - 7f, -5f, 9f, (maxHeight + fontRenderer.FONT_HEIGHT + 5).toFloat(),
-                    radius.get().toInt(),backColor2)
+                    radius.get(),backColor)
                 GL11.glPopMatrix()
             }, {
                 GL11.glPushMatrix()
@@ -150,7 +115,7 @@ class ScoreboardElement(
                 GlStateManager.disableTexture2D()
                 GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0)
                 RenderUtils.drawRoundedRect(l1 - 7f, -5f, 9f, (maxHeight + fontRenderer.FONT_HEIGHT + 5).toFloat(),
-                    radius.get().toInt(),backColor2)
+                    radius.get(),backColor)
                 GlStateManager.enableTexture2D()
                 GlStateManager.disableBlend()
                 GL11.glPopMatrix()
@@ -161,7 +126,7 @@ class ScoreboardElement(
         }
 
         RenderUtils.drawRoundedRect(l1 - 7f, -5f, 9f, (maxHeight + fontRenderer.FONT_HEIGHT + 5).toFloat(),
-            radius.get().toInt(),backColor)
+            radius.get(),backColor)
 
         //Blur
 /*        if (blur.get()) {
@@ -176,13 +141,6 @@ class ScoreboardElement(
             )
             GL11.glTranslated(renderX, renderY, 0.0)
         }*/
-        if (outline.get()){
-            net.ccbluex.liquidbounce.utils.render.RenderUtils.drawGidentOutlinedRoundedRect(l1 - 7.0, -5.0, 8.0 - (l1 - 7.0), (maxHeight + fontRenderer.FONT_HEIGHT + 5).toDouble() - (-5.0), radius.get().toDouble(),linewidth.get())
-        }
-//Shadow!!!!
-        if(!noshadow.get()){
-            RenderUtils.drawShadowWithCustomAlpha(l1 - 7f, -5f, -l1 + 16f, maxHeight + fontRenderer.FONT_HEIGHT + 10f, 255f)}
-
         scoreCollection.forEachIndexed { index, score ->
             val team = scoreboard.getPlayersTeam(score.playerName)
 
@@ -195,23 +153,6 @@ class ScoreboardElement(
             GlStateManager.resetColor()
 
             var listColor = textColor
-            val hud = DarkNya.moduleManager.getModule(HUD::class.java) as HUD
-            var scorename = hud.domainValue.get()
-            if (!serverValue.equals("none")) {
-                for (domain in allowedDomains) {
-                    if (name.contains(domain, true)) {
-                        name = when (serverValue.get().toLowerCase()) {
-                            "clientname" -> "${scorename}"
-                            else -> DarkNya.CLIENT_NAME
-                        }
-                        listColor = if(domainrainbow.get()){net.ccbluex.liquidbounce.utils.render.ColorUtils.rainbow().rgb}
-                        else {
-                            Color(dred.get(),dblue.get(),dgreen.get()).rgb
-                        }
-                        break
-                    }
-                }
-            }
             FontLoaders.F16.drawStringWithShadow(name, l1.toDouble(), height.toDouble(), listColor)
             if (!noPointValue.get()) {
                 FontLoaders.F16.drawStringWithShadow(
@@ -235,46 +176,16 @@ class ScoreboardElement(
 
 
             if (rectValue.get()) {
-                for (i in 0..(gradientAmountValue.get()-1)) {
-                    val colorMode = rectColorMode
-                    net.ccbluex.liquidbounce.utils.render.RenderUtils.drawGradientSideways((-maxWidth-10f).toDouble(), -5f.toDouble(), 9f.toDouble(), rectHeight.get()-5.0, when {
-                        colorMode.equals("Custom", ignoreCase = true) -> Color(rectCustomColor).rgb
-                        colorMode.equals("Novo", ignoreCase = true) ->  net.ccbluex.liquidbounce.utils.render.RenderUtils.getGradientOffset3(
-                            Color(CustomUI.r.get(), CustomUI.g.get(), CustomUI.b.get()),
-                            Color(CustomUI.r2.get(), CustomUI.g2.get(), CustomUI.b2.get(),i),
-                            (Math.abs(
-                                System.currentTimeMillis() / gidentspeed.get()
-                                    .toDouble() + i *distanceValue.get()
-                            ) / 10)
-                        ).rgb
-
-                        else -> Color.WHITE.rgb
-                    },
-                        when {
-                            colorMode.equals("Custom", ignoreCase = true) -> Color(rectCustomColor).rgb
-                            colorMode.equals("Novo", ignoreCase = true) -> net.ccbluex.liquidbounce.utils.render.RenderUtils.getGradientOffset(
-                                Color(CustomUI.r.get(), CustomUI.g.get(), CustomUI.b.get()),
-                                Color(CustomUI.r2.get(), CustomUI.g2.get(), CustomUI.b2.get(),1),
-                                (Math.abs(
-                                    System.currentTimeMillis() / gidentspeed.get()
-                                        .toDouble() + i  * distanceValue.get()
-                                ) / 10)
-                            ).rgb
-
-                            else -> Color.WHITE.rgb
-                        })
-                }
+                RenderUtils.drawGradientSideways((-maxWidth-10f).toDouble(), -5f.toDouble(), 9f.toDouble(), -4.0,
+                    ColorManage.getColorByTime(),
+                    ColorManage.getColorByTime()
+                )
             }
         }
 
         return Border(-maxWidth.toFloat() - 10f - 0, -5F, 9F, maxHeight.toFloat() + fontRenderer.FONT_HEIGHT + 5)
     }
 
-    private fun backgroundColor() = Color(backgroundColorRedValue.get(), backgroundColorGreenValue.get(),
-        backgroundColorBlueValue.get(), backgroundColorAlphaValue.get())
-    private fun backgroundColor2() = Color(backgroundColorRedValue.get(), backgroundColorGreenValue.get(),
-        backgroundColorBlueValue.get())
-
-    private fun textColor() = Color(textRedValue.get(), textGreenValue.get(),
-        textBlueValue.get())
+    private fun backgroundColor() = Color(0,0,0,160)
+    private fun textColor() = Color(240,240,240)
 }
