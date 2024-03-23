@@ -21,7 +21,7 @@ import org.lwjgl.opengl.GL11
 import java.awt.Color
 import java.text.DecimalFormat
 
-@ElementInfo(name = "Target")
+@ElementInfo(name = "DarkNyaTarget")
 class DarkNyaTarget : Element(-46.0,-40.0,1F,Side(Side.Horizontal.MIDDLE,Side.Vertical.MIDDLE)) {
     private val switchModeValue = ListValue("SwitchMode", arrayOf("Slide","Zoom","None"), "Slide")
     private val animSpeedValue = IntegerValue("AnimSpeed",10,5,20)
