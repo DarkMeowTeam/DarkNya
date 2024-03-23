@@ -47,8 +47,8 @@ fun getNearestPointBB(eye: Vec3d, box: AxisAlignedBB): Vec3d {
 }
 
 fun EntityPlayer.getPing(): Int {
-    val playerInfo = mc.connection!!.getPlayerInfo(uniqueID)
-    return playerInfo.responseTime
+    val playerInfo = mc.connection?.getPlayerInfo(uniqueID)
+    return playerInfo?.responseTime ?: 0
 }
 
 fun Entity.isAnimal(): Boolean {
