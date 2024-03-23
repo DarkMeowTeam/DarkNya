@@ -26,7 +26,10 @@ class SelfBanChecker : Module() {
     private val actionSendMessageContent = TextValue("SendMessageContent","")
     private val actionSendQuittingDisconnectingPacket = BoolValue("sendQuittingDisconnectingPacket",false)
     private val actionDisableKillauraBlink = BoolValue("DisableKillauraBlink",true)
-    private var banCount = 0
+    companion object {
+        @JvmStatic
+        var banCount = 0
+    }
 
     override fun onEnable() {
         banCount = 0
