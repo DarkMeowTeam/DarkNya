@@ -216,7 +216,7 @@ public abstract class MixinMinecraft {
 
                 IBlockState bs = this.world.getBlockState(blockPos);
 
-                if (bs.getBlock().getMaterial(bs) != Material.AIR && this.playerController.onPlayerDamageBlock(blockPos, this.objectMouseOver.sideHit)) {
+                if (bs.getMaterial() != Material.AIR && this.playerController.onPlayerDamageBlock(blockPos, this.objectMouseOver.sideHit)) {
                     this.effectRenderer.addBlockHitEffects(blockPos, this.objectMouseOver.sideHit);
                     this.player.swingArm(EnumHand.MAIN_HAND);
                 }
