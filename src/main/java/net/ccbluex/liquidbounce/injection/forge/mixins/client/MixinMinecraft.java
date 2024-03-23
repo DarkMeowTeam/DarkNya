@@ -144,7 +144,7 @@ public abstract class MixinMinecraft {
     private void onClickBlock(CallbackInfo callbackInfo) {
         IBlockState blockState = world.getBlockState(objectMouseOver.getBlockPos());
 
-        if (this.leftClickCounter == 0 && blockState.getBlock().getMaterial(blockState) != Material.AIR) {
+        if (this.leftClickCounter == 0 && blockState.getMaterial() != Material.AIR) {
             DarkNya.eventManager.callEvent(new ClickBlockEvent(objectMouseOver.getBlockPos(), this.objectMouseOver.sideHit));
         }
     }
