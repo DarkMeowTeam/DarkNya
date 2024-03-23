@@ -11,6 +11,7 @@ import net.ccbluex.liquidbounce.features.module.modules.exploit.PingSpoof
 import net.ccbluex.liquidbounce.features.module.modules.exploit.ServerCrasher
 import net.ccbluex.liquidbounce.features.module.modules.movement.Fly
 import net.ccbluex.liquidbounce.features.module.modules.movement.Speed
+import net.ccbluex.liquidbounce.features.module.modules.movement.Step
 import net.ccbluex.liquidbounce.features.module.modules.player.InvManager
 import net.ccbluex.liquidbounce.features.module.modules.world.ChestAura
 import net.ccbluex.liquidbounce.features.module.modules.world.ChestStealer
@@ -28,6 +29,7 @@ class JoinToggleOff : Module() {
     private val speedValue = BoolValue("Speed", false)
     private val pingSpoofValue = BoolValue("PingSpoof", false)
     private val serverCrasherValue = BoolValue("ServerCrasher", false)
+    private val stepValue = BoolValue("Step", false)
     private val hudValue = ListValue("Hud",arrayOf("None","Hidden","Display"),"None")
     private val bindKickNoneValue = BoolValue("BindKickNone", false)
 
@@ -41,6 +43,7 @@ class JoinToggleOff : Module() {
         if (speedValue.get()) DarkNya.moduleManager[Speed::class.java].state = false
         if (pingSpoofValue.get()) DarkNya.moduleManager[PingSpoof::class.java].state = false
         if (serverCrasherValue.get()) DarkNya.moduleManager[ServerCrasher::class.java].state = false
+        if (stepValue.get()) DarkNya.moduleManager[Step::class.java].state = false
         if (hudValue.get() != "None") DarkNya.moduleManager[HUD::class.java].state = hudValue.get() == "Display"
         if (bindKickNoneValue.get() && DarkNya.moduleManager[Kick::class.java].keyBind != Keyboard.CHAR_NONE) DarkNya.moduleManager[Kick::class.java].keyBind = Keyboard.CHAR_NONE
     }

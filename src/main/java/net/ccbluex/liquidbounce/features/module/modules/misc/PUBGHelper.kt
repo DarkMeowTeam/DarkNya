@@ -12,6 +12,7 @@ import net.ccbluex.liquidbounce.features.module.modules.exploit.Phase
 import net.ccbluex.liquidbounce.features.module.modules.movement.Fly
 import net.ccbluex.liquidbounce.features.module.modules.movement.NoClip
 import net.ccbluex.liquidbounce.features.module.modules.movement.Speed
+import net.ccbluex.liquidbounce.features.module.modules.movement.Step
 import net.ccbluex.liquidbounce.features.module.modules.player.AntiAim
 import net.ccbluex.liquidbounce.features.module.modules.player.InvManager
 import net.ccbluex.liquidbounce.features.module.modules.world.ChestAura
@@ -78,6 +79,7 @@ class PUBGHelper : Module() {
             DarkNya.moduleManager[InvManager::class.java].state = false
             DarkNya.moduleManager[Phase::class.java].state = false
             DarkNya.moduleManager[NoClip::class.java].state = false
+            DarkNya.moduleManager[Step::class.java].state = false
         }
     }
 }
