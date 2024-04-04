@@ -194,7 +194,7 @@ public abstract class MixinMinecraft {
             MiniMapRegister.INSTANCE.unloadAllChunks();
         }
 
-        DarkNya.eventManager.callEvent(new WorldEvent(p_loadWorld_1_ == null ? null : p_loadWorld_1_));
+        DarkNya.eventManager.callEvent(new WorldEvent(p_loadWorld_1_));
     }
 
     /**
@@ -226,13 +226,6 @@ public abstract class MixinMinecraft {
         }
     }
 
-    /**
-     * @author
-     */
-/*    @Overwrite
-    public int getLimitFramerate() {
-        return this.world == null && this.currentScreen != null ? 60 : this.gameSettings.limitFramerate;
-    }*/
     /**
      * patcher
      */
