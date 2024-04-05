@@ -110,8 +110,8 @@ class DarkNyaTarget : Element(-46.0,-40.0,1F,Side(Side.Horizontal.MIDDLE,Side.Ve
         // 绘制头像
         if (target is EntityPlayer) { // 不是玩家类型绘制头部会出错
 
-            val hurtPercent=target.hurtPercent
-            val scale=if(hurtPercent==0f){ 1f }
+            val hurtPercent = target.hurtPercent
+            val scale = if (hurtPercent == 0f) { 1f }
             else if(hurtPercent<0.5f){
                 1-(0.2f*hurtPercent*2)
             }else{
@@ -127,8 +127,15 @@ class DarkNyaTarget : Element(-46.0,-40.0,1F,Side(Side.Horizontal.MIDDLE,Side.Ve
             // 受伤的红色效果
             GL11.glColor4f(1f, 1-hurtPercent, 1-hurtPercent, 1f)
             // 绘制头部图片
-
-            RenderUtils.quickDrawHead(mc.connection!!.getPlayerInfo(target.uniqueID)!!.locationSkin, 0, 0, size, size)
+            try {
+                RenderUtils.quickDrawHead(
+                    mc.connection!!.getPlayerInfo(target.uniqueID).locationSkin,
+                    0,
+                    0,
+                    size,
+                    size
+                )
+            } catch (_:Exception) {}
 
             GL11.glPopMatrix()
         }
