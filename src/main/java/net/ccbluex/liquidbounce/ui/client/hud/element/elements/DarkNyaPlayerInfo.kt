@@ -54,7 +54,7 @@ class DarkNyaPlayerInfo(
         RenderUtils.drawRect(0F, startY, 150F, startY + 32F, Color(0, 0, 0, 160).rgb)
 
         if (shadowValue.get()) {
-            RenderUtils.drawShadowWithCustomAlpha(0F, 12F, 150F, startY + 32F, 200F)
+            RenderUtils.drawShadowWithCustomAlpha(0F, 0F, 150F, startY + 32F, 200F)
         }
 
         // 玩家头像贴图
@@ -79,6 +79,6 @@ class DarkNyaPlayerInfo(
             startY + 19F, Color(200, 200, 200, 255).rgb)
 
 
-        return Border(0F, startY, 150F, startY + 32F)
+        return Border(0F, 0F, 150F, startY + 32F)
     }
 }
