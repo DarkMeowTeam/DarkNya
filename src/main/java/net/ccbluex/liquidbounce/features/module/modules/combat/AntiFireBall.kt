@@ -28,7 +28,6 @@ class AntiFireBall : Module() {
                 if (rotationValue.get()) {
                     RotationUtils.setTargetRotation(RotationUtils.getRotationsNonLivingEntity(entity))
                 }
-                DebugManage.info("1")
                 mc.connection!!.sendPacket(CPacketUseEntity(entity))
 
                 if (swingValue.equals("Normal")) {
