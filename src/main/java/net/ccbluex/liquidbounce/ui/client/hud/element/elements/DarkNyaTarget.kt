@@ -144,11 +144,11 @@ class DarkNyaTarget : Element(-46.0,-40.0,1F,Side(Side.Horizontal.MIDDLE,Side.Ve
         font.drawString("${decimalFormat.format(mc.player!!.getDistanceToEntityBox(target))} Block", 40, 11+font.FONT_HEIGHT,Color(200, 200, 200, 255).rgb)
 
         // 渐变血量条
-        GL11.glEnable(3042)
-        GL11.glDisable(3553)
-        GL11.glBlendFunc(770, 771)
-        GL11.glEnable(2848)
-        GL11.glShadeModel(7425)
+        GL11.glEnable(GL11.GL_BLEND) // 启用混合
+        GL11.glDisable(GL11.GL_TEXTURE_2D) // 禁用2D纹理映射
+        GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA) // 设置混合函数
+        GL11.glEnable(GL11.GL_LINE_SMOOTH) // 启用线条平滑
+        GL11.glShadeModel(GL11.GL_SMOOTH) // 设置阴影平滑模式
         fun renderSideway(x: Int,x1: Int){
             RenderUtils.quickDrawGradientSideways(x.toDouble(),39.0, x1.toDouble(),45.0,ColorManage.getStaticColorBegin(),ColorManage.getStaticColorBegin())
         }
@@ -156,10 +156,10 @@ class DarkNyaTarget : Element(-46.0,-40.0,1F,Side(Side.Horizontal.MIDDLE,Side.Ve
         for(i in 5..stopPos step 5){
             renderSideway(i, (i + 5).coerceAtMost(stopPos))
         }
-        GL11.glEnable(3553)
-        GL11.glDisable(3042)
-        GL11.glDisable(2848)
-        GL11.glShadeModel(7424)
+        GL11.glEnable(GL11.GL_TEXTURE_2D) // 启用2D纹理映射
+        GL11.glDisable(GL11.GL_BLEND)      // 禁用混合，用于处理源像素和目标像素颜色值的混合计算
+        GL11.glDisable(GL11.GL_LINE_SMOOTH) // 禁用线条平滑，它是用于防止绘制线条时出现锯齿状边缘
+        GL11.glShadeModel(GL11.GL_FLAT)    // 设置着色模型为平面着色，用于单色渲染几何形状
         GL11.glColor4f(1f, 1f, 1f, 1f)
 
         font.drawString(decimalFormat.format(easingHealth),stopPos+5,43-font.FONT_HEIGHT/2,Color.WHITE.rgb)

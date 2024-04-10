@@ -1,6 +1,5 @@
 package net.ccbluex.liquidbounce.features.module.modules.combat
 
-import me.utils.player.PlayerUtil.isMoving
 import me.utils.render.GLUtils
 import net.ccbluex.liquidbounce.DarkNya
 import net.ccbluex.liquidbounce.event.*
@@ -45,6 +44,7 @@ import net.minecraft.util.ResourceLocation
 import net.minecraft.util.SoundEvent
 import net.minecraft.util.math.AxisAlignedBB
 import net.minecraft.util.math.BlockPos
+import net.minecraft.util.math.MathHelper
 import net.minecraft.util.math.RayTraceResult
 import net.minecraft.world.GameType
 import org.lwjgl.input.Keyboard
@@ -460,6 +460,8 @@ class KillAura : Module() {
         }
 
         if (!airBypass.get()) range = rangeValue.get()
+
+        (DarkNya.moduleManager[StrafeFix::class.java] as StrafeFix).applyForceStrafe(rotationStrafeValue.equals("Silent"), !rotationStrafeValue.equals("Off") && !rotations.equals("None"))
 
         if (lightingValue.get()) {
             when (lightingModeValue.get().toLowerCase()) {
@@ -1568,7 +1570,7 @@ class KillAura : Module() {
         if (blockingStatus) {
 
             if(autoBlockPacketValue.get().equals("Packet", true)) {
-                mc.connection!!.sendPacket(CPacketPlayerDigging(CPacketPlayerDigging.Action.RELEASE_USE_ITEM, if (isMoving()) BlockPos(-1, -1, -1) else BlockPos.ORIGIN, EnumFacing.DOWN))
+                mc.connection!!.sendPacket(CPacketPlayerDigging(CPacketPlayerDigging.Action.RELEASE_USE_ITEM, if (MovementUtils.isMoving) BlockPos(-1, -1, -1) else BlockPos.ORIGIN, EnumFacing.DOWN))
             }
             if(autoBlockPacketValue.get().equals("UseItem", true)) {
                 KeyBinding.setKeyBindState(mc.gameSettings.keyBindUseItem.keyCode, false)

@@ -77,7 +77,7 @@ public abstract class MixinSplashProgressRunnable {
             GL11.glEnd();
             GL11.glDisable(3553);
 
-            drawProgress((int) getProgress());
+            drawProgress(getProgress());
 
             FontLoaders.getFont("misans.ttf", 55, true).drawCenteredString("DarkNya", (double) width / 2, (double) height / 2 - 70, Color.WHITE.getRGB(), true);
 
