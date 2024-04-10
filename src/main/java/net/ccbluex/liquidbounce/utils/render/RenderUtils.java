@@ -1,8 +1,5 @@
 package net.ccbluex.liquidbounce.utils.render;
 
-import me.CustomUI;
-import net.ccbluex.liquidbounce.DarkNya;
-import net.ccbluex.liquidbounce.features.module.modules.client.HUD;
 import net.ccbluex.liquidbounce.ui.font.Fonts;
 import net.ccbluex.liquidbounce.utils.ImageUtils;
 import net.ccbluex.liquidbounce.utils.MinecraftInstance;
@@ -1272,88 +1269,7 @@ public final class RenderUtils extends MinecraftInstance {
         glPopMatrix();
     }
 
-    public static void drawGidentOutlinedRoundedRect(double x, double y, double width, double height, double radius, float linewidth) {
-        HUD hud = (HUD) DarkNya.moduleManager.getModule(HUD.class);
-        //大神渐变方向
-        GlStateManager.enableBlend();
-        GlStateManager.disableTexture2D();
-        GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
-        double x1 = x + width;
-        double y1 = y + height;
-        int colorI = 0;
-        GL11.glPushAttrib(0);
-        GL11.glScaled(0.5, 0.5, 0.5);
 
-        x *= 2;
-        y *= 2;
-        x1 *= 2;
-        y1 *= 2;
-        GL11.glLineWidth(linewidth);
-
-        glDisable(GL11.GL_TEXTURE_2D);
-        glEnable(GL11.GL_LINE_SMOOTH);
-        GL11.glBegin(2);
-
-        //one
-        for (int i = 0; i <= 90; i += 3) {
-            RenderUtils.setColor(fadeBetween(new Color(CustomUI.r.get(),CustomUI.g.get(),CustomUI.b.get()).getRGB(),new Color(CustomUI.r2.get(),CustomUI.g2.get(),CustomUI.b2.get()).getRGB(),20L * colorI));
-            GL11.glVertex2d(x + radius + +(Math.sin((i * Math.PI / 180)) * (radius * -1)), y + radius + (Math.cos((i * Math.PI / 180)) * (radius * -1)));
-            colorI++;
-        }
-        for (int i = 0; i <= y; i += 3) {
-            RenderUtils.setColor(fadeBetween(new Color(CustomUI.r.get(),CustomUI.g.get(),CustomUI.b.get()).getRGB(),new Color(CustomUI.r2.get(),CustomUI.g2.get(),CustomUI.b2.get()).getRGB(),20L * colorI));
-            GL11.glVertex2d(x,y1 - radius -i);
-            colorI++;
-        }
-        //two
-        for (int i = 90; i <= 180; i += 3) {
-            RenderUtils.setColor(fadeBetween(new Color(CustomUI.r.get(),CustomUI.g.get(),CustomUI.b.get()).getRGB(),new Color(CustomUI.r2.get(),CustomUI.g2.get(),CustomUI.b2.get()).getRGB(),20L * colorI));
-            GL11.glVertex2d(x + radius + (Math.sin((i * Math.PI / 180)) * (radius * -1)), y1 - radius + (Math.cos((i * Math.PI / 180)) * (radius * -1)));
-            colorI++;
-        }
-        for (int i = 90; i <= 180; i += 3) {
-            RenderUtils.setColor(fadeBetween(new Color(CustomUI.r.get(),CustomUI.g.get(),CustomUI.b.get()).getRGB(),new Color(CustomUI.r2.get(),CustomUI.g2.get(),CustomUI.b2.get()).getRGB(),20L * colorI));
-            GL11.glVertex2d(x + radius + i,y1);
-            colorI++;
-        }
-        //three
-        for (int i = 0; i <= 90; i += 3) {
-            RenderUtils.setColor(fadeBetween(new Color(CustomUI.r.get(),CustomUI.g.get(),CustomUI.b.get()).getRGB(),new Color(CustomUI.r2.get(),CustomUI.g2.get(),CustomUI.b2.get()).getRGB(),20L * colorI));
-            GL11.glVertex2d(x1 - radius + (Math.sin((i * Math.PI / 180)) * radius), y1 - radius + (Math.cos((i * Math.PI / 180)) * radius));
-            colorI++;
-        }
-        for (int i = 0; i <= 90; i += 3) {
-            RenderUtils.setColor(fadeBetween(new Color(CustomUI.r.get(),CustomUI.g.get(),CustomUI.b.get()).getRGB(),new Color(CustomUI.r2.get(),CustomUI.g2.get(),CustomUI.b2.get()).getRGB(),20L * colorI));
-            GL11.glVertex2d(x1,y1 - radius - i);
-            colorI++;
-        }
-        //four
-        for (int i = 90; i <= 180; i += 3) {
-            RenderUtils.setColor(fadeBetween(new Color(CustomUI.r.get(),CustomUI.g.get(),CustomUI.b.get()).getRGB(),new Color(CustomUI.r2.get(),CustomUI.g2.get(),CustomUI.b2.get()).getRGB(),20L * colorI));
-            GL11.glVertex2d(x1 - radius + (Math.sin((i * Math.PI / 180)) * radius), y + radius + (Math.cos((i * Math.PI / 180)) * radius));
-            colorI++;
-        }
-        //第四个结束继续
-        for (int i = 90; i <= 180; i += 3) {
-            RenderUtils.setColor(fadeBetween(new Color(CustomUI.r.get(), CustomUI.g.get(),CustomUI.b.get()).getRGB(),new Color(CustomUI.r2.get(),CustomUI.g2.get(),CustomUI.b2.get()).getRGB(),20L * colorI));
-            GL11.glVertex2d(x1 - radius - i,y);
-            colorI++;
-        }
-
-        GL11.glEnd();
-
-        glEnable(GL11.GL_TEXTURE_2D);
-        glDisable(GL11.GL_LINE_SMOOTH);
-        glEnable(GL11.GL_TEXTURE_2D);
-
-        GL11.glScaled(2, 2, 2);
-
-        GL11.glPopAttrib();
-        GL11.glColor4f(1, 1, 1, 1);
-        GlStateManager.enableTexture2D();
-        GlStateManager.disableBlend();
-
-    }
     public static void drawTexturedModalRect(int x, int y, int textureX, int textureY, int width, int height, float zLevel)
     {
         float f = 0.00390625F;
