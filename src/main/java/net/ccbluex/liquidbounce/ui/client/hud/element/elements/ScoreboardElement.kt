@@ -1,13 +1,10 @@
 package net.ccbluex.liquidbounce.ui.client.hud.element.elements
 
-import me.CustomUI
 import com.google.common.collect.Iterables
 import com.google.common.collect.Lists
 import com.mojang.realmsclient.gui.ChatFormatting
 import me.utils.render.ShadowUtils
-import net.ccbluex.liquidbounce.DarkNya
 import net.ccbluex.liquidbounce.features.module.modules.client.ColorManage
-import net.ccbluex.liquidbounce.features.module.modules.client.HUD
 import net.ccbluex.liquidbounce.value.*
 import net.ccbluex.liquidbounce.ui.client.hud.element.Border
 import net.ccbluex.liquidbounce.ui.client.hud.element.Element
