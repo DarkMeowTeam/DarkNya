@@ -24,7 +24,6 @@ import op.wawa.sound.Sound
 import op.wawa.utils.sound.TipSoundManager
 
 object DarkNya {
-
     // Client information
     const val CLIENT_NAME = "DarkNya"
     const val CLIENT_VERSION = "Dev-Build"
@@ -32,6 +31,7 @@ object DarkNya {
     const val CLIENT_SUFFIX = "(Github:catx-feitu/DarkNya)" // 客户端标题后缀
     const val CLIENT_CLOUD = "https://cloud.liquidbounce.net/LiquidBounce"
 
+    @JvmField
     var isStarting = false
 
     // Managers
@@ -131,8 +131,6 @@ object DarkNya {
         isStarting = false
         // Log success
         ClientUtils.getLogger().info("$CLIENT_NAME $CLIENT_VERSION loaded in ${(System.currentTimeMillis() - startTime)}ms!")
-        // Sound
-        Sound.INSTANCE.Spec()
     }
 
     /**

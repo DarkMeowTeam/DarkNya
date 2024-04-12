@@ -1,12 +1,18 @@
 package op.wawa.sound;
 
+import net.ccbluex.liquidbounce.DarkNya;
+
 import javax.sound.sampled.*;
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.util.Objects;
 
+import static net.ccbluex.liquidbounce.DarkNya.isStarting;
+
 public class SoundPlayer {
     public void playSound(SoundType st,float volume) {
+        if (DarkNya.isStarting) return;
+
         new Thread(() -> {
             AudioInputStream as;
             try {

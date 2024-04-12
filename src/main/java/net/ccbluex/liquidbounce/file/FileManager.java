@@ -166,7 +166,7 @@ public class FileManager extends MinecraftInstance {
      * @param ignoreStarting check starting
      */
     private void saveConfig(final FileConfig config, final boolean ignoreStarting) {
-        if (!ignoreStarting && DarkNya.INSTANCE.isStarting())
+        if (!ignoreStarting && DarkNya.isStarting)
             return;
 
         try {
