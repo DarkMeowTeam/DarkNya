@@ -146,7 +146,9 @@ jar {
             'FMLCorePlugin': 'net.ccbluex.liquidbounce.injection.forge.TransformerLoader',
             'FMLAT': 'liquidbounce_at.cfg',
             'Manifest-Version': 1.0,
-            'Main-Class': 'net.ccbluex.liquidinstruction.LiquidInstructionKt'
+            'Main-Class': 'net.ccbluex.liquidinstruction.LiquidInstructionKt',
+            'Can-Redefine-Classes': 'true',
+            'Can-Retransform-Classes': 'true',
     )
 }
 

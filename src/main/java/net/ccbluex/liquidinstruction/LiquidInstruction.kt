@@ -1,31 +1,7 @@
 package net.ccbluex.liquidinstruction
 
-import net.ccbluex.liquidbounce.DarkNya
-import java.awt.BorderLayout
-import javax.swing.JFrame
-import javax.swing.JLabel
-import javax.swing.WindowConstants
+import javax.swing.JOptionPane
 
 fun main() {
-    // Setup instruction frame
-    val frame = JFrame("LiquidBounce | Installation")
-    frame.defaultCloseOperation = WindowConstants.EXIT_ON_CLOSE
-    frame.layout = BorderLayout()
-    frame.isResizable = false
-    frame.isAlwaysOnTop = true
-
-    // Add instruction as label
-    @Suppress("RECEIVER_NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
-    val label = JLabel(DarkNya::class.java.getResourceAsStream("/instructions.html").reader().readText()
-            .replace("{assets}", DarkNya.javaClass.classLoader.getResource("assets").toString()))
-    frame.add(label, BorderLayout.CENTER)
-
-    // Pack frame
-    frame.pack()
-
-    // Set location to center of screen
-    frame.setLocationRelativeTo(null)
-
-    // Display instruction frame
-    frame.isVisible = true
+    JOptionPane.showMessageDialog(null, "Sorry,but DarkNya is a Minecraft-1.12.2 Forge Mod.", "DarkNya", JOptionPane.INFORMATION_MESSAGE)
 }
