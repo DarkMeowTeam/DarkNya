@@ -22,6 +22,7 @@ import net.minecraft.block.BlockContainer
 import net.minecraft.client.gui.FontRenderer
 import net.minecraft.client.gui.inventory.GuiContainer
 import net.minecraft.client.renderer.RenderHelper
+import net.minecraft.client.resources.I18n
 import net.minecraft.inventory.ClickType
 import net.minecraft.item.ItemStack
 import net.minecraft.network.play.client.CPacketClickWindow
@@ -31,12 +32,13 @@ import net.minecraft.network.play.client.CPacketPlayerTryUseItemOnBlock
 import net.minecraft.network.play.server.SPacketCloseWindow
 import net.minecraft.network.play.server.SPacketOpenWindow
 import net.minecraft.network.play.server.SPacketWindowItems
+import net.minecraft.util.NonNullList
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.text.ITextComponent
 import org.lwjgl.opengl.GL11
 import java.awt.Color
 
-@ModuleInfo(name = "ChestStealer2", description = "Automatically steals all items from a chest.", category = ModuleCategory.WORLD)
+@ModuleInfo(name = "ChestStealer", description = "Automatically steals all items from a chest.", category = ModuleCategory.WORLD)
 class ChestStealer : Module() {
 
     /**
@@ -69,6 +71,7 @@ class ChestStealer : Module() {
     private val chestContainerTitleValue = ListValue("CheckContainerTitle", arrayOf("None","OnlyDefault","OnlyTitled"),"OnlyDefault")
     private val checkFailedCloseValue = BoolValue("CheckFailedClose", false) // 检查失败 是否关闭箱子
 
+    private val updateInventoryOnStealerValue = BoolValue("UpdateInventoryOnStealer", true).displayable { silentValue.get() } // 在ChestStealer运行时是否更新背包
 
     private val autoCloseValue = BoolValue("AutoClose", false) // 自动关闭箱子 静默开箱模式不开启可能引发奇奇怪怪的反应
 
@@ -106,7 +109,7 @@ class ChestStealer : Module() {
         if (packet is SPacketOpenWindow) {
             var check = false
 
-            if (debugValue.get()) DebugManage.info("ChestOpenPacket -> Title:${packet.windowTitle.unformattedComponentText} WindowId:${packet.windowId} SlotCount:${packet.slotCount}")
+            if (debugValue.get()) DebugManage.info("ChestOpenPacket -> Title:${packet.windowTitle.unformattedComponentText } WindowId:${packet.windowId} SlotCount:${packet.slotCount}")
 
             when (chestContainerTitleValue.get().toLowerCase()) {
                 "onlydefault" -> if (!isDefaultTitle(packet.windowTitle)) check = true
@@ -132,8 +135,16 @@ class ChestStealer : Module() {
             if (packet.windowId == 0 || packet.windowId != chestOpenWindowId) return // 玩家自身背包或者ID不匹配跳过
 
             chestOpenItems = packet.itemStacks
+            if (silentValue.get()) {
+                event.cancelEvent() // 如果是静默模式 即使不cancel 也会因为windowId不是0被客户端忽略
 
-            if (silentValue.get()) event.cancelEvent()
+                if (updateInventoryOnStealerValue.get()) { // 合成一个玩家背包更新包并发给客户端
+                    val inventoryItemStackList : NonNullList<ItemStack> =  NonNullList.create()
+                    inventoryItemStackList.addAll(getItemStacks(true))
+
+                    mc.connection?.sendPacket(SPacketWindowItems(0,inventoryItemStackList)) // 0=玩家背包
+                }
+            }
         }
         // 容器关闭
         if (packet is SPacketCloseWindow) chestOpenWindowId = 0
@@ -148,7 +159,7 @@ class ChestStealer : Module() {
     }
     @EventTarget
     fun onRender3D(event: Render3DEvent?) {
-        if (chestOpenWindowId != 0 && chestBlockPos != null && viewerValue.get()) renderChestItemViewer(chestBlockPos!!, chestOpenItemsNoInv())
+        if (chestOpenWindowId != 0 && chestBlockPos != null && viewerValue.get()) renderChestItemViewer(chestBlockPos!!, getItemStacks(false))
     }
     @EventTarget
     fun onUpdate(event: UpdateEvent) {
@@ -182,7 +193,10 @@ class ChestStealer : Module() {
     }
     private fun isDefaultTitle(text: ITextComponent) : Boolean {
         val titles = arrayOf("container.chest","container.furnace","container.dispenser","container.dropper","container.hopper")
-        return titles.contains(text.unformattedComponentText)
+        titles.forEach {
+            if (text.unformattedComponentText.equals(I18n.format(it))) return true
+        }
+        return false
     }
     private fun isChestSlot(slot: Int) : Boolean {
         return if (chestOpenWindowId == 0) { false } else { slot < chestOpenSlotCount }
@@ -243,11 +257,15 @@ class ChestStealer : Module() {
 
         return true
     }
-    private fun chestOpenItemsNoInv() : List<ItemStack> {
+    /*
+    * 获取箱子 / 背包 ItemStacks
+    * @param inventory true=背包 false=箱子
+     */
+    private fun getItemStacks(inventory : Boolean) : List<ItemStack> {
         val newList : MutableList<ItemStack> = mutableListOf()
 
         chestOpenItems.forEachIndexed { i , it ->
-            if (isChestSlot(i)) newList.add(it)
+            if (isChestSlot(i) != inventory) newList.add(it)
         }
 
         return newList
