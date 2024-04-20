@@ -1,5 +1,6 @@
 package net.ccbluex.liquidbounce.event
 
+import net.ccbluex.liquidbounce.features.module.modules.client.EventManage
 import java.util.*
 
 class EventManager {
@@ -53,7 +54,7 @@ class EventManager {
 
                 invokableEventTarget.method.invoke(invokableEventTarget.eventClass, event)
             } catch (throwable: Throwable) {
-                throwable.printStackTrace()
+                EventManage.onException(throwable)
             }
         }
     }
