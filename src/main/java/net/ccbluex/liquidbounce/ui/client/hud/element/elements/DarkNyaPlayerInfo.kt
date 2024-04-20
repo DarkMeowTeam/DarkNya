@@ -36,6 +36,8 @@ class DarkNyaPlayerInfo(
     private val DATE_FORMAT = SimpleDateFormat("HH:mm:ss")
 
     override fun drawElement(): Border {
+        val player = mc.player ?: return Border(0F, 0F, 150F, 32F)
+
         var startY = 1F
 
         // 顶部线条
@@ -58,7 +60,7 @@ class DarkNyaPlayerInfo(
         }
 
         // 玩家头像贴图
-        val hurtPercent = mc.player!!.hurtPercent
+        val hurtPercent = player.hurtPercent
 
         val size = 24
         GL11.glPushMatrix()
@@ -66,7 +68,7 @@ class DarkNyaPlayerInfo(
         GL11.glColor4f(1f, 1-hurtPercent, 1-hurtPercent, 1f) // 受伤的红色效果
 
         RenderUtils.quickDrawHead(
-            mc.connection!!.getPlayerInfo(mc.player.uniqueID).locationSkin,
+            mc.connection!!.getPlayerInfo(player.uniqueID).locationSkin,
             8, startY.toInt() + 3, size, size
         )
         GL11.glPopMatrix()
