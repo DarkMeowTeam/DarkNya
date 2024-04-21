@@ -11,7 +11,8 @@ import net.minecraft.network.play.client.CPacketChatMessage
 
 @ModuleInfo(name = "ChatControl", description = "聊天控制", category = ModuleCategory.CLIENT)
 class ChatControl : Module() {
-    private val replaceCharsValue = ListValue("ReplaceChars", arrayOf("Normal","Width"),"Normal")
+    private val forceUnicodeChatValue = BoolValue("ForceUnicodeChat",false)
+    private val forceUnicodeChatCommandValue = BoolValue("ForceUnicodeChatCommand",false).displayable { forceUnicodeChatValue.get() }
 
     private val prefixValue = TextValue("Prefix", "")
     private val suffixValue = TextValue("Suffix", "")
@@ -22,35 +23,28 @@ class ChatControl : Module() {
     fun onPacket(event:PacketEvent) {
         val packet = event.packet
         if (packet is CPacketChatMessage) {
-            packet.message = styleText(packet.message)
-            packet.message = prefixValue.get() + packet.message + suffixValue.get()
+            var message = packet.message ?: return
+
+            if (forceUnicodeChatValue.get() && (!forceUnicodeChatCommandValue.get() || !message.startsWith("/"))) message = unicodeText(message)
+
+            message = prefixValue.get() + message + suffixValue.get()
 
             if (checkInvalidMessageValue.get()) {
-                if (packet.message.contains("§")) event.cancelEvent()
+                if (message.contains("§")) event.cancelEvent()
             }
+
+            packet.message = message
 
         }
     }
-    private val normalChars = "A B C D E F G H I J K L M N O P Q R S T U V W X Y Z a b c d e f g h i j k l m n o p q r s t u v w x y z 1 2 3 4 5 6 7 8 9 0".split(" ")
-    private val styledCharsWidth = "Ａ Ｂ Ｃ Ｄ Ｅ Ｆ Ｇ Ｈ Ｉ Ｊ Ｋ Ｌ Ｍ Ｎ Ｏ Ｐ Ｑ Ｒ Ｓ Ｔ Ｕ Ｖ Ｗ Ｘ Ｙ Ｚ ａ ｂ ｃ ｄ ｅ ｆ ｇ ｈ ｉ ｊ ｋ ｌ ｍ ｎ ｏ ｐ ｑ ｒ ｓ ｔ ｕ ｖ ｗ ｘ ｙ ｚ １ ２ ３ ４ ５ ６ ７ ８ ９ ０"
-    private fun styleText(input: String): String {
-        var styledCars = listOf("")
-        when (replaceCharsValue.get().toLowerCase())
-        {
-            "normal" -> styledCars = listOf("")
-            "width" -> styledCars = styledCharsWidth.split(" ")
-        }
+    private fun unicodeText(input: String): String {
+        val stringBuilder = StringBuilder()
 
-        val output = StringBuilder()
-        for (char in input) {
-            val index = normalChars.indexOf(char.toString())
-            if (index != -1) {
-                output.append(styledCars[index])
-            } else {
-                output.append(char)
-            }
-        }
-        return output.toString()
+        for (c in input.toCharArray())
+            if (c.toInt() in 33..128)
+                stringBuilder.append(Character.toChars(c.toInt() + 65248)) else stringBuilder.append(c)
+
+        return stringBuilder.toString()
     }
 
 }
