@@ -66,11 +66,12 @@ class DarkNyaPlayerInfo(
         GL11.glPushMatrix()
 
         GL11.glColor4f(1f, 1-hurtPercent, 1-hurtPercent, 1f) // 受伤的红色效果
-
-        RenderUtils.quickDrawHead(
-            mc.connection!!.getPlayerInfo(player.uniqueID).locationSkin,
-            8, startY.toInt() + 3, size, size
-        )
+        try {
+            RenderUtils.quickDrawHead(
+                mc.connection!!.getPlayerInfo(player.uniqueID).locationSkin,
+                8, startY.toInt() + 3, size, size
+            )
+        } catch (_:Exception) { }
         GL11.glPopMatrix()
 
         Fonts.font35.drawStringWithShadow(mc.player.name,
