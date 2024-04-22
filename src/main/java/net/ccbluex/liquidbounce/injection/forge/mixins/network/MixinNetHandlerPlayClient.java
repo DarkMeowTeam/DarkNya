@@ -4,26 +4,20 @@ import io.netty.buffer.Unpooled;
 import net.ccbluex.liquidbounce.DarkNya;
 import net.ccbluex.liquidbounce.event.EntityMovementEvent;
 import net.ccbluex.liquidbounce.features.module.modules.client.SilentDisconnect;
-import net.ccbluex.liquidbounce.features.module.modules.misc.disabler.Disabler;
 import net.ccbluex.liquidbounce.features.special.AntiForge;
 import net.ccbluex.liquidbounce.utils.ClientUtils;
 import net.minecraft.client.ClientBrandRetriever;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.gui.GuiDownloadTerrain;
 import net.minecraft.client.multiplayer.PlayerControllerMP;
 import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.client.network.NetHandlerPlayClient;
 import net.minecraft.entity.Entity;
-import net.minecraft.inventory.Container;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.PacketThreadUtil;
-import net.minecraft.network.play.INetHandlerPlayClient;
-import net.minecraft.network.play.client.CPacketConfirmTransaction;
 import net.minecraft.network.play.client.CPacketCustomPayload;
 import net.minecraft.network.play.client.CPacketResourcePackStatus;
-import net.minecraft.network.play.server.SPacketConfirmTransaction;
 import net.minecraft.network.play.server.SPacketEntity;
 import net.minecraft.network.play.server.SPacketJoinGame;
 import net.minecraft.network.play.server.SPacketResourcePackSend;
@@ -31,7 +25,6 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.WorldSettings;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -52,33 +45,6 @@ public abstract class MixinNetHandlerPlayClient {
     private Minecraft gameController;
     @Shadow
     private WorldClient clientWorldController;
-
-    /**
-     * @author
-     * @reason
-     */
-    @Overwrite
-    public void handleConfirmTransaction(SPacketConfirmTransaction packetIn) {
-        PacketThreadUtil.checkThreadAndEnqueue(packetIn, (INetHandlerPlayClient)this, this.gameController);
-        Container container = null;
-        EntityPlayerSP entityplayer = this.gameController.player;
-        if (packetIn.getWindowId() == 0) {
-            container = entityplayer.inventoryContainer;
-        } else if (packetIn.getWindowId() == entityplayer.openContainer.windowId) {
-            container = entityplayer.openContainer;
-        }
-        if (container != null && !packetIn.wasAccepted()) {
-            Disabler disabler2 = (Disabler) DarkNya.moduleManager.getModule(Disabler.class);
-            final CPacketConfirmTransaction packet = new CPacketConfirmTransaction(packetIn.getWindowId(), packetIn.getActionNumber(), true);
-            if (disabler2.getGrimPost()) {
-                disabler2.fixC0F(packet);
-            }
-            else {
-                Minecraft.getMinecraft().getConnection().sendPacket(packet);
-            }
-        }
-
-    }
 
     @Inject(method = "handleResourcePack", at = @At("HEAD"), cancellable = true)
     private void handleResourcePack(final SPacketResourcePackSend p_handleResourcePack_1_, final CallbackInfo callbackInfo) {

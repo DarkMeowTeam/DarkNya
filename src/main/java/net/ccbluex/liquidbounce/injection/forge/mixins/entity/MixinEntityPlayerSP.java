@@ -5,7 +5,6 @@ import net.ccbluex.liquidbounce.event.*;
 import net.ccbluex.liquidbounce.features.module.modules.combat.KillAura;
 import net.ccbluex.liquidbounce.features.module.modules.exploit.AntiHunger;
 import net.ccbluex.liquidbounce.features.module.modules.exploit.PortalMenu;
-import net.ccbluex.liquidbounce.features.module.modules.misc.disabler.Disabler;
 import net.ccbluex.liquidbounce.features.module.modules.movement.*;
 import net.ccbluex.liquidbounce.features.module.modules.render.NoSwing;
 import net.ccbluex.liquidbounce.utils.MovementUtils;
@@ -217,9 +216,6 @@ public abstract class MixinEntityPlayerSP extends MixinAbstractClientPlayer {
             } else if (this.prevOnGround != this.onGround) {
                 this.connection.sendPacket(new CPacketPlayer(this.onGround));
             }
-
-            Disabler disabler = (Disabler) DarkNya.moduleManager.getModule(Disabler.class);
-            disabler.processPackets();
 
             if (flag2) {
                 this.lastReportedPosX = this.posX;

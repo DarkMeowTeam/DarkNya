@@ -174,7 +174,7 @@ class NoSlow : Module() {
                             mc.connection!!.sendPacket(CPacketHeldItemChange(mc.player!!.inventory.currentItem))
                         }
                         EventState.POST -> {
-                            PacketUtils.sendPacketC0F()
+                            //PacketUtils.sendPacketC0F()
                             mc.connection!!.sendPacket(CPacketPlayerTryUseItem(EnumHand.MAIN_HAND))
                         }
                     }
