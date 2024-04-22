@@ -7,11 +7,11 @@ import net.ccbluex.liquidbounce.features.module.ModuleCategory
 import net.ccbluex.liquidbounce.features.module.ModuleInfo
 import net.ccbluex.liquidbounce.utils.EntityUtils
 import net.ccbluex.liquidbounce.utils.RotationUtils
-import net.ccbluex.liquidbounce.utils.misc.WVec3
 import net.ccbluex.liquidbounce.utils.render.RenderUtils
 import net.ccbluex.liquidbounce.value.*
 import net.minecraft.client.renderer.GlStateManager
 import net.minecraft.entity.Entity
+import net.minecraft.util.math.Vec3d
 import org.lwjgl.opengl.GL11
 import java.awt.Color
 import java.util.*
@@ -78,7 +78,7 @@ class Tracers : Module() {
         val z = (entity.lastTickPosZ + (entity.posZ - entity.lastTickPosZ) * mc.timer.renderPartialTicks
                 - mc.renderManager.renderPosZ)
 
-        val eyeVector = WVec3(0.0, 0.0, 1.0)
+        val eyeVector = Vec3d(0.0, 0.0, 1.0)
             .rotatePitch((-Math.toRadians(mc.player.rotationPitch.toDouble())).toFloat())
             .rotateYaw((-Math.toRadians(mc.player.rotationYaw.toDouble())).toFloat())
 
@@ -86,9 +86,9 @@ class Tracers : Module() {
 
         GL11.glBegin(GL11.GL_LINE_STRIP)
         GL11.glLineWidth(thicknessValue.get())
-        GL11.glVertex3d(eyeVector.xCoord,
-            if(playerHeightValue.get()) { mc.player.getEyeHeight().toDouble() } else { 0.0 } + eyeVector.yCoord,
-            eyeVector.zCoord)
+        GL11.glVertex3d(eyeVector.x,
+            if(playerHeightValue.get()) { mc.player.getEyeHeight().toDouble() } else { 0.0 } + eyeVector.y,
+            eyeVector.z)
         if(drawHeight) {
             GL11.glVertex3d(x, y + entity.height, z)
         } else {
