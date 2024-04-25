@@ -1,6 +1,7 @@
 package net.ccbluex.liquidbounce.event
 
 import net.ccbluex.liquidbounce.features.module.modules.client.EventManage
+import net.ccbluex.liquidbounce.utils.ClientUtils
 import java.util.*
 
 class EventManager {
@@ -48,6 +49,7 @@ class EventManager {
         val targets = registry[event.javaClass] ?: return
 
         for (invokableEventTarget in targets) {
+            val now = System.currentTimeMillis()
             try {
                 if (!invokableEventTarget.eventClass.handleEvents() && !invokableEventTarget.isIgnoreCondition)
                     continue
@@ -56,6 +58,8 @@ class EventManager {
             } catch (throwable: Throwable) {
                 EventManage.onException(throwable)
             }
+            val used : Long = System.currentTimeMillis() - now
+            if (used > 100) EventManage.onLag(used, event, invokableEventTarget)
         }
     }
 }
