@@ -51,8 +51,8 @@ class Criticals : Module() {
                 "grimac" -> {
                     attacks++
                     if (attacks > 6) {
-                        mc.connection!!.sendPacket(CPacketPlayer.Position(x,y+0.013256,z,false))
-                        mc.connection!!.sendPacket(CPacketPlayer.Position(x,y+0.009856,z,false))
+                        mc.connection!!.sendPacket(CPacketPlayer.Position(x,y + 0.01,z,false))
+                        mc.connection!!.sendPacket(CPacketPlayer.Position(x,y + 1.0E-10,z,false))
                         mc.connection!!.sendPacket(CPacketPlayer.Position(x, y, z, false))
                         attacks = 0
                     }
