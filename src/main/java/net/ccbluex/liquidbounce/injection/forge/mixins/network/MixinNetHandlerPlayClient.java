@@ -4,8 +4,10 @@ import io.netty.buffer.Unpooled;
 import net.ccbluex.liquidbounce.DarkNya;
 import net.ccbluex.liquidbounce.event.EntityMovementEvent;
 import net.ccbluex.liquidbounce.features.module.modules.client.SilentDisconnect;
+import net.ccbluex.liquidbounce.features.module.modules.misc.NoRotateSet;
 import net.ccbluex.liquidbounce.features.special.AntiForge;
 import net.ccbluex.liquidbounce.utils.ClientUtils;
+import net.ccbluex.liquidbounce.utils.TransferUtils;
 import net.minecraft.client.ClientBrandRetriever;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiDownloadTerrain;
@@ -13,18 +15,23 @@ import net.minecraft.client.multiplayer.PlayerControllerMP;
 import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.client.network.NetHandlerPlayClient;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.PacketThreadUtil;
+import net.minecraft.network.play.client.CPacketConfirmTeleport;
 import net.minecraft.network.play.client.CPacketCustomPayload;
+import net.minecraft.network.play.client.CPacketPlayer;
 import net.minecraft.network.play.client.CPacketResourcePackStatus;
 import net.minecraft.network.play.server.SPacketEntity;
 import net.minecraft.network.play.server.SPacketJoinGame;
+import net.minecraft.network.play.server.SPacketPlayerPosLook;
 import net.minecraft.network.play.server.SPacketResourcePackSend;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.WorldSettings;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -32,6 +39,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.Objects;
 
 @Mixin(NetHandlerPlayClient.class)
 public abstract class MixinNetHandlerPlayClient {
@@ -45,6 +53,8 @@ public abstract class MixinNetHandlerPlayClient {
     private Minecraft gameController;
     @Shadow
     private WorldClient clientWorldController;
+
+    @Shadow private boolean doneLoadingTerrain;
 
     @Inject(method = "handleResourcePack", at = @At("HEAD"), cancellable = true)
     private void handleResourcePack(final SPacketResourcePackSend p_handleResourcePack_1_, final CallbackInfo callbackInfo) {
@@ -101,5 +111,95 @@ public abstract class MixinNetHandlerPlayClient {
 
         if (entity != null)
             DarkNya.eventManager.callEvent(new EntityMovementEvent(entity));
+    }
+
+    /**
+     * @author CatX_feitu
+     * @reason NoRotateSet / S08 Silent Confirm
+    */
+    @Overwrite
+    public void handlePlayerPosLook(SPacketPlayerPosLook packetIn) {
+        final NoRotateSet noRotateSet = (NoRotateSet) DarkNya.moduleManager.getModule(NoRotateSet.class);
+        PacketThreadUtil.checkThreadAndEnqueue(packetIn, (NetHandlerPlayClient) (Object) this, this.gameController);
+        EntityPlayer entityplayer = this.gameController.player;
+        double d0 = packetIn.getX();
+        double d1 = packetIn.getY();
+        double d2 = packetIn.getZ();
+        float f = packetIn.getYaw();
+        float f1 = packetIn.getPitch();
+
+        if (packetIn.getFlags().contains(SPacketPlayerPosLook.EnumFlags.X)) {
+            d0 += entityplayer.posX;
+        } else {
+            if (!TransferUtils.INSTANCE.getNoMotionSet()) {
+                entityplayer.motionX = 0.0D;
+            }
+        }
+
+        if (packetIn.getFlags().contains(SPacketPlayerPosLook.EnumFlags.Y)) {
+            d1 += entityplayer.posY;
+        } else {
+            if (!TransferUtils.INSTANCE.getNoMotionSet()) {
+                entityplayer.motionY = 0.0D;
+            }
+        }
+
+        if (packetIn.getFlags().contains(SPacketPlayerPosLook.EnumFlags.Z)) {
+            d2 += entityplayer.posZ;
+        } else {
+            if (!TransferUtils.INSTANCE.getNoMotionSet()) {
+                entityplayer.motionZ = 0.0D;
+            }
+        }
+
+        TransferUtils.INSTANCE.setNoMotionSet(false);
+
+        if (packetIn.getFlags().contains(SPacketPlayerPosLook.EnumFlags.X_ROT)) {
+            f1 += entityplayer.rotationPitch;
+        }
+
+        if (packetIn.getFlags().contains(SPacketPlayerPosLook.EnumFlags.Y_ROT)) {
+            f += entityplayer.rotationYaw;
+        }
+
+        float overwriteYaw = f;
+        float overwritePitch = f1;
+
+        boolean flag = false;
+
+        if (TransferUtils.INSTANCE.getSilentConfirm()) {
+            this.netManager.sendPacket(new CPacketConfirmTeleport(packetIn.getTeleportId()));
+            this.netManager.sendPacket(new CPacketPlayer.PositionRotation(d0, d1, d2, f, f1, false));
+            TransferUtils.INSTANCE.setSilentConfirm(false);
+        } else {
+            if (Objects.requireNonNull(noRotateSet).getState()) {
+                if (!noRotateSet.getNoLoadingValue().get() || this.doneLoadingTerrain) {
+                    flag = true;
+                    if (!noRotateSet.getOverwriteTeleportValue().get()) {
+                        overwriteYaw = entityplayer.rotationYaw;
+                        overwritePitch = entityplayer.rotationPitch;
+                    }
+                }
+            }
+            if (flag) {
+                if (noRotateSet.getRotateValue().get()) {
+                    entityplayer.setPositionAndRotation(d0, d1, d2, entityplayer.rotationYaw, entityplayer.rotationPitch);
+                } else {
+                    entityplayer.setPosition(d0, d1, d2);
+                }
+            } else {
+                entityplayer.setPositionAndRotation(d0, d1, d2, f, f1);
+            }
+            this.netManager.sendPacket(new CPacketConfirmTeleport(packetIn.getTeleportId()));
+            this.netManager.sendPacket(new CPacketPlayer.PositionRotation(entityplayer.posX, entityplayer.getEntityBoundingBox().minY, entityplayer.posZ, overwriteYaw, overwritePitch, false));
+        }
+
+        if (!this.doneLoadingTerrain) {
+            this.gameController.player.prevPosX = this.gameController.player.posX;
+            this.gameController.player.prevPosY = this.gameController.player.posY;
+            this.gameController.player.prevPosZ = this.gameController.player.posZ;
+            this.doneLoadingTerrain = true;
+            this.gameController.displayGuiScreen(null);
+        }
     }
 }
