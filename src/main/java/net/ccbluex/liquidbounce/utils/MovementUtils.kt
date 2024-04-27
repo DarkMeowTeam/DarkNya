@@ -4,6 +4,8 @@ import net.ccbluex.liquidbounce.event.MoveEvent
 import net.ccbluex.liquidbounce.injection.implementations.IMixinTimer
 import net.ccbluex.liquidbounce.utils.extensions.getDistanceToEntityBox
 import net.minecraft.entity.EntityLivingBase
+import net.minecraft.network.play.client.CPacketPlayer
+import net.minecraft.util.math.AxisAlignedBB
 import java.math.BigDecimal
 import kotlin.math.asin
 import kotlin.math.cos
@@ -22,6 +24,13 @@ object MovementUtils : MinecraftInstance() {
     val isMoving: Boolean
         get() = mc.player != null && (mc.player!!.movementInput.moveForward != 0f || mc.player!!.movementInput.moveStrafe != 0f)
 
+    fun resetMotion(y: Boolean) {
+        val player = mc.player ?: return
+
+        player.motionX = 0.0
+        player.motionZ = 0.0
+        if(y) mc.player.motionY = 0.0
+    }
     fun hasMotion(): Boolean {
         return mc.player!!.motionX != 0.0 && mc.player!!.motionZ != 0.0 && mc.player!!.motionY != 0.0
     }
@@ -150,5 +159,62 @@ object MovementUtils : MinecraftInstance() {
         if (strafe < 0f) rotationYaw -= 90f * forward
         if (strafe > 0f) rotationYaw += 90f * forward
         return rotationYaw
+    }
+
+
+    fun handleVanillaKickBypass() {
+        val player = mc.player ?: return
+        val connection = mc.connection ?: return
+        
+        val ground = calculateGround()
+        run {
+            var posY = mc.player.posY
+            while (posY > ground) {
+                mc.connection?.sendPacket(CPacketPlayer.Position(mc.player.posX, posY, player.posZ, true))
+                if (posY - 8.0 < ground) break // Prevent next step
+                posY -= 8.0
+            }
+        }
+
+        connection.sendPacket(CPacketPlayer.Position(player.posX, ground, player.posZ, true))
+        var posY = ground
+        while (posY < player.posY) {
+            connection.sendPacket(CPacketPlayer.Position(player.posX, posY, player.posZ, true))
+            if (posY + 8.0 > player.posY) break // Prevent next step
+            posY += 8.0
+        }
+        connection.sendPacket(
+            CPacketPlayer.Position(
+                player.posX,
+                player.posY,
+                player.posZ,
+                true
+            )
+        )
+    }
+    private fun calculateGround(): Double {
+        val player = mc.player ?: return 0.0
+        val world = mc.world ?: return 0.0
+        
+        val playerBoundingBox = player.entityBoundingBox
+        var blockHeight = 1.0
+        var ground = player.posY
+        while (ground > 0.0) {
+            val customBox = AxisAlignedBB(
+                playerBoundingBox.maxX,
+                ground + blockHeight,
+                playerBoundingBox.maxZ,
+                playerBoundingBox.minX,
+                ground,
+                playerBoundingBox.minZ
+            )
+            if (world.checkBlockCollision(customBox)) {
+                if (blockHeight <= 0.05) return ground + blockHeight
+                ground += blockHeight
+                blockHeight = 0.05
+            }
+            ground -= blockHeight
+        }
+        return 0.0
     }
 }
