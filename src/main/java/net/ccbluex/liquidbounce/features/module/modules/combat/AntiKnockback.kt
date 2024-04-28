@@ -227,8 +227,7 @@ object AntiKnockback : Module() {
         modes.map {
             mode -> mode.values.forEach { value ->
                 //it.add(value.displayable { modeValue.equals(mode.modeName) })
-                val displayableFunction = value.displayableFunction
-                it.add(value.displayable { displayableFunction.invoke() && modeValue.equals(mode.modeName) })
+                it.add(value.displayable { modeValue.equals(mode.modeName) })
             }
         }
     }

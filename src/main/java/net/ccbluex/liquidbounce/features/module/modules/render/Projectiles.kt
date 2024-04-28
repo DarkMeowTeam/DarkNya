@@ -29,6 +29,9 @@ import kotlin.math.floor
 import kotlin.math.sin
 import kotlin.math.sqrt
 
+
+
+
 @ModuleInfo(name = "Projectiles", description = "Allows you to see where arrows will land.", category = ModuleCategory.RENDER)
 class Projectiles : Module() {
     private val colorMode = ListValue("Color", arrayOf("Custom", "BowPower", "Rainbow"), "Custom")
@@ -46,46 +49,14 @@ class Projectiles : Module() {
 
         val item = heldItem.item
         val renderManager = mc.renderManager
-        var isBow = false
-        var motionFactor = 1.5F
-        var motionSlowdown = 0.99F
-        val gravity: Float
-        val size: Float
 
-        // Check items
-        if (item is ItemBow) {
-            if (!player.isHandActive)
-                return
+        val state = calcProjectilesInfo(heldItem) ?: return
 
-            isBow = true
-            gravity = 0.05F
-            size = 0.3F
-
-            // Calculate power of bow
-            var power = player.itemInUseMaxCount / 20f
-            power = (power * power + power * 2F) / 3F
-            if (power < 0.1F)
-                return
-
-            if (power > 1F)
-                power = 1F
-
-            motionFactor = power * 3F
-        } else if (item is ItemFishingRod) {
-            gravity = 0.04F
-            size = 0.25F
-            motionSlowdown = 0.92F
-        } else if (item is ItemPotion && heldItem.item == Items.SPLASH_POTION) {
-            gravity = 0.05F
-            size = 0.25F
-            motionFactor = 0.5F
-        } else {
-            if (item !is ItemSnowball && item !is ItemEnderPearl && item !is ItemEgg)
-                return
-
-            gravity = 0.03F
-            size = 0.25F
-        }
+        val isBow = state.isBow
+        val motionFactor = state.motionFactor
+        val motionSlowdown = state.motionSlowdown
+        val gravity: Float = state.gravity
+        val size: Float = state.size
 
         // Yaw and pitch of player
         val yaw = if (RotationUtils.targetRotation != null)
@@ -148,6 +119,8 @@ class Projectiles : Module() {
                 RenderUtils.glColor(ColorUtils.rainbow())
             }
         }
+
+        // 绘制阶段
         GL11.glLineWidth(2f)
 
         worldRenderer.begin(GL11.GL_LINE_STRIP, DefaultVertexFormats.POSITION)
@@ -272,5 +245,61 @@ class Projectiles : Module() {
 
         val hue = (hueMax - hueMin) * process + hueMin
         return Color.getHSBColor(hue, saturation, brightness)
+    }
+
+    private fun calcProjectilesInfo(stack: ItemStack): ProjectilesInfo? {
+        val info = ProjectilesInfo()
+
+        val player = mc.player ?: return null
+        val item = stack.item
+
+        if (item is ItemBow) {
+            if (!player.isHandActive)
+                return null
+
+            info.isBow = true
+            info.gravity = 0.05F
+            info.size = 0.3F
+
+            // Calculate power of bow
+            var power = player.itemInUseMaxCount / 20f
+            power = (power * power + power * 2F) / 3F
+            if (power < 0.1F)
+                return null
+
+            if (power > 1F)
+                power = 1F
+
+            info.motionFactor = power * 3F
+        } else if (item is ItemFishingRod) {
+            info.gravity = 0.04F
+            info.size = 0.25F
+            info.motionSlowdown = 0.92F
+        } else if (item is ItemPotion && item == Items.SPLASH_POTION) {
+            info.gravity = 0.05F
+            info.size = 0.25F
+            info.motionFactor = 0.5F
+        } else if (item is ItemSnowball) {
+            info.gravity = 0.03F
+            info.size = 0.25F
+        } else if (item is ItemEnderPearl) {
+            info.gravity = 0.03F
+            info.size = 0.25F
+        } else if (item is ItemEgg) {
+            info.gravity = 0.03F
+            info.size = 0.25F
+        }
+        return if (info.size == 0F) { null } else { info }
+    }
+
+
+    private class ProjectilesInfo {
+        var isBow = false
+        var motionFactor = 1.5F
+        var motionSlowdown = 0.99F
+        var gravity: Float = 0F
+        var size: Float = 0F
+        var color: Color = Color(255,255,255)
+        var colorTarget: Color = Color(255,100,100)
     }
 }

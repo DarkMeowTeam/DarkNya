@@ -11,6 +11,8 @@ import net.ccbluex.liquidbounce.value.FloatValue
 import net.ccbluex.liquidbounce.value.ListValue
 import net.ccbluex.liquidbounce.injection.implementations.IMixinTimer
 import net.ccbluex.liquidbounce.utils.MovementUtils
+import net.minecraft.init.Blocks
+import net.minecraft.util.math.BlockPos
 
 /**
  *
@@ -24,7 +26,7 @@ class ScaffoldHelper : Module() {
 
     private val scaffoldModeValue = ListValue("ScaffoldMode", arrayOf("Scaffold"/*, "Scaffold3","Scaffold2"*/), "Scaffold")
 
-    private val jumpModeValue = ListValue("JumpMode", arrayOf("mc", "NoEvent", "Key", "Parkour", "Off"), "Parkour")
+    private val jumpModeValue = ListValue("JumpMode", arrayOf("mc", "NoEvent", "Key", "Parkour","Parkour2", "Off"), "Parkour")
 
     private val timerValue = BoolValue("OnGroundTimer", false)
     private val timerSpeed = FloatValue("TimerSpeed", 0.8F, 0.1F, 10F).displayable { timerValue.get() }
@@ -52,7 +54,7 @@ class ScaffoldHelper : Module() {
 
     override fun onDisable() {
         when (scaffoldModeValue.get().toLowerCase()) {
-            "scaffold" -> DarkNya.moduleManager[Scaffold::class.java].state = false
+            "scaffold" -> DarkNya.moduleManager[Scaffold3::class.java].state = false
         }
 
         (mc.timer as IMixinTimer).timerSpeed = 1F
@@ -68,8 +70,12 @@ class ScaffoldHelper : Module() {
 
             if (MovementUtils.isMoving && player.onGround && !player.isSneaking && !mc.gameSettings.keyBindSneak.isKeyDown && !mc.gameSettings.keyBindJump.isKeyDown &&
                 mc.world!!.getCollisionBoxes(player, player.entityBoundingBox
-                    .offset(0.0, -0.5, 0.0).expand(-0.001, 0.0, -0.001)).isEmpty())
+                    .offset(0.0, -0.5, 0.0).expand(-0.1, 0.0, -0.1)).isEmpty())
                 player.jump()
+        }else if(jumpModeValue.get() == "Parkour2") {
+            val player = mc.player ?: return
+
+            if (player.onGround && mc.world!!.getBlockState(BlockPos(player.posX, player.posY - 1.0, player.posZ)).block == Blocks.AIR) player.jump()
         }else{
             jump()
         }
@@ -85,7 +91,7 @@ class ScaffoldHelper : Module() {
 
             if (modeValue.get().toLowerCase() == "state") {
                 when (scaffoldModeValue.get().toLowerCase()) {
-                    "scaffold" -> DarkNya.moduleManager[Scaffold::class.java].state = false
+                    "scaffold" -> DarkNya.moduleManager[Scaffold3::class.java].state = false
                 }
             }
         }else {
@@ -93,7 +99,7 @@ class ScaffoldHelper : Module() {
                 (mc.timer as IMixinTimer).timerSpeed = 1F
             if (modeValue.get().toLowerCase() == "state") {
                 when (scaffoldModeValue.get().toLowerCase()) {
-                    "scaffold" -> DarkNya.moduleManager[Scaffold::class.java].state = true
+                    "scaffold" -> DarkNya.moduleManager[Scaffold3::class.java].state = true
                 }
             }
         }

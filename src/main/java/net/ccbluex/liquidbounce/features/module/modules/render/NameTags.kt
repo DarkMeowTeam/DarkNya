@@ -111,10 +111,11 @@ class NameTags : Module() {
         // Draw NameTag
         val width = fontRenderer.getStringWidth(text) * 0.5f
 
-        glDisable(GL_TEXTURE_2D)
+        // Disable lightning and depth test
         RenderUtils.disableGlCap(GL_LIGHTING, GL_DEPTH_TEST)
 
-        glEnable(GL_BLEND)
+        // Enable blend
+        RenderUtils.enableGlCap(GL_BLEND)
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
 
 
@@ -123,6 +124,10 @@ class NameTags : Module() {
 
         val healthDrawX = -width - 2F
         val healthDrawXEnd = healthDrawX + (health * ( width * 2 + 5F))
+
+        glDisable(GL_TEXTURE_2D)
+        glEnable(GL_BLEND)
+
         quickDrawRect(-width - 2F, -2F, width + 3F, fontRenderer.FONT_HEIGHT + 3F, Integer.MIN_VALUE)
 
         // 默认NameTags颜色
@@ -154,14 +159,16 @@ class NameTags : Module() {
             )
         }
 
+        glEnable(GL_TEXTURE_2D)
         glDisable(GL_BLEND)
 
-        glEnable(GL_TEXTURE_2D)
 
         fontRenderer.drawString(text, 1F + -width, if (fontRenderer == Fonts.minecraftFont) 1F else 1.5F,
             0xFFFFFF, true)
 
         AWTFontRenderer.assumeNonVolatile = false
+
+        RenderUtils.resetCaps()
 
         // Pop
         glPopMatrix()
