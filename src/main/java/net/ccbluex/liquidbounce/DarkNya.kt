@@ -19,8 +19,7 @@ import net.ccbluex.liquidbounce.utils.ClientUtils
 import net.ccbluex.liquidbounce.utils.InventoryUtils
 import net.ccbluex.liquidbounce.utils.RotationUtils
 import net.minecraft.util.ResourceLocation
-import op.wawa.manager.CombatManager
-import op.wawa.sound.Sound
+import net.ccbluex.liquidbounce.features.manager.CombatManager
 import op.wawa.utils.sound.TipSoundManager
 
 object DarkNya {

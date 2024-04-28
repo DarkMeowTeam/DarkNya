@@ -1,4 +1,4 @@
-package op.wawa.manager
+package net.ccbluex.liquidbounce.features.manager
 
 import net.ccbluex.liquidbounce.event.AttackEvent
 import net.ccbluex.liquidbounce.event.EventTarget
@@ -39,18 +39,14 @@ class CombatManager : Listenable, MinecraftInstance() {
             }
         }
 
-        if(target!=null){
-            if(mc.player!!.getDistanceToEntityBox(target!!)>7 || !inCombat){
-                target=null
-            }
-            if (target!!.isDead){
+        if(target != null) {
+            if (mc.player!!.getDistanceToEntityBox(target!!) > 7 || !inCombat) target = null
+            if (target?.isDead == true) {
                 target = null
                 kill++
             }
         }
-        if (mc.player!!.isDead){
-            death++
-        }
+        if (mc.player?.isDead == true) death++
     }
 
     @EventTarget
@@ -60,15 +56,6 @@ class CombatManager : Listenable, MinecraftInstance() {
         }
         lastAttackTimer.reset()
 
-    }
-    fun getNearByEntity(radius: Float): EntityLivingBase?{
-        return try {
-            mc.world!!.loadedEntityList
-                .filter { mc.player!!.getDistanceToEntityBox(it)<radius&&EntityUtils.isSelected(it,true) }
-                .sortedBy { it.getDistanceToEntityBox(mc.player!!) }[0] as EntityLivingBase?
-        }catch (e: Exception){
-            null
-        }
     }
 
     override fun handleEvents(): Boolean {
