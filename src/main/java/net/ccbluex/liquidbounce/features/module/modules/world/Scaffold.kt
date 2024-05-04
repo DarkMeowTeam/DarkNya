@@ -2,14 +2,11 @@
 
 package net.ccbluex.liquidbounce.features.module.modules.world
 
-import net.ccbluex.liquidbounce.DarkNya
 import net.ccbluex.liquidbounce.event.*
 import net.ccbluex.liquidbounce.features.module.Module
 import net.ccbluex.liquidbounce.features.module.ModuleCategory
 import net.ccbluex.liquidbounce.features.module.ModuleInfo
-import net.ccbluex.liquidbounce.features.module.modules.render.BlockOverlay
 import net.ccbluex.liquidbounce.injection.implementations.IMixinTimer
-import net.ccbluex.liquidbounce.ui.font.Fonts
 import net.ccbluex.liquidbounce.utils.*
 import net.ccbluex.liquidbounce.utils.MathUtils.wrapAngleTo180_float
 import net.ccbluex.liquidbounce.utils.block.BlockUtils.canBeClicked
@@ -21,8 +18,6 @@ import net.ccbluex.liquidbounce.utils.timer.TickTimer
 import net.ccbluex.liquidbounce.utils.timer.TimeUtils
 import net.ccbluex.liquidbounce.value.*
 import net.minecraft.block.BlockBush
-import net.minecraft.client.gui.ScaledResolution
-import net.minecraft.client.renderer.GlStateManager
 import net.minecraft.client.settings.GameSettings
 import net.minecraft.item.ItemBlock
 import net.minecraft.network.play.client.CPacketAnimation
@@ -36,7 +31,6 @@ import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.RayTraceResult
 import net.minecraft.util.math.Vec3d
 import org.lwjgl.input.Keyboard
-import org.lwjgl.opengl.GL11
 import java.awt.Color
 import kotlin.math.*
 
@@ -167,7 +161,7 @@ class Scaffold : Module() {
     private val slowSpeed = FloatValue("SlowSpeed", 0.6f, 0.2f, 0.8f)
 
     // Safety
-    private val sameYValue = ListValue("SameY", arrayOf("Off","On","Smart"),"Off")
+    private val sameYValue = ListValue("SameY", arrayOf("Off","On","PressJumpKeyOn","PressJumpKeyOff"),"Off")
 
     private val safeWalkValue = BoolValue("SafeWalk", false)
     private val airSafeValue = BoolValue("AirSafe", false)
@@ -834,7 +828,8 @@ class Scaffold : Module() {
         when (sameYValue.get().toLowerCase()) {
             "on" -> sameYStatus = true
             "off" -> sameYStatus = false
-            "smart" -> sameYStatus = Keyboard.isKeyDown(mc.gameSettings.keyBindJump.keyCode)
+            "pressjumpkeyon" -> sameYStatus = Keyboard.isKeyDown(mc.gameSettings.keyBindJump.keyCode)
+            "pressjumpkeyoff" -> sameYStatus = !Keyboard.isKeyDown(mc.gameSettings.keyBindJump.keyCode)
         }
     }
 
