@@ -19,7 +19,7 @@ import java.security.PublicKey;
 @SideOnly(Side.CLIENT)
 public final class ClientUtils extends MinecraftInstance {
 
-    private static final Logger logger = LogManager.getLogger("DarkBya");
+    private static final Logger logger = LogManager.getLogger("DarkNya");
 
     public static Logger getLogger() {
         return logger;
