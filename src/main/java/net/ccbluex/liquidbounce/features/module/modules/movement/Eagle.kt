@@ -1,4 +1,4 @@
-package net.ccbluex.liquidbounce.features.module.modules.player
+package net.ccbluex.liquidbounce.features.module.modules.movement
 
 import net.ccbluex.liquidbounce.DarkNya
 import net.ccbluex.liquidbounce.event.EventTarget
@@ -12,7 +12,7 @@ import net.minecraft.init.Blocks
 import net.minecraft.item.ItemBlock
 import net.minecraft.util.math.BlockPos
 
-@ModuleInfo(name = "Eagle", description = "Makes you eagle (aka. FastBridge).", category = ModuleCategory.PLAYER)
+@ModuleInfo(name = "Eagle", description = "Makes you eagle (aka. FastBridge).", category = ModuleCategory.MOVEMENT)
 class Eagle : Module() {
     private val onlyHeldValue = BoolValue("OnlyHeldBlock", false)
 
@@ -26,7 +26,6 @@ class Eagle : Module() {
         if (scaffold.state) return // 当 Scaffold 开启时不处理
         val needSneak = mc.world!!.getBlockState(BlockPos(player.posX, player.posY - 1.0, player.posZ)).block == Blocks.AIR
 
-        @Suppress("UNNECESSARY_NOT_NULL_ASSERTION") // 这个是针对idea屏蔽警告的注释 如果无法解析可以删除
         val heldBlock = player.heldItemMainhand!!.item is ItemBlock
 
         if (onlyHeldValue.get() && heldBlock) { // 只有在手持方块时触发
@@ -38,10 +37,14 @@ class Eagle : Module() {
 
         mc.gameSettings.keyBindSneak.pressed = needSneak
     }
+    override fun onEnable() {
+        if (mc.player == null) return
+
+        lastHeldBlock = false
+    }
 
     override fun onDisable() {
-        if (mc.player == null)
-            return
+        if (mc.player == null) return
 
         if (!mc.gameSettings.keyBindSneak.isKeyDown) mc.gameSettings.keyBindSneak.pressed = false
     }
