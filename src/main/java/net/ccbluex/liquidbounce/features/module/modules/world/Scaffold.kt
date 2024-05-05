@@ -615,12 +615,9 @@ class Scaffold : Module() {
                 )
             }
         }
-        if (!GameSettings.isKeyDown(mc.gameSettings.keyBindRight)) {
-            mc.gameSettings.keyBindRight.pressed = false
-        }
-        if (!GameSettings.isKeyDown(mc.gameSettings.keyBindLeft)) {
-            mc.gameSettings.keyBindLeft.pressed = false
-        }
+        if (!GameSettings.isKeyDown(mc.gameSettings.keyBindRight)) mc.gameSettings.keyBindRight.pressed = false
+        if (!GameSettings.isKeyDown(mc.gameSettings.keyBindLeft)) mc.gameSettings.keyBindLeft.pressed = false
+        if (!GameSettings.isKeyDown(mc.gameSettings.keyBindJump)) mc.gameSettings.keyBindJump.pressed = false
 
         lockRotation = null
         facesBlock = false
