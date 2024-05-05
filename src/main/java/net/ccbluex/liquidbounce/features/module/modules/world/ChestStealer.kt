@@ -32,7 +32,6 @@ import net.minecraft.network.play.client.CPacketPlayerTryUseItemOnBlock
 import net.minecraft.network.play.server.SPacketCloseWindow
 import net.minecraft.network.play.server.SPacketOpenWindow
 import net.minecraft.network.play.server.SPacketWindowItems
-import net.minecraft.util.NonNullList
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.text.ITextComponent
 import org.lwjgl.opengl.GL11
@@ -104,6 +103,8 @@ class ChestStealer : Module() {
 
     @EventTarget
     private fun onPacket(event: PacketEvent) {
+        val player = mc.player ?: return
+
         val packet = event.packet
         // 容器打开
         if (packet is SPacketOpenWindow) {
@@ -137,12 +138,13 @@ class ChestStealer : Module() {
             chestOpenItems = packet.itemStacks
             if (silentValue.get()) {
                 event.cancelEvent() // 如果是静默模式 即使不cancel 也会因为windowId不是0被客户端忽略
-
-                if (updateInventoryOnStealerValue.get()) { // 合成一个玩家背包更新包并发给客户端
-                    val inventoryItemStackList : NonNullList<ItemStack> =  NonNullList.create()
-                    inventoryItemStackList.addAll(getItemStacks(true))
-
-                    mc.connection?.sendPacket(SPacketWindowItems(0,inventoryItemStackList)) // 0=玩家背包
+                if (updateInventoryOnStealerValue.get()) { // 接替背包更新
+                    for ((index, stack) in getItemStacks(true).withIndex()) {
+                        // getItemStacks(true) 获取的索引信息和 setInventorySlotContents 的索引信息不对 要转换
+                        val inventoryIndex = if (index >= 27) { index - 27 } else { index + 9 }
+                        // 写入本地数据 (和服务器返回数据相同 接替原版数据处理)
+                        player.inventory.setInventorySlotContents(inventoryIndex, stack)
+                    }
                 }
             }
         }
