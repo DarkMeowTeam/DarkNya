@@ -1,9 +1,11 @@
 <div align=center>
-<img width="128" height="128" src="Logo.png" alt="DarkNya"/>
 <h1>DarkNya</h1>
-<h4>A free mixin-based injection hacked-client for Minecraft using Minecraft Forge, supporting versions 1.12.2.</h4>
+<h4>一个免费且开源的 Minecraft 作弊 Mod, 无可参考 GrimAC 绕过</h4>
 Based LiquidBounce & PridePlus. Thanks CCBlueX and Pride-Team and Wawa
 </div>
 
-注: 重要绕过Src并未放在开源版中
-注: 随缘更新
+由于base太烂 打算重头重新开始写
+
+停更于 2024.5.5 无可参考绕过
+
+skid大神请绕行
